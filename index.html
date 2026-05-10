@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="bn">
+<!DOCTYPE html><html lang="bn">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SMM PRO - Premium SMM Panel</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-  <style>
+  <title>SMM PRO - Premium SMM Panel</title>  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">  <style>
     :root{
       --bg:#050816;
       --bg2:#080b1f;
@@ -26,641 +21,817 @@
       --shadow:0 20px 60px rgba(0,0,0,.45);
     }
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-    }
-
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+    html{scroll-behavior:smooth;}
     body{
+      min-height:100vh;
+      color:#fff;
+      overflow-x:hidden;
       background:
         radial-gradient(circle at top left, rgba(0,229,255,.18), transparent 34%),
         radial-gradient(circle at top right, rgba(139,92,246,.22), transparent 38%),
+        radial-gradient(circle at bottom, rgba(255,46,136,.12), transparent 35%),
         linear-gradient(180deg, #040615, #070a1d 45%, #050816);
-      color:#fff;
-      overflow-x:hidden;
     }
 
-    nav{
-      width:100%;
-      padding:15px 20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      background:rgba(5,8,22,.78);
-      backdrop-filter:blur(18px);
-      border-bottom:1px solid rgba(255,255,255,.08);
-      position:sticky;
-      top:0;
-      z-index:100;
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:45px 45px;
+      pointer-events:none;
+      z-index:-1;
     }
 
-    .logo{
-      font-size:24px;
-      font-weight:900;
-    }
-
-    .logo span{
-      color:var(--primary);
-    }
-
-    .btn{
-      border:none;
-      padding:14px 20px;
-      border-radius:15px;
-      background:linear-gradient(135deg,var(--secondary),var(--primary));
-      color:#fff;
-      font-weight:700;
-      cursor:pointer;
-      transition:.3s;
-    }
-
-    .btn:hover{
-      transform:translateY(-3px);
-      box-shadow:0 15px 30px rgba(0,229,255,.2);
-    }
-
-    section{
-      width:100%;
-      max-width:1000px;
-      margin:auto;
-      padding:30px 20px;
-      display:none;
-    }
-
-    .active-section{
-      display:block;
-    }
-
-    .hero{
-      min-height:75vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-    }
-
-    .hero h1{
-      font-size:70px;
-      font-weight:900;
-      margin-bottom:20px;
-      line-height:1.1;
-    }
-
+    .hidden{display:none!important;}
     .gradient-text{
       background:linear-gradient(90deg,var(--primary),var(--secondary),var(--pink));
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
     }
 
-    .hero p{
-      max-width:650px;
-      color:#cbd5e1;
-      line-height:1.8;
-      margin-bottom:30px;
-    }
-
-    .card{
-      background:linear-gradient(180deg, rgba(17,24,55,.94), rgba(11,16,38,.94));
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:25px;
-      padding:25px;
-      margin-bottom:20px;
-    }
-
-    .input-group{
-      margin-bottom:18px;
-    }
-
-    .label{
-      display:block;
-      margin-bottom:8px;
-      color:#cbd5e1;
-      font-size:14px;
-    }
-
-    input,select{
-      width:100%;
-      padding:15px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.08);
-      background:#0a1022;
-      color:#fff;
-      outline:none;
-    }
-
-    input:focus,
-    select:focus{
-      border-color:var(--primary);
-    }
-
-    .grid{
-      display:grid;
-      gap:18px;
-    }
-
-    .grid-2{
-      grid-template-columns:repeat(2,1fr);
-    }
-
-    .grid-3{
-      grid-template-columns:repeat(3,1fr);
-    }
-
-    .stat-card{
-      background:rgba(255,255,255,.04);
-      border-radius:20px;
-      padding:20px;
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .stat-card i{
-      font-size:30px;
-      color:var(--primary);
-      margin-bottom:10px;
-    }
-
-    .stat-card strong{
-      display:block;
-      font-size:24px;
-      margin-top:10px;
-    }
-
     .sidebar{
       position:fixed;
-      left:-280px;
+      left:-285px;
       top:0;
-      width:280px;
+      width:285px;
       height:100%;
-      background:#111827;
-      transition:.3s;
+      background:rgba(13,19,43,.95);
+      backdrop-filter:blur(18px);
+      transition:.3s ease;
       z-index:1000;
-      padding:20px;
+      padding:25px 18px;
+      border-right:1px solid var(--border);
+      box-shadow:var(--shadow);
     }
-
-    .sidebar.active{
-      left:0;
+    .sidebar.active{left:0;}
+    .sidebar h2{
+      text-align:center;
+      margin-bottom:28px;
+      font-size:26px;
+      font-weight:900;
     }
-
     .sidebar-link{
-      padding:14px;
-      border-radius:14px;
-      margin-bottom:10px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:14px 15px;
+      color:#fff;
+      text-decoration:none;
+      border-radius:16px;
+      margin-bottom:9px;
       cursor:pointer;
-      transition:.2s;
+      transition:.25s;
+      border:1px solid transparent;
     }
-
-    .sidebar-link:hover{
-      background:rgba(0,229,255,.12);
+    .sidebar-link:hover,.sidebar-link.active-link{
       color:var(--primary);
+      background:linear-gradient(90deg, rgba(0,229,255,.15), rgba(139,92,246,.12));
+      border-color:rgba(0,229,255,.18);
+      transform:translateX(4px);
     }
-
     .overlay{
+      display:none;
       position:fixed;
       inset:0;
-      background:rgba(0,0,0,.7);
-      display:none;
+      background:rgba(0,0,0,.72);
       z-index:999;
     }
+    .overlay.active{display:block;}
 
-    .overlay.active{
-      display:block;
-    }
-
-    table{
+    nav{
       width:100%;
-      border-collapse:collapse;
+      padding:14px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:rgba(5,8,22,.78);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      z-index:100;
     }
-
-    th,td{
-      padding:14px;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      text-align:left;
+    .nav-left,.nav-right{display:flex;align-items:center;gap:14px;}
+    .menu-btn i{font-size:22px;cursor:pointer;color:var(--primary);}
+    .logo{font-size:23px;font-weight:900;letter-spacing:.5px;cursor:pointer;}
+    .logo span{color:var(--primary);}
+    .balance-pill{
+      padding:9px 14px;
+      border-radius:999px;
+      background:rgba(0,229,255,.10);
+      border:1px solid rgba(0,229,255,.22);
+      color:var(--primary);
+      font-weight:800;
       font-size:13px;
     }
 
-    th{
-      color:var(--primary);
+    .notice-bar{
+      display:none;
+      width:100%;
+      overflow:hidden;
+      background:linear-gradient(90deg,var(--secondary),var(--primary),var(--pink));
+      padding:9px 0;
+      box-shadow:0 8px 30px rgba(0,229,255,.14);
     }
+    .notice-content{
+      display:inline-block;
+      white-space:nowrap;
+      padding-left:100%;
+      animation:scrollNotice 18s linear infinite;
+      font-size:13px;
+      font-weight:600;
+    }
+    @keyframes scrollNotice{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 
-    .status-badge{
-      padding:6px 10px;
+    section{
+      width:100%;
+      max-width:1050px;
+      margin:auto;
+      min-height:calc(100vh - 70px);
+      padding:28px 18px 55px;
+      display:none;
+      animation:fade .35s ease;
+    }
+    section.active-section{display:block;}
+    @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+    .hero{
+      min-height:72vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:45px 0;
+    }
+    .hero-badge{
+      padding:9px 15px;
+      border:1px solid rgba(0,229,255,.25);
       border-radius:999px;
-      font-size:11px;
+      background:rgba(0,229,255,.08);
+      color:var(--primary);
+      font-size:13px;
       font-weight:700;
+      margin-bottom:18px;
     }
-
-    .Pending{
-      background:#f59e0b33;
-      color:#fbbf24;
+    .hero h1{
+      font-size:clamp(38px,8vw,76px);
+      line-height:1.06;
+      font-weight:900;
+      margin-bottom:20px;
     }
-
-    .Completed{
-      background:#22c55e33;
-      color:#4ade80;
+    .hero p{
+      max-width:650px;
+      color:var(--text);
+      opacity:.9;
+      font-size:16px;
+      line-height:1.8;
+      margin-bottom:32px;
     }
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
 
-  </style>
-</head>
+    .card{
+      width:100%;
+      background:linear-gradient(180deg, rgba(17,24,55,.94), rgba(11,16,38,.94));
+      border:1px solid var(--border);
+      border-radius:26px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      top:-80px;
+      right:-80px;
+      width:170px;
+      height:170px;
+      background:radial-gradient(circle, rgba(0,229,255,.18), transparent 65%);
+      pointer-events:none;
+    }
+    .card-title{font-size:24px;font-weight:900;margin-bottom:18px;}
+    .grid{display:grid;gap:18px;}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr));}
 
-<body>
+    .f-card,.stat-card{
+      background:rgba(255,255,255,.045);
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:22px;
+      transition:.25s;
+    }
+    .f-card:hover,.stat-card:hover{transform:translateY(-5px);border-color:rgba(0,229,255,.35);}
+    .f-card i,.stat-card i{font-size:30px;color:var(--primary);margin-bottom:12px;}
+    .f-card h4,.stat-card h4{font-size:15px;margin-bottom:5px;}
+    .f-card p,.stat-card p{font-size:13px;color:var(--muted);}
+    .stat-card strong{display:block;font-size:25px;margin-top:8px;color:#fff;}
 
-<div class="sidebar" id="sidebar">
-  <h2 class="gradient-text">SMM PRO</h2>
+    .input-group{margin-bottom:17px;text-align:left;}
+    .label{display:block;font-size:13px;color:var(--text);margin-bottom:8px;font-weight:600;}
+    input,select,textarea{
+      width:100%;
+      padding:15px 15px;
+      border-radius:15px;
+      border:1px solid rgba(255,255,255,.11);
+      background:rgba(3,6,18,.72);
+      color:#fff;
+      outline:none;
+      transition:.25s;
+      font-size:14px;
+    }
+    textarea{min-height:105px;resize:vertical;}
+    input:focus,select:focus,textarea:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px rgba(0,229,255,.09);
+    }
+    input:disabled{opacity:.85;cursor:not-allowed;}
 
-  <div class="sidebar-link" onclick="navigate('dashboard')">Dashboard</div>
-  <div class="sidebar-link" onclick="navigate('orders-history')">My Orders</div>
-  <div class="sidebar-link" onclick="navigate('add-fund')">Add Fund</div>
-  <div class="sidebar-link" onclick="navigate('profile-page')">Profile</div>
-  <div class="sidebar-link" onclick="navigate('admin-panel')">Admin Panel</div>
-  <div class="sidebar-link" onclick="logout()">Logout</div>
+    .btn{
+      border:none;
+      outline:none;
+      padding:15px 20px;
+      border-radius:15px;
+      color:#fff;
+      font-weight:800;
+      cursor:pointer;
+      background:linear-gradient(135deg,var(--secondary),var(--primary));
+      box-shadow:0 12px 28px rgba(0,229,255,.18);
+      transition:.25s;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:9px;
+      text-decoration:none;
+    }
+    .btn:hover{transform:translateY(-3px);box-shadow:0 18px 36px rgba(0,229,255,.24);}
+    .btn.full{width:100%;}
+    .btn.outline{background:transparent;border:1px solid rgba(0,229,255,.35);box-shadow:none;color:var(--primary);}
+    .btn.red{background:linear-gradient(135deg,#ef4444,#ff2e88);}
+    .btn.green{background:linear-gradient(135deg,#16a34a,#22c55e);}
+    .btn.yellow{background:linear-gradient(135deg,#f97316,#f59e0b);}
+
+    .auth-wrap{max-width:470px;margin:40px auto 0;}
+    .center{text-align:center;}
+    .small-link{color:var(--primary);cursor:pointer;font-weight:700;}
+    .muted{color:var(--muted);font-size:13px;line-height:1.7;}
+
+    .table-wrap{overflow-x:auto;border-radius:18px;border:1px solid var(--border);}
+    table{width:100%;border-collapse:collapse;min-width:720px;background:rgba(255,255,255,.03);}
+    th,td{padding:14px 12px;text-align:left;font-size:13px;border-bottom:1px solid rgba(255,255,255,.07);}
+    th{color:var(--primary);font-weight:800;background:rgba(0,229,255,.06);}
+    tr:hover td{background:rgba(255,255,255,.035);}
+    .status-badge{padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800;display:inline-block;}
+    .Pending{background:rgba(245,158,11,.18);color:#fbbf24;border:1px solid rgba(245,158,11,.3);}
+    .Processing{background:rgba(0,229,255,.14);color:var(--primary);border:1px solid rgba(0,229,255,.28);}
+    .Completed{background:rgba(34,197,94,.16);color:#4ade80;border:1px solid rgba(34,197,94,.32);}
+    .Rejected{background:rgba(239,68,68,.16);color:#f87171;border:1px solid rgba(239,68,68,.32);}
+
+    .toast{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      max-width:360px;
+      background:rgba(15,23,42,.96);
+      border:1px solid rgba(0,229,255,.24);
+      color:#fff;
+      border-radius:18px;
+      padding:14px 16px;
+      box-shadow:var(--shadow);
+      z-index:9999;
+      display:none;
+      font-size:14px;
+    }
+    .toast.show{display:block;animation:toastIn .25s ease;}
+    @keyframes toastIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+
+    .admin-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;}
+    .chip{padding:9px 13px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.045);cursor:pointer;font-size:13px;font-weight:700;}
+    .chip.active{border-color:rgba(0,229,255,.35);color:var(--primary);background:rgba(0,229,255,.09);}
+
+    @media(max-width:760px){
+      .grid-2,.grid-3{grid-template-columns:1fr;}
+      .hero-actions .btn{width:100%;}
+      .nav-right{gap:8px;}
+      .balance-pill{padding:8px 10px;font-size:12px;}
+      .card{padding:20px;}
+    }
+  </style></head>
+<body>  <div class="sidebar" id="sidebar">
+    <h2 class="gradient-text">SMM PRO</h2>
+    <div class="sidebar-link" onclick="navigate('dashboard')"><i class="fa fa-home"></i> Dashboard</div>
+    <div class="sidebar-link" onclick="navigate('orders-history')"><i class="fa fa-shopping-bag"></i> My Orders</div>
+    <div class="sidebar-link" onclick="navigate('add-fund')"><i class="fa fa-wallet"></i> Add Fund</div>
+    <div class="sidebar-link" onclick="navigate('profile-page')"><i class="fa fa-user-circle"></i> Profile</div>
+    <div class="sidebar-link" id="admin-menu" style="display:none;color:var(--primary);" onclick="navigate('admin-panel')"><i class="fa fa-lock"></i> Admin Master</div>
+    <div class="sidebar-link" onclick="logout()" style="margin-top:20px;color:#ff6b6b;"><i class="fa fa-sign-out-alt"></i> Logout</div>
+  </div>
+  <div class="overlay" id="overlay" onclick="toggleSidebar(false)"></div>  <nav>
+    <div class="nav-left">
+      <div class="menu-btn" onclick="toggleSidebar()" id="nav-toggle" style="display:none;"><i class="fa fa-bars"></i></div>
+      <div class="logo" onclick="goHome()">SMM<span>PRO</span></div>
+    </div>
+    <div class="nav-right">
+      <div id="user-head-bal" class="balance-pill hidden">$0.00</div>
+    </div>
+  </nav>  <div class="notice-bar" id="notice-bar">
+    <div class="notice-content" id="notice-text">স্বাগতম! আমাদের প্যানেলে নতুন সার্ভিস যোগ করা হয়েছে।</div>
+  </div>  <section id="landing" class="active-section">
+    <div class="hero">
+      <div class="hero-badge"><i class="fa fa-fire"></i> Premium SMM Panel For Bangladesh</div>
+      <h1>Boost Your<br><span class="gradient-text">Social Presence</span></h1>
+      <p>দ্রুত, নিরাপদ এবং আকর্ষণীয় ডিজাইনের SMM Panel। Facebook, Instagram, YouTube, TikTok সহ বিভিন্ন সার্ভিস অর্ডার করার জন্য সহজ ড্যাশবোর্ড।</p>
+      <div class="hero-actions">
+        <button class="btn" onclick="navigate('login-page')"><i class="fa fa-right-to-bracket"></i> Login</button>
+        <button class="btn outline" onclick="navigate('register-page')"><i class="fa fa-user-plus"></i> Sign Up</button>
+      </div>
+    </div><div class="grid grid-3">
+  <div class="f-card"><i class="fa fa-bolt"></i><h4>Fast Delivery</h4><p>অর্ডার দ্রুত প্রসেস করার সুন্দর সিস্টেম।</p></div>
+  <div class="f-card"><i class="fa fa-shield-halved"></i><h4>Secure Account</h4><p>Firebase Authentication দিয়ে Login/Register।</p></div>
+  <div class="f-card"><i class="fa fa-headset"></i><h4>Easy Support</h4><p>Add Fund ও Order History সহ clean UI।</p></div>
 </div>
 
-<div class="overlay" id="overlay" onclick="toggleSidebar(false)"></div>
-
-<nav>
-  <div onclick="toggleSidebar()" style="cursor:pointer;font-size:22px;">☰</div>
-  <div class="logo">SMM<span>PRO</span></div>
-  <div id="user-head-bal">$0.00</div>
-</nav>
-
-<section id="landing" class="active-section">
-
-  <div class="hero">
-    <h1>Boost Your <br><span class="gradient-text">Social Presence</span></h1>
-
-    <p>
-      বাংলাদেশের সবচেয়ে দ্রুত এবং সুন্দর SMM Panel।
-      Facebook, Instagram, TikTok, YouTube সার্ভিসের জন্য premium dashboard।
-    </p>
-
-    <div style="display:flex;gap:15px;">
-      <button class="btn" onclick="navigate('login-page')">Login</button>
-      <button class="btn" onclick="navigate('register-page')">Register</button>
+  </section>  <section id="login-page">
+    <div class="auth-wrap card">
+      <h2 class="card-title center gradient-text">Welcome Back</h2>
+      <div class="input-group"><label class="label">Email</label><input type="email" id="login-email" placeholder="আপনার ইমেইল দিন"></div>
+      <div class="input-group"><label class="label">Password</label><input type="password" id="login-password" placeholder="আপনার পাসওয়ার্ড দিন"></div>
+      <button class="btn full" onclick="login()"><i class="fa fa-right-to-bracket"></i> Login</button>
+      <p class="center muted" style="margin-top:15px;">Account নেই? <span class="small-link" onclick="navigate('register-page')">Create Account</span></p>
+      <p class="center muted"><span class="small-link" onclick="resetPassword()">Forgot Password?</span></p>
     </div>
-  </div>
-
-  <div class="grid grid-3">
-
-    <div class="stat-card">
-      <i class="fa fa-bolt"></i>
-      <h4>Fast Delivery</h4>
-      <strong>Instant</strong>
+  </section>  <section id="register-page">
+    <div class="auth-wrap card">
+      <h2 class="card-title center gradient-text">Create Account</h2>
+      <div class="input-group"><label class="label">Full Name</label><input type="text" id="reg-name" placeholder="আপনার নাম"></div>
+      <div class="input-group"><label class="label">Email</label><input type="email" id="reg-email" placeholder="আপনার ইমেইল"></div>
+      <div class="input-group"><label class="label">Password</label><input type="password" id="reg-password" placeholder="কমপক্ষে ৬ অক্ষর"></div>
+      <button class="btn full" onclick="signUp()"><i class="fa fa-user-plus"></i> Register</button>
+      <p class="center muted" style="margin-top:15px;">আগে থেকেই account আছে? <span class="small-link" onclick="navigate('login-page')">Login</span></p>
     </div>
-
-    <div class="stat-card">
-      <i class="fa fa-shield"></i>
-      <h4>Secure System</h4>
-      <strong>100%</strong>
-    </div>
-
-    <div class="stat-card">
-      <i class="fa fa-headset"></i>
-      <h4>24/7 Support</h4>
-      <strong>Online</strong>
-    </div>
-
-  </div>
-
-</section>
-<section id="login-page">
-
-  <div class="card">
-
-    <h2 style="margin-bottom:20px;">Login</h2>
-
-    <div class="input-group">
-      <label class="label">Email</label>
-      <input type="email" id="login-email">
-    </div>
-
-    <div class="input-group">
-      <label class="label">Password</label>
-      <input type="password" id="login-password">
-    </div>
-
-    <button class="btn" onclick="login()">Login</button>
-
-  </div>
-
-</section>
-
-<section id="register-page">
-
-  <div class="card">
-
-    <h2 style="margin-bottom:20px;">Create Account</h2>
-
-    <div class="input-group">
-      <label class="label">Full Name</label>
-      <input type="text" id="reg-name">
-    </div>
-
-    <div class="input-group">
-      <label class="label">Email</label>
-      <input type="email" id="reg-email">
-    </div>
-
-    <div class="input-group">
-      <label class="label">Password</label>
-      <input type="password" id="reg-password">
-    </div>
-
-    <button class="btn" onclick="signUp()">Register</button>
-
-  </div>
-
-</section>
-
-<section id="dashboard">
-
-  <div class="grid grid-3">
-
-    <div class="stat-card">
-      <i class="fa fa-wallet"></i>
-      <h4>Balance</h4>
-      <strong id="stat-balance">$0.00</strong>
-    </div>
-
-    <div class="stat-card">
-      <i class="fa fa-cart-shopping"></i>
-      <h4>Total Orders</h4>
-      <strong id="stat-orders">0</strong>
-    </div>
-
-    <div class="stat-card">
-      <i class="fa fa-star"></i>
-      <h4>Status</h4>
-      <strong style="color:#22c55e;">Active</strong>
-    </div>
-
-  </div>
-
-  <div class="card">
-
-    <h2 style="margin-bottom:20px;">New Order</h2>
-
+  </section>  <section id="dashboard">
+    <div class="grid grid-3" style="margin-bottom:20px;">
+      <div class="stat-card"><i class="fa fa-wallet"></i><h4>Balance</h4><strong id="stat-balance">$0.00</strong></div>
+      <div class="stat-card"><i class="fa fa-cart-shopping"></i><h4>Total Orders</h4><strong id="stat-orders">0</strong></div>
+      <div class="stat-card"><i class="fa fa-star"></i><h4>Status</h4><strong style="color:var(--green);">Active</strong></div>
+    </div><div class="card">
+  <h3 class="card-title">New Order</h3>
+  <div class="grid grid-2">
     <div class="input-group">
       <label class="label">Category</label>
       <select id="category-select"></select>
     </div>
-
     <div class="input-group">
       <label class="label">Service</label>
       <select id="service-select"></select>
     </div>
-
-    <div class="input-group">
-      <label class="label">Link</label>
-      <input type="text" id="order-link">
-    </div>
-
+  </div>
+  <div class="input-group">
+    <label class="label">Link</label>
+    <input type="text" id="order-link" placeholder="https://facebook.com/your-link">
+  </div>
+  <div class="grid grid-2">
     <div class="input-group">
       <label class="label">Quantity</label>
-      <input type="number" id="order-qty">
+      <input type="number" id="order-qty" placeholder="Min / Max service অনুযায়ী">
+      <small id="qty-help" style="color:var(--primary);font-weight:700;">Min: 0 | Max: 0</small>
     </div>
-
     <div class="input-group">
       <label class="label">Charge</label>
-      <input type="text" id="order-charge" disabled value="$0.00">
+      <input type="text" id="order-charge" value="$0.00" disabled style="color:var(--primary);font-weight:900;">
     </div>
-
-    <button class="btn" onclick="placeOrder()">Place Order</button>
-
   </div>
+  <button class="btn full" onclick="placeOrder()"><i class="fa fa-paper-plane"></i> Confirm Order</button>
+</div>
 
-</section>
+  </section>  <section id="orders-history">
+    <div class="card">
+      <h3 class="card-title">My Orders</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Service</th><th>Link</th><th>Qty</th><th>Charge</th><th>Status</th></tr>
+          </thead>
+          <tbody id="orders-body"><tr><td colspan="6">No orders found</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>  <section id="add-fund">
+    <div class="grid grid-2">
+      <div class="card">
+        <h3 class="card-title">Add Fund Request</h3>
+        <p class="muted" style="margin-bottom:16px;">Payment করার পর Transaction ID দিয়ে request submit করুন। Admin approved করলে balance add হবে।</p>
+        <div class="input-group"><label class="label">Payment Method</label><select id="fund-method"><option>bKash</option><option>Nagad</option><option>Rocket</option><option>Binance</option></select></div>
+        <div class="input-group"><label class="label">Amount USD</label><input type="number" id="fund-amount" placeholder="Example: 5"></div>
+        <div class="input-group"><label class="label">Transaction ID</label><input type="text" id="fund-txid" placeholder="Transaction ID লিখুন"></div>
+        <button class="btn full green" onclick="submitFund()"><i class="fa fa-circle-plus"></i> Submit Fund Request</button>
+      </div>
+      <div class="card">
+        <h3 class="card-title">Payment Info</h3>
+        <p class="muted">এই নাম্বারগুলো demo হিসেবে দেওয়া। নিজের payment number বসিয়ে নিবেন।</p>
+        <div style="margin-top:18px;line-height:2;">
+          <p><b style="color:var(--primary);">bKash:</b> 01XXXXXXXXX</p>
+          <p><b style="color:var(--primary);">Nagad:</b> 01XXXXXXXXX</p>
+          <p><b style="color:var(--primary);">Rocket:</b> 01XXXXXXXXX</p>
+        </div>
+      </div>
+    </div>
+  </section>  <section id="profile-page">
+    <div class="card center" style="max-width:620px;margin:auto;">
+      <i class="fa fa-user-circle" style="font-size:78px;color:var(--primary);margin-bottom:14px;"></i>
+      <h2 id="prof-name">User Name</h2>
+      <p id="prof-email" class="muted" style="margin-bottom:20px;">email@gmail.com</p>
+      <div class="grid grid-2" style="margin-bottom:20px;">
+        <div class="stat-card"><h4>Balance</h4><strong id="prof-balance">$0.00</strong></div>
+        <div class="stat-card"><h4>Account</h4><strong style="color:var(--green);">Active</strong></div>
+      </div>
+      <button class="btn full" onclick="resetPassword()"><i class="fa fa-key"></i> Reset Password via Email</button>
+    </div>
+  </section>  <section id="admin-panel">
+    <div class="admin-tabs">
+      <div class="chip active" onclick="adminTab('notice',this)">Notice</div>
+      <div class="chip" onclick="adminTab('services',this)">Services</div>
+      <div class="chip" onclick="adminTab('funds',this)">Fund Requests</div>
+      <div class="chip" onclick="adminTab('orders',this)">All Orders</div>
+    </div><div class="card admin-box" id="admin-notice">
+  <h3 class="card-title">Broadcast Notice</h3>
+  <div class="input-group"><label class="label">Notice Text</label><input type="text" id="admin-notice-input" placeholder="Write new notice here..."></div>
+  <button class="btn" onclick="updateNotice()"><i class="fa fa-bullhorn"></i> Update Notice</button>
+</div>
 
-<section id="orders-history">
+<div class="card admin-box hidden" id="admin-services">
+  <h3 class="card-title">Add Service</h3>
+  <div class="grid grid-2">
+    <div class="input-group"><label class="label">Category</label><input id="svc-category" placeholder="Facebook / YouTube"></div>
+    <div class="input-group"><label class="label">Service Name</label><input id="svc-name" placeholder="Facebook Page Followers"></div>
+    <div class="input-group"><label class="label">Rate per 1000</label><input id="svc-rate" type="number" placeholder="Example: 2.5"></div>
+    <div class="input-group"><label class="label">Min Quantity</label><input id="svc-min" type="number" placeholder="Example: 100"></div>
+    <div class="input-group"><label class="label">Max Quantity</label><input id="svc-max" type="number" placeholder="Example: 10000"></div>
+  </div>
+  <button class="btn" onclick="addService()"><i class="fa fa-plus"></i> Add Service</button>
+  <hr style="border-color:rgba(255,255,255,.08);margin:22px 0;">
+  <h3 style="margin-bottom:12px;">Service List</h3>
+  <div class="table-wrap"><table><thead><tr><th>Category</th><th>Name</th><th>Rate</th><th>Min</th><th>Max</th></tr></thead><tbody id="admin-service-body"></tbody></table></div>
+</div>
 
-  <div class="card">
+<div class="card admin-box hidden" id="admin-funds">
+  <h3 class="card-title">Fund Requests</h3>
+  <div class="table-wrap"><table><thead><tr><th>Date</th><th>User</th><th>Method</th><th>Amount</th><th>TXID</th><th>Status</th><th>Action</th></tr></thead><tbody id="admin-fund-body"></tbody></table></div>
+</div>
 
-    <h2 style="margin-bottom:20px;">My Orders</h2>
+<div class="card admin-box hidden" id="admin-orders">
+  <h3 class="card-title">All Orders</h3>
+  <div class="table-wrap"><table><thead><tr><th>Date</th><th>User</th><th>Service</th><th>Qty</th><th>Charge</th><th>Status</th><th>Action</th></tr></thead><tbody id="admin-order-body"></tbody></table></div>
+</div>
 
-    <table>
+  </section>  <div class="toast" id="toast"></div>  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, getDocs, collection, query, where, addDoc, orderBy, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-      <thead>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDwqjtb5xZpOsY8prwRaaHw1MVPryN9HDc",
+      authDomain: "mysmmpanel-4d699.firebaseapp.com",
+      projectId: "mysmmpanel-4d699",
+      storageBucket: "mysmmpanel-4d699.firebasestorage.app",
+      messagingSenderId: "1087970019155",
+      appId: "1:1087970019155:web:fe908197669e60540a43a6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const ADMIN_EMAIL = "smmehedichowdury@gmail.com";
+    let currentUser = null;
+    let userData = null;
+    let services = [];
+
+    const $ = id => document.getElementById(id);
+
+    function toast(msg){
+      const t = $('toast');
+      t.innerText = msg;
+      t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'), 3200);
+    }
+    window.toast = toast;
+
+    function money(n){ return '$' + Number(n || 0).toFixed(2); }
+    function dateText(ts){
+      try{
+        const d = ts?.toDate ? ts.toDate() : new Date();
+        return d.toLocaleString('bn-BD');
+      }catch(e){ return 'N/A'; }
+    }
+
+    window.navigate = (id) => {
+      const target = $(id);
+      if(!target){ toast('এই পেজটি এখনো পাওয়া যায়নি: ' + id); return; }
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
+      target.classList.add('active-section');
+      document.querySelectorAll('.sidebar-link').forEach(x => x.classList.remove('active-link'));
+      toggleSidebar(false);
+      if(id === 'orders-history') loadMyOrders();
+      if(id === 'admin-panel') loadAdminData();
+    };
+
+    window.goHome = () => currentUser ? navigate('dashboard') : navigate('landing');
+
+    window.toggleSidebar = (force) => {
+      const sb = $('sidebar');
+      const ov = $('overlay');
+      const willOpen = typeof force === 'boolean' ? force : !sb.classList.contains('active');
+      sb.classList.toggle('active', willOpen);
+      ov.classList.toggle('active', willOpen);
+    };
+
+    async function ensureDefaultServices(){
+      const snap = await getDocs(collection(db, 'services'));
+      if(!snap.empty) return;
+      const defaults = [
+        {category:'Facebook', name:'Facebook Page Followers', rate:2.50, min:100, max:10000, active:true},
+        {category:'Facebook', name:'Facebook Post Likes', rate:1.20, min:100, max:20000, active:true},
+        {category:'Instagram', name:'Instagram Followers', rate:3.10, min:100, max:10000, active:true},
+        {category:'Instagram', name:'Instagram Likes', rate:0.90, min:100, max:30000, active:true},
+        {category:'YouTube', name:'YouTube Views', rate:1.80, min:500, max:100000, active:true},
+        {category:'TikTok', name:'TikTok Followers', rate:2.80, min:100, max:20000, active:true}
+      ];
+      for(const s of defaults){ await addDoc(collection(db,'services'), {...s, createdAt:serverTimestamp()}); }
+    }
+
+    async function loadServices(){
+      await ensureDefaultServices();
+      const snap = await getDocs(collection(db, 'services'));
+      services = snap.docs.map(d => ({id:d.id, ...d.data()})).filter(s => s.active !== false);
+      const cats = [...new Set(services.map(s => s.category))];
+      $('category-select').innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('');
+      renderServiceSelect();
+      renderAdminServices();
+    }
+
+    function renderServiceSelect(){
+      const cat = $('category-select').value;
+      const list = services.filter(s => s.category === cat);
+      $('service-select').innerHTML = list.map(s => `<option value="${s.id}">${s.name} - ${money(s.rate)}/1K</option>`).join('');
+      updateCharge();
+    }
+
+    $('category-select').addEventListener('change', renderServiceSelect);
+    $('service-select').addEventListener('change', updateCharge);
+    $('order-qty').addEventListener('input', updateCharge);
+
+    function selectedService(){ return services.find(s => s.id === $('service-select').value); }
+
+    function updateCharge(){
+      const svc = selectedService();
+      if(!svc){ $('order-charge').value = '$0.00'; return; }
+      $('qty-help').innerText = `Min: ${svc.min} | Max: ${svc.max}`;
+      const qty = Number($('order-qty').value || 0);
+      const charge = (qty / 1000) * Number(svc.rate || 0);
+      $('order-charge').value = money(charge);
+    }
+
+    async function loadUser(uid){
+      const uDoc = await getDoc(doc(db, 'users', uid));
+      if(uDoc.exists()) userData = uDoc.data();
+      else {
+        userData = {name: currentUser.email.split('@')[0], email: currentUser.email, balance:0, role:'user'};
+        await setDoc(doc(db,'users',uid), userData);
+      }
+      const bal = Number(userData.balance || 0);
+      $('user-head-bal').innerText = money(bal);
+      $('stat-balance').innerText = money(bal);
+      $('prof-balance').innerText = money(bal);
+      $('prof-name').innerText = userData.name || 'User';
+      $('prof-email').innerText = userData.email || currentUser.email;
+      $('admin-menu').style.display = currentUser.email === ADMIN_EMAIL ? 'flex' : 'none';
+    }
+
+    window.signUp = async () => {
+      const name = $('reg-name').value.trim();
+      const email = $('reg-email').value.trim();
+      const pass = $('reg-password').value.trim();
+      if(!name || !email || !pass) return toast('সব ঘর পূরণ করুন।');
+      if(pass.length < 6) return toast('Password কমপক্ষে ৬ অক্ষরের হতে হবে।');
+      try{
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+        await setDoc(doc(db, 'users', cred.user.uid), {
+          name,email,balance:0,role: email === ADMIN_EMAIL ? 'admin' : 'user',createdAt:serverTimestamp()
+        });
+        toast('Account তৈরি হয়েছে।');
+      }catch(e){ toast('Register Error: ' + e.message); }
+    };
+
+    window.login = async () => {
+      const email = $('login-email').value.trim();
+      const pass = $('login-password').value.trim();
+      if(!email || !pass) return toast('Email এবং Password দিন।');
+      try{ await signInWithEmailAndPassword(auth, email, pass); toast('Login successful.'); }
+      catch(e){ toast('Login Error: ' + e.message); }
+    };
+
+    window.logout = async () => {
+      await signOut(auth);
+      toast('Logout successful.');
+    };
+
+    window.resetPassword = async () => {
+      const email = currentUser ? currentUser.email : prompt('আপনার ইমেইল দিন:');
+      if(!email) return;
+      try{ await sendPasswordResetEmail(auth, email); toast('Password reset link ইমেইলে পাঠানো হয়েছে।'); }
+      catch(e){ toast('Error: ' + e.message); }
+    };
+
+    async function loadNotice(){
+      try{
+        const snap = await getDoc(doc(db, 'settings', 'notice'));
+        if(snap.exists()) $('notice-text').innerText = snap.data().text || 'স্বাগতম!';
+      }catch(e){}
+    }
+
+    window.updateNotice = async () => {
+      if(!currentUser || currentUser.email !== ADMIN_EMAIL) return toast('Only admin can update notice.');
+      const text = $('admin-notice-input').value.trim();
+      if(!text) return toast('Notice লিখুন।');
+      await setDoc(doc(db, 'settings', 'notice'), {text, updatedAt:serverTimestamp()});
+      $('notice-text').innerText = text;
+      toast('Notice updated.');
+    };
+
+    window.placeOrder = async () => {
+      if(!currentUser) return toast('আগে Login করুন।');
+      const svc = selectedService();
+      const link = $('order-link').value.trim();
+      const qty = Number($('order-qty').value || 0);
+      if(!svc) return toast('Service select করুন।');
+      if(!link) return toast('Order link দিন।');
+      if(qty < Number(svc.min) || qty > Number(svc.max)) return toast(`Quantity ${svc.min} থেকে ${svc.max} এর মধ্যে হতে হবে।`);
+      const charge = (qty / 1000) * Number(svc.rate || 0);
+      if(Number(userData.balance || 0) < charge) return toast('Balance কম। আগে fund add করুন।');
+      try{
+        await addDoc(collection(db, 'orders'), {
+          uid: currentUser.uid,
+          userEmail: currentUser.email,
+          serviceId: svc.id,
+          serviceName: svc.name,
+          category: svc.category,
+          link,
+          qty,
+          charge,
+          status:'Pending',
+          createdAt:serverTimestamp()
+        });
+        await updateDoc(doc(db, 'users', currentUser.uid), { balance: increment(-charge) });
+        $('order-link').value='';
+        $('order-qty').value='';
+        updateCharge();
+        await loadUser(currentUser.uid);
+        await loadMyOrders();
+        toast('Order placed successfully.');
+      }catch(e){ toast('Order Error: ' + e.message); }
+    };
+
+    async function loadMyOrders(){
+      if(!currentUser) return;
+      const qy = query(collection(db, 'orders'), where('uid','==',currentUser.uid));
+      const snap = await getDocs(qy);
+      const orders = snap.docs.map(d => ({id:d.id, ...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+      $('stat-orders').innerText = orders.length;
+      if(!orders.length){ $('orders-body').innerHTML = '<tr><td colspan="6">No orders found</td></tr>'; return; }
+      $('orders-body').innerHTML = orders.map(o => `
         <tr>
-          <th>Date</th>
-          <th>Service</th>
-          <th>Quantity</th>
-          <th>Charge</th>
-          <th>Status</th>
+          <td>${dateText(o.createdAt)}</td>
+          <td>${o.serviceName || ''}</td>
+          <td style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.link || ''}</td>
+          <td>${o.qty || 0}</td>
+          <td>${money(o.charge)}</td>
+          <td><span class="status-badge ${o.status || 'Pending'}">${o.status || 'Pending'}</span></td>
         </tr>
-      </thead>
-
-      <tbody id="orders-body"></tbody>
-
-    </table>
-
-  </div>
-
-</section>
-
-<section id="add-fund">
-
-  <div class="card">
-
-    <h2 style="margin-bottom:20px;">Add Fund</h2>
-
-    <div class="input-group">
-      <label class="label">Method</label>
-      <select id="fund-method">
-        <option>bKash</option>
-        <option>Nagad</option>
-        <option>Rocket</option>
-      </select>
-    </div>
-
-    <div class="input-group">
-      <label class="label">Amount</label>
-      <input type="number" id="fund-amount">
-    </div>
-
-    <div class="input-group">
-      <label class="label">Transaction ID</label>
-      <input type="text" id="fund-txid">
-    </div>
-
-    <button class="btn" onclick="submitFund()">Submit Request</button>
-
-  </div>
-
-</section>
-
-<section id="profile-page">
-
-  <div class="card">
-
-    <h2 id="prof-name">User</h2>
-    <p id="prof-email">email@gmail.com</p>
-
-    <br>
-
-    <button class="btn" onclick="resetPassword()">Reset Password</button>
-
-  </div>
-
-</section>
-
-<section id="admin-panel">
-
-  <div class="card">
-
-    <h2 style="margin-bottom:20px;">Admin Panel</h2>
-
-    <div class="input-group">
-      <label class="label">Notice</label>
-      <input type="text" id="admin-notice-input">
-    </div>
-
-    <button class="btn" onclick="updateNotice()">Update Notice</button>
-
-  </div>
-
-</section>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-
-import {
-getAuth,
-onAuthStateChanged,
-signInWithEmailAndPassword,
-createUserWithEmailAndPassword,
-signOut,
-sendPasswordResetEmail
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-import {
-getFirestore,
-doc,
-setDoc,
-getDoc,
-updateDoc,
-getDocs,
-collection,
-addDoc,
-serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-
-apiKey: "YOUR_API_KEY",
-authDomain: "YOUR_AUTH_DOMAIN",
-projectId: "YOUR_PROJECT_ID",
-storageBucket: "YOUR_STORAGE_BUCKET",
-messagingSenderId: "YOUR_SENDER_ID",
-appId: "YOUR_APP_ID"
-
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-window.toggleSidebar = () => {
-
-document.getElementById('sidebar').classList.toggle('active');
-document.getElementById('overlay').classList.toggle('active');
-
-};
-
-window.navigate = (id) => {
-
-document.querySelectorAll('section').forEach(sec=>{
-sec.classList.remove('active-section');
-});
-
-document.getElementById(id).classList.add('active-section');
-
-};
-
-window.signUp = async ()=>{
-
-const name = document.getElementById('reg-name').value;
-const email = document.getElementById('reg-email').value;
-const password = document.getElementById('reg-password').value;
-
-const user = await createUserWithEmailAndPassword(auth,email,password);
-
-await setDoc(doc(db,"users",user.user.uid),{
-
-name,
-email,
-balance:0
-
-});
-
-alert("Account Created");
-
-};
-
-window.login = async ()=>{
-
-const email = document.getElementById('login-email').value;
-const password = document.getElementById('login-password').value;
-
-await signInWithEmailAndPassword(auth,email,password);
-
-};
-
-window.logout = ()=>{
-
-signOut(auth);
-
-};
-
-window.resetPassword = async ()=>{
-
-const email = auth.currentUser.email;
-
-await sendPasswordResetEmail(auth,email);
-
-alert("Reset Email Sent");
-
-};
-
-window.placeOrder = async ()=>{
-
-alert("Order Placed");
-
-};
-
-window.submitFund = async ()=>{
-
-alert("Fund Request Submitted");
-
-};
-
-window.updateNotice = ()=>{
-
-alert("Notice Updated");
-
-};
-
-onAuthStateChanged(auth, async(user)=>{
-
-if(user){
-
-navigate('dashboard');
-
-const snap = await getDoc(doc(db,"users",user.uid));
-
-const data = snap.data();
-
-document.getElementById('prof-name').innerText = data.name;
-document.getElementById('prof-email').innerText = data.email;
-document.getElementById('stat-balance').innerText = "$"+data.balance;
-
-}
-
-});
-
-</script>
-
-</body>
-</html>
+      `).join('');
+    }
+
+    window.submitFund = async () => {
+      if(!currentUser) return toast('আগে Login করুন।');
+      const method = $('fund-method').value;
+      const amount = Number($('fund-amount').value || 0);
+      const txid = $('fund-txid').value.trim();
+      if(amount <= 0 || !txid) return toast('Amount এবং Transaction ID দিন।');
+      await addDoc(collection(db, 'fundRequests'), {
+        uid:currentUser.uid,
+        userEmail:currentUser.email,
+        method,amount,txid,status:'Pending',createdAt:serverTimestamp()
+      });
+      $('fund-amount').value='';
+      $('fund-txid').value='';
+      toast('Fund request submitted. Admin approve করলে balance add হবে।');
+    };
+
+    window.addService = async () => {
+      if(!currentUser || currentUser.email !== ADMIN_EMAIL) return toast('Only admin.');
+      const category = $('svc-category').value.trim();
+      const name = $('svc-name').value.trim();
+      const rate = Number($('svc-rate').value || 0);
+      const min = Number($('svc-min').value || 0);
+      const max = Number($('svc-max').value || 0);
+      if(!category || !name || rate <= 0 || min <= 0 || max <= 0) return toast('সব service info সঠিকভাবে দিন।');
+      await addDoc(collection(db, 'services'), {category,name,rate,min,max,active:true,createdAt:serverTimestamp()});
+      $('svc-category').value='';$('svc-name').value='';$('svc-rate').value='';$('svc-min').value='';$('svc-max').value='';
+      await loadServices();
+      toast('Service added.');
+    };
+
+    function renderAdminServices(){
+      if(!$('admin-service-body')) return;
+      $('admin-service-body').innerHTML = services.map(s => `<tr><td>${s.category}</td><td>${s.name}</td><td>${money(s.rate)}</td><td>${s.min}</td><td>${s.max}</td></tr>`).join('') || '<tr><td colspan="5">No service</td></tr>';
+    }
+
+    window.adminTab = (name, el) => {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      document.querySelectorAll('.admin-box').forEach(b => b.classList.add('hidden'));
+      $('admin-' + name).classList.remove('hidden');
+      loadAdminData();
+    };
+
+    async function loadAdminData(){
+      if(!currentUser || currentUser.email !== ADMIN_EMAIL) return;
+      await loadAdminFunds();
+      await loadAdminOrders();
+      renderAdminServices();
+    }
+
+    async function loadAdminFunds(){
+      const snap = await getDocs(collection(db, 'fundRequests'));
+      const items = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+      $('admin-fund-body').innerHTML = items.map(f => `
+        <tr>
+          <td>${dateText(f.createdAt)}</td><td>${f.userEmail}</td><td>${f.method}</td><td>${money(f.amount)}</td><td>${f.txid}</td>
+          <td><span class="status-badge ${f.status}">${f.status}</span></td>
+          <td>${f.status === 'Pending' ? `<button class="btn green" style="padding:8px 10px;font-size:12px;" onclick="approveFund('${f.id}','${f.uid}',${Number(f.amount)})">Approve</button>` : '-'}</td>
+        </tr>
+      `).join('') || '<tr><td colspan="7">No fund requests</td></tr>';
+    }
+
+    window.approveFund = async (id, uid, amount) => {
+      if(!currentUser || currentUser.email !== ADMIN_EMAIL) return;
+      await updateDoc(doc(db,'fundRequests',id), {status:'Completed', approvedAt:serverTimestamp()});
+      await updateDoc(doc(db,'users',uid), {balance:increment(Number(amount))});
+      toast('Fund approved.');
+      await loadAdminFunds();
+      if(uid === currentUser.uid) await loadUser(currentUser.uid);
+    };
+
+    async function loadAdminOrders(){
+      const snap = await getDocs(collection(db, 'orders'));
+      const items = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+      $('admin-order-body').innerHTML = items.map(o => `
+        <tr>
+          <td>${dateText(o.createdAt)}</td><td>${o.userEmail}</td><td>${o.serviceName}</td><td>${o.qty}</td><td>${money(o.charge)}</td>
+          <td><span class="status-badge ${o.status}">${o.status}</span></td>
+          <td>
+            <select onchange="updateOrderStatus('${o.id}', this.value)">
+              <option ${o.status==='Pending'?'selected':''}>Pending</option>
+              <option ${o.status==='Processing'?'selected':''}>Processing</option>
+              <option ${o.status==='Completed'?'selected':''}>Completed</option>
+              <option ${o.status==='Rejected'?'selected':''}>Rejected</option>
+            </select>
+          </td>
+        </tr>
+      `).join('') || '<tr><td colspan="7">No orders</td></tr>';
+    }
+
+    window.updateOrderStatus = async (id, status) => {
+      if(!currentUser || currentUser.email !== ADMIN_EMAIL) return;
+      await updateDoc(doc(db,'orders',id), {status, updatedAt:serverTimestamp()});
+      toast('Order status updated.');
+      await loadAdminOrders();
+    };
+
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if(user){
+        $('nav-toggle').style.display = 'block';
+        $('notice-bar').style.display = 'block';
+        $('user-head-bal').classList.remove('hidden');
+        await loadNotice();
+        await loadServices();
+        await loadUser(user.uid);
+        await loadMyOrders();
+        navigate('dashboard');
+      }else{
+        userData = null;
+        $('nav-toggle').style.display = 'none';
+        $('notice-bar').style.display = 'none';
+        $('user-head-bal').classList.add('hidden');
+        $('admin-menu').style.display = 'none';
+        navigate('landing');
+      }
+    });
+  </script></body>
+                                                                              </html>

@@ -3,179 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MySmmPanel - Order Services</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>SMM Panel - Premium Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        .hidden { display: none; }
+        *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+        body{ background:#050816; color:white; overflow-x:hidden; min-height:100vh; }
+        
+        /* Background Animations */
+        body::before, body::after {
+            content:''; position:fixed; width:500px; height:500px; border-radius:50%; filter:blur(140px); opacity:.35; z-index:-1;
+        }
+        body::before { background:#00d9ff; top:-180px; left:-180px; animation:move1 12s infinite alternate; }
+        body::after { background:#7b2cff; bottom:-180px; right:-180px; animation:move2 12s infinite alternate; }
+        @keyframes move1 { 0%{transform:translate(0,0);} 100%{transform:translate(80px,50px);} }
+        @keyframes move2 { 0%{transform:translate(0,0);} 100%{transform:translate(-80px,-50px);} }
+
+        nav { width:100%; padding:28px 20px; display:flex; justify-content:center; backdrop-filter:blur(20px); background:rgba(255,255,255,0.04); border-bottom:1px solid rgba(255,255,255,0.06); }
+        .logo { font-size:42px; font-weight:800; animation:glow 3s infinite alternate; }
+        .logo span { color:#00d9ff; }
+        @keyframes glow { from{text-shadow:0 0 10px #00d9ff;} to{text-shadow:0 0 30px #00d9ff;} }
+
+        section { width:100%; min-height:calc(100vh - 105px); display:flex; justify-content:center; align-items:center; padding:35px 20px; }
+        .page { display:none; flex-direction:column; align-items:center; }
+        .active { display:flex; animation:fade .5s ease; }
+        @keyframes fade { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+
+        .gradient { background:linear-gradient(45deg,#00d9ff,#7b2cff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .box { width:100%; max-width:480px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(18px); border-radius:35px; padding:45px 35px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+        
+        .input-box { margin-bottom:20px; }
+        .input-box input, .input-box select { width:100%; padding:18px 20px; border-radius:18px; background:rgba(255,255,255,0.08); color:white; border:1px solid transparent; outline:none; transition:.3s; }
+        .input-box input:focus { border-color:#00d9ff; box-shadow:0 0 20px rgba(0,217,255,.3); }
+        
+        .btn { width:100%; padding:18px; border:none; border-radius:18px; background:linear-gradient(45deg,#00d9ff,#7b2cff); color:white; font-size:18px; font-weight:700; cursor:pointer; transition:.4s; box-shadow:0 10px 35px rgba(0,217,255,.35); }
+        .btn:hover { transform:translateY(-4px); box-shadow:0 15px 40px rgba(123,44,255,.45); }
+        
+        .home-btns { display:flex; gap:22px; margin-top:35px; flex-wrap:wrap; justify-content:center; }
+        .home-btn { min-width:180px; padding:18px 40px; border-radius:60px; font-size:18px; font-weight:700; cursor:pointer; transition:.4s; }
+        .login-btn { background:transparent; border:3px solid #00d9ff; color:white; }
+        .login-btn:hover { background:#00d9ff; color:#050816; }
+        
+        .dashboard-box { max-width: 800px; width: 100%; }
+        .balance-card { background: rgba(0, 217, 255, 0.1); border: 1px solid #00d9ff; padding: 20px; border-radius: 20px; margin-bottom: 25px; }
+        
+        .switch { margin-top: 25px; color: #bfc7d8; }
+        .switch span { color: #00d9ff; cursor: pointer; font-weight: bold; }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body>
 
-    <div id="auth-container" class="flex items-center justify-center min-h-screen">
-        <div id="login-form" class="bg-white p-8 rounded shadow-md w-96">
-            <h2 class="text-2xl font-bold mb-4">Login</h2>
-            <input type="email" id="login-email" placeholder="ইমেইল" class="w-full p-2 mb-2 border rounded">
-            <input type="password" id="login-password" placeholder="পাসওয়ার্ড" class="w-full p-2 mb-4 border rounded">
-            <button onclick="login()" class="w-full bg-blue-500 text-white p-2 rounded">লগইন</button>
-            <p class="mt-4 text-sm text-center">নতুন? <a href="#" onclick="toggleAuth('signup-form')" class="text-blue-500 font-bold">রেজিস্ট্রেশন করুন</a></p>
-        </div>
+<nav><div class="logo">SMM<span>Panel</span></div></nav>
 
-        <div id="signup-form" class="bg-white p-8 rounded shadow-md w-96 hidden">
-            <h2 class="text-2xl font-bold mb-4">Registration</h2>
-            <input type="email" id="signup-email" placeholder="ইমেইল" class="w-full p-2 mb-2 border rounded">
-            <input type="password" id="signup-password" placeholder="পাসওয়ার্ড" class="w-full p-2 mb-4 border rounded">
-            <button onclick="signUp()" class="w-full bg-green-500 text-white p-2 rounded">অ্যাকাউন্ট খুলুন</button>
-            <p class="mt-4 text-sm text-center">আছেন? <a href="#" onclick="toggleAuth('login-form')" class="text-blue-500 font-bold">লগইন করুন</a></p>
+<section id="home" class="page active">
+    <div style="text-align:center; max-width:720px;">
+        <h1 style="font-size:72px; font-weight:800; line-height:1.1;">Premium <br><span class="gradient">SMM Panel</span></h1>
+        <p style="color:#bfc7d8; margin:25px 0; font-size:18px;">আধুনিক প্রযুক্তিতে তৈরি আপনার বিশ্বস্ত সোশ্যাল মিডিয়া মার্কেটিং সার্ভিস প্যানেল।</p>
+        <div class="home-btns">
+            <button class="home-btn login-btn" onclick="showPage('login')">Login</button>
+            <button class="home-btn btn" style="min-width:180px;" onclick="showPage('register')">Register</button>
         </div>
     </div>
+</section>
 
-    <div id="main-panel" class="max-w-4xl mx-auto p-4 hidden">
-        <header class="bg-white p-6 rounded-lg shadow-md flex justify-between items-center mb-6">
-            <div>
-                <h1 class="text-xl font-bold">স্বাগতম, <span id="user-display-email" class="text-blue-600 font-normal"></span></h1>
-                <p class="text-gray-600">ব্যালেন্স: <span id="user-balance" class="font-bold text-green-600">$0.00</span></p>
-            </div>
-            <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded">লগ আউট</button>
-        </header>
-
-        <div class="bg-white p-8 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold mb-6 border-b pb-2 text-gray-800">New Order</h2>
-            
-            <div class="space-y-4">
-                <div>
-                    <label class="block font-semibold mb-1">Service</label>
-                    <select id="service-select" class="w-full p-3 border rounded bg-gray-50 focus:ring-2 focus:ring-blue-400 outline-none">
-                        <option value="0.50" data-name="Facebook Followers (1K)">Facebook Followers - $0.50 per 1K</option>
-                        <option value="1.20" data-name="YouTube Watchtime (1K)">YouTube Watchtime - $1.20 per 1K</option>
-                        <option value="0.30" data-name="Instagram Likes (1K)">Instagram Likes - $0.30 per 1K</option>
-                        <option value="2.50" data-name="Premium Facebook Page Likes">Premium Page Likes - $2.50 per 1K</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block font-semibold mb-1">Link</label>
-                    <input type="text" id="order-link" placeholder="লিঙ্কটি এখানে দিন" class="w-full p-3 border rounded outline-none focus:ring-2 focus:ring-blue-400">
-                </div>
-
-                <div>
-                    <label class="block font-semibold mb-1">Quantity</label>
-                    <input type="number" id="order-qty" placeholder="পরিমাণ (যেমন: 1000)" class="w-full p-3 border rounded outline-none focus:ring-2 focus:ring-blue-400">
-                </div>
-
-                <div class="bg-blue-50 p-4 rounded text-right">
-                    <p class="text-gray-700">Total Charge: <span id="total-charge" class="font-bold text-blue-600">$0.00</span></p>
-                </div>
-
-                <button onclick="placeOrder()" id="order-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition">অর্ডার প্লেস করুন</button>
-            </div>
-        </div>
+<section id="login" class="page">
+    <div class="box">
+        <h1>Welcome <span class="gradient">Back</span></h1>
+        <p style="margin-bottom:20px; color:#bfc7d8;">আপনার অ্যাকাউন্টে লগইন করুন</p>
+        <div class="input-box"><input type="email" id="login-email" placeholder="Email Address"></div>
+        <div class="input-box"><input type="password" id="login-password" placeholder="Password"></div>
+        <button class="btn" onclick="login()">Login Now</button>
+        <div class="switch">অ্যাকাউন্ট নেই? <span onclick="showPage('register')">Register করুন</span></div>
     </div>
+</section>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<section id="register" class="page">
+    <div class="box">
+        <h1>Create <span class="gradient">Account</span></h1>
+        <p style="margin-bottom:20px; color:#bfc7d8;">আজই আমাদের সাথে যোগ দিন</p>
+        <div class="input-box"><input type="email" id="signup-email" placeholder="Email Address"></div>
+        <div class="input-box"><input type="password" id="signup-password" placeholder="Create Password"></div>
+        <button class="btn" onclick="signUp()">Register Now</button>
+        <div class="switch">অ্যাকাউন্ট আছে? <span onclick="showPage('login')">Login করুন</span></div>
+    </div>
+</section>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDwqjtb5xZpOsY8prwRaaHw1MVPryN9HDc",
-            authDomain: "mysmmpanel-4d699.firebaseapp.com",
-            projectId: "mysmmpanel-4d699",
-            storageBucket: "mysmmpanel-4d699.firebasestorage.app",
-            messagingSenderId: "1087970019155",
-            appId: "1:1087970019155:web:fe908197669e60540a43a6"
-        };
+<section id="dashboard" class="page">
+    <div class="box dashboard-box">
+        <h2 style="font-size:32px;">Hello, <span id="user-display-email" class="gradient">User</span></h2>
+        <div class="balance-card">
+            <p style="margin-bottom:5px;">Your Balance</p>
+            <h1 id="user-balance" style="font-size:42px; color:#00d9ff;">$0.00</h1>
+        </div>
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+        <h3 style="text-align:left; margin-bottom:15px;">New Order</h3>
+        <div class="input-box">
+            <select id="service-select" style="background:#1a1d2e;">
+                <option value="0.50" data-name="Facebook Followers">Facebook Followers - $0.50/1K</option>
+                <option value="1.20" data-name="YouTube Watchtime">YouTube Watchtime - $1.20/1K</option>
+                <option value="0.30" data-name="Instagram Likes">Instagram Likes - $0.30/1K</option>
+            </select>
+        </div>
+        <div class="input-box"><input type="text" id="order-link" placeholder="Paste your link here"></div>
+        <div class="input-box"><input type="number" id="order-qty" placeholder="Quantity (e.g. 1000)"></div>
+        
+        <p style="text-align:right; margin-bottom:15px;">Total: <span id="total-charge" style="color:#00d9ff; font-weight:bold;">$0.00</span></p>
+        <button class="btn" onclick="placeOrder()" id="order-btn">Place Order</button>
+        <button onclick="logout()" style="margin-top:20px; background:none; border:none; color:#ff4d4d; cursor:pointer;">Logout</button>
+    </div>
+</section>
 
-        let currentBalance = 0;
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // UI Helpers
-        window.toggleAuth = (id) => {
-            document.getElementById('login-form').classList.toggle('hidden', id !== 'login-form');
-            document.getElementById('signup-form').classList.toggle('hidden', id !== 'signup-form');
-        };
+    const firebaseConfig = {
+        apiKey: "AIzaSyDwqjtb5xZpOsY8prwRaaHw1MVPryN9HDc",
+        authDomain: "mysmmpanel-4d699.firebaseapp.com",
+        projectId: "mysmmpanel-4d699",
+        storageBucket: "mysmmpanel-4d699.firebasestorage.app",
+        messagingSenderId: "1087970019155",
+        appId: "1:1087970019155:web:fe908197669e60540a43a6"
+    };
 
-        // Charge Calculation
-        document.getElementById('order-qty').addEventListener('input', () => {
-            const qty = document.getElementById('order-qty').value;
-            const price = document.getElementById('service-select').value;
-            const total = (qty / 1000) * price;
-            document.getElementById('total-charge').innerText = "$" + (total || 0).toFixed(2);
-        });
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    let currentBalance = 0;
 
-        // Auth Logic
-        window.signUp = async () => {
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            try {
-                const res = await createUserWithEmailAndPassword(auth, email, password);
-                await setDoc(doc(db, "users", res.user.uid), { email, balance: 0.00 });
-                alert("Account Created!");
-            } catch (err) { alert(err.message); }
-        };
+    window.showPage = (id) => {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    };
 
-        window.login = async () => {
-            try {
-                await signInWithEmailAndPassword(auth, document.getElementById('login-email').value, document.getElementById('login-password').value);
-            } catch (err) { alert("Invalid login!"); }
-        };
+    window.signUp = async () => {
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+        try {
+            const res = await createUserWithEmailAndPassword(auth, email, password);
+            await setDoc(doc(db, "users", res.user.uid), { email, balance: 0.00 });
+            alert("Account Created!");
+        } catch (err) { alert(err.message); }
+    };
 
-        window.logout = () => signOut(auth);
+    window.login = async () => {
+        try {
+            await signInWithEmailAndPassword(auth, document.getElementById('login-email').value, document.getElementById('login-password').value);
+        } catch (err) { alert("Invalid Login!"); }
+    };
 
-        // Order Logic
-        window.placeOrder = async () => {
-            const qty = document.getElementById('order-qty').value;
-            const price = document.getElementById('service-select').value;
-            const total = (qty / 1000) * price;
-            const link = document.getElementById('order-link').value;
-            const serviceName = document.getElementById('service-select').options[document.getElementById('service-select').selectedIndex].getAttribute('data-name');
+    window.logout = () => signOut(auth);
 
-            if (!link || qty < 10) { alert("Please enter valid link and quantity!"); return; }
-            if (currentBalance < total) { alert("Insufficient Balance!"); return; }
+    document.getElementById('order-qty').addEventListener('input', () => {
+        const qty = document.getElementById('order-qty').value;
+        const price = document.getElementById('service-select').value;
+        document.getElementById('total-charge').innerText = "$" + ((qty / 1000) * price || 0).toFixed(2);
+    });
 
-            document.getElementById('order-btn').innerText = "Processing...";
-            
-            try {
-                // Deduct Balance
-                const userRef = doc(db, "users", auth.currentUser.uid);
-                await updateDoc(userRef, { balance: currentBalance - total });
+    window.placeOrder = async () => {
+        const qty = document.getElementById('order-qty').value;
+        const price = document.getElementById('service-select').value;
+        const total = (qty / 1000) * price;
+        const link = document.getElementById('order-link').value;
+        if (!link || qty < 10) { alert("Invalid Link or Qty!"); return; }
+        if (currentBalance < total) { alert("Insufficient Balance!"); return; }
 
-                // Save Order to Database
-                await addDoc(collection(db, "orders"), {
-                    userId: auth.currentUser.uid,
-                    email: auth.currentUser.email,
-                    service: serviceName,
-                    link: link,
-                    quantity: qty,
-                    charge: total,
-                    status: "Pending",
-                    time: new Date()
-                });
+        try {
+            await updateDoc(doc(db, "users", auth.currentUser.uid), { balance: currentBalance - total });
+            await addDoc(collection(db, "orders"), {
+                userId: auth.currentUser.uid, email: auth.currentUser.email,
+                link, quantity: qty, charge: total, status: "Pending", time: new Date()
+            });
+            alert("Order Placed!");
+            location.reload();
+        } catch (err) { alert(err.message); }
+    };
 
-                alert("Order Placed Successfully!");
-                location.reload();
-            } catch (err) { alert(err.message); }
-        };
-
-        // Watch State
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                document.getElementById('auth-container').classList.add('hidden');
-                document.getElementById('main-panel').classList.remove('hidden');
-                document.getElementById('user-display-email').innerText = user.email;
-
-                const userDoc = await getDoc(doc(db, "users", user.uid));
-                if (userDoc.exists()) {
-                    currentBalance = userDoc.data().balance;
-                    document.getElementById('user-balance').innerText = "$" + currentBalance.toFixed(2);
-                }
-            } else {
-                document.getElementById('auth-container').classList.remove('hidden');
-                document.getElementById('main-panel').classList.add('hidden');
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            showPage('dashboard');
+            document.getElementById('user-display-email').innerText = user.email.split('@')[0];
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (userDoc.exists()) {
+                currentBalance = userDoc.data().balance;
+                document.getElementById('user-balance').innerText = "$" + currentBalance.toFixed(2);
             }
-        });
-    </script>
+        } else {
+            showPage('home');
+        }
+    });
+</script>
 </body>
 </html>

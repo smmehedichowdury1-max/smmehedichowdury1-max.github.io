@@ -3,44 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MySmmPanel - Login & Registration</title>
+    <title>MySmmPanel - Order Services</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .hidden { display: none; }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="bg-gray-100 min-h-screen">
 
-    <div id="signup-form" class="bg-white p-8 rounded shadow-md w-96">
-        <h2 class="text-2xl font-bold mb-4">Registration</h2>
-        <input type="email" id="signup-email" placeholder="ইমেইল" class="w-full p-2 mb-2 border rounded">
-        <input type="password" id="signup-password" placeholder="পাসওয়ার্ড" class="w-full p-2 mb-4 border rounded">
-        <button onclick="signUp()" class="w-full bg-green-500 text-white p-2 rounded">একউন্ট খুলুন</button>
-        <p class="mt-4 text-sm">একউন্ট আছে? <a href="#" onclick="toggleForm('login-form')" class="text-blue-500">লগইন করুন</a></p>
-    </div>
-
-    <div id="login-form" class="bg-white p-8 rounded shadow-md w-96 hidden">
-        <h2 class="text-2xl font-bold mb-4">Login</h2>
-        <input type="email" id="login-email" placeholder="ইমেইল" class="w-full p-2 mb-2 border rounded">
-        <input type="password" id="login-password" placeholder="পাসওয়ার্ড" class="w-full p-2 mb-4 border rounded">
-        <button onclick="login()" class="w-full bg-blue-500 text-white p-2 rounded">লগইন</button>
-        <p class="mt-4 text-sm">নতুন ইউজার? <a href="#" onclick="toggleForm('signup-form')" class="text-blue-500">রেজিস্ট্রেশন করুন</a></p>
-    </div>
-
-    <div id="dashboard" class="bg-white p-8 rounded shadow-md w-full max-w-2xl hidden text-center">
-        <h2 class="text-2xl font-bold mb-4">স্বাগতম, <span id="user-display-email" class="text-blue-600"></span></h2>
-        <div class="bg-blue-100 p-6 rounded-lg mb-4">
-            <p class="text-lg">আপনার ব্যালেন্স: <span id="user-balance" class="font-bold text-green-600">$0.00</span></p>
+    <div id="auth-container" class="flex items-center justify-center min-h-screen">
+        <div id="login-form" class="bg-white p-8 rounded shadow-md w-96">
+            <h2 class="text-2xl font-bold mb-4">Login</h2>
+            <input type="email" id="login-email" placeholder="ইমেইল" class="w-full p-2 mb-2 border rounded">
+            <input type="password" id="login-password" placeholder="পাসওয়ার্ড" class="w-full p-2 mb-4 border rounded">
+            <button onclick="login()" class="w-full bg-blue-500 text-white p-2 rounded">লগইন</button>
+            <p class="mt-4 text-sm text-center">নতুন? <a href="#" onclick="toggleAuth('signup-form')" class="text-blue-500 font-bold">রেজিস্ট্রেশন করুন</a></p>
         </div>
-        <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded">লগ আউট</button>
+
+        <div id="signup-form" class="bg-white p-8 rounded shadow-md w-96 hidden">
+            <h2 class="text-2xl font-bold mb-4">Registration</h2>
+            <input type="email" id="signup-email" placeholder="ইমেইল" class="w-full p-2 mb-2 border rounded">
+            <input type="password" id="signup-password" placeholder="পাসওয়ার্ড" class="w-full p-2 mb-4 border rounded">
+            <button onclick="signUp()" class="w-full bg-green-500 text-white p-2 rounded">অ্যাকাউন্ট খুলুন</button>
+            <p class="mt-4 text-sm text-center">আছেন? <a href="#" onclick="toggleAuth('login-form')" class="text-blue-500 font-bold">লগইন করুন</a></p>
+        </div>
+    </div>
+
+    <div id="main-panel" class="max-w-4xl mx-auto p-4 hidden">
+        <header class="bg-white p-6 rounded-lg shadow-md flex justify-between items-center mb-6">
+            <div>
+                <h1 class="text-xl font-bold">স্বাগতম, <span id="user-display-email" class="text-blue-600 font-normal"></span></h1>
+                <p class="text-gray-600">ব্যালেন্স: <span id="user-balance" class="font-bold text-green-600">$0.00</span></p>
+            </div>
+            <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded">লগ আউট</button>
+        </header>
+
+        <div class="bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-6 border-b pb-2 text-gray-800">New Order</h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block font-semibold mb-1">Service</label>
+                    <select id="service-select" class="w-full p-3 border rounded bg-gray-50 focus:ring-2 focus:ring-blue-400 outline-none">
+                        <option value="0.50" data-name="Facebook Followers (1K)">Facebook Followers - $0.50 per 1K</option>
+                        <option value="1.20" data-name="YouTube Watchtime (1K)">YouTube Watchtime - $1.20 per 1K</option>
+                        <option value="0.30" data-name="Instagram Likes (1K)">Instagram Likes - $0.30 per 1K</option>
+                        <option value="2.50" data-name="Premium Facebook Page Likes">Premium Page Likes - $2.50 per 1K</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1">Link</label>
+                    <input type="text" id="order-link" placeholder="লিঙ্কটি এখানে দিন" class="w-full p-3 border rounded outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+
+                <div>
+                    <label class="block font-semibold mb-1">Quantity</label>
+                    <input type="number" id="order-qty" placeholder="পরিমাণ (যেমন: 1000)" class="w-full p-3 border rounded outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded text-right">
+                    <p class="text-gray-700">Total Charge: <span id="total-charge" class="font-bold text-blue-600">$0.00</span></p>
+                </div>
+
+                <button onclick="placeOrder()" id="order-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition">অর্ডার প্লেস করুন</button>
+            </div>
+        </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // আপনার ফায়ারবেস কনফিগ
         const firebaseConfig = {
             apiKey: "AIzaSyDwqjtb5xZpOsY8prwRaaHw1MVPryN9HDc",
             authDomain: "mysmmpanel-4d699.firebaseapp.com",
@@ -54,53 +89,91 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // ফর্ম পরিবর্তন করার ফাংশন
-        window.toggleForm = (id) => {
-            document.getElementById('signup-form').classList.add('hidden');
-            document.getElementById('login-form').classList.add('hidden');
-            document.getElementById('dashboard').classList.add('hidden');
-            document.getElementById(id).classList.remove('hidden');
+        let currentBalance = 0;
+
+        // UI Helpers
+        window.toggleAuth = (id) => {
+            document.getElementById('login-form').classList.toggle('hidden', id !== 'login-form');
+            document.getElementById('signup-form').classList.toggle('hidden', id !== 'signup-form');
         };
 
-        // রেজিস্ট্রেশন ফাংশন
+        // Charge Calculation
+        document.getElementById('order-qty').addEventListener('input', () => {
+            const qty = document.getElementById('order-qty').value;
+            const price = document.getElementById('service-select').value;
+            const total = (qty / 1000) * price;
+            document.getElementById('total-charge').innerText = "$" + (total || 0).toFixed(2);
+        });
+
+        // Auth Logic
         window.signUp = async () => {
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
             try {
                 const res = await createUserWithEmailAndPassword(auth, email, password);
-                // ডাটাবেসে নতুন ইউজার তৈরি (ব্যালেন্স ০ সহ)
-                await setDoc(doc(db, "users", res.user.uid), {
-                    email: email,
-                    balance: 0.00
-                });
-                alert("Account created successfully!");
+                await setDoc(doc(db, "users", res.user.uid), { email, balance: 0.00 });
+                alert("Account Created!");
             } catch (err) { alert(err.message); }
         };
 
-        // লগইন ফাংশন
         window.login = async () => {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
             try {
-                await signInWithEmailAndPassword(auth, email, password);
-            } catch (err) { alert("ভুল ইমেইল বা পাসওয়ার্ড!"); }
+                await signInWithEmailAndPassword(auth, document.getElementById('login-email').value, document.getElementById('login-password').value);
+            } catch (err) { alert("Invalid login!"); }
         };
 
-        // লগ আউট
         window.logout = () => signOut(auth);
 
-        // ইউজার স্ট্যাটাস চেক
+        // Order Logic
+        window.placeOrder = async () => {
+            const qty = document.getElementById('order-qty').value;
+            const price = document.getElementById('service-select').value;
+            const total = (qty / 1000) * price;
+            const link = document.getElementById('order-link').value;
+            const serviceName = document.getElementById('service-select').options[document.getElementById('service-select').selectedIndex].getAttribute('data-name');
+
+            if (!link || qty < 10) { alert("Please enter valid link and quantity!"); return; }
+            if (currentBalance < total) { alert("Insufficient Balance!"); return; }
+
+            document.getElementById('order-btn').innerText = "Processing...";
+            
+            try {
+                // Deduct Balance
+                const userRef = doc(db, "users", auth.currentUser.uid);
+                await updateDoc(userRef, { balance: currentBalance - total });
+
+                // Save Order to Database
+                await addDoc(collection(db, "orders"), {
+                    userId: auth.currentUser.uid,
+                    email: auth.currentUser.email,
+                    service: serviceName,
+                    link: link,
+                    quantity: qty,
+                    charge: total,
+                    status: "Pending",
+                    time: new Date()
+                });
+
+                alert("Order Placed Successfully!");
+                location.reload();
+            } catch (err) { alert(err.message); }
+        };
+
+        // Watch State
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                toggleForm('dashboard');
+                document.getElementById('auth-container').classList.add('hidden');
+                document.getElementById('main-panel').classList.remove('hidden');
                 document.getElementById('user-display-email').innerText = user.email;
-                // ডাটাবেস থেকে ব্যালেন্স আনা
+
                 const userDoc = await getDoc(doc(db, "users", user.uid));
                 if (userDoc.exists()) {
-                    document.getElementById('user-balance').innerText = "$" + userDoc.data().balance.toFixed(2);
+                    currentBalance = userDoc.data().balance;
+                    document.getElementById('user-balance').innerText = "$" + currentBalance.toFixed(2);
                 }
             } else {
-                toggleForm('login-form');
+                document.getElementById('auth-container').classList.remove('hidden');
+                document.getElementById('main-panel').classList.add('hidden');
             }
         });
     </script>

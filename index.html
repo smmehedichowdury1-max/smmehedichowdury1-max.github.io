@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMM Panel - Premium Experience</title>
+    <title>SMM Panel - Premium Admin Experience</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
         body{ background:#050816; color:white; overflow-x:hidden; min-height:100vh; }
         
-        /* Background Effects */
         body::before, body::after {
             content:''; position:fixed; width:300px; height:300px; border-radius:50%; filter:blur(100px); opacity:.3; z-index:-1;
         }
@@ -25,32 +24,30 @@
         .active { display:flex; animation:fade .5s ease; }
         @keyframes fade { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
 
-        /* Text Sizes Fixed */
         h1.hero-title { font-size: 38px; font-weight: 800; line-height: 1.2; text-align: center; margin-bottom: 15px; }
         .gradient { background:linear-gradient(45deg,#00d9ff,#7b2cff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
         p.hero-desc { color:#bfc7d8; font-size:14px; text-align:center; max-width:320px; margin-bottom:30px; line-height:1.6; }
 
-        .box { width:100%; max-width:400px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(18px); border-radius:25px; padding:30px 20px; text-align:center; box-shadow:0 15px 35px rgba(0,0,0,.3); }
-        .box h1 { font-size: 28px; margin-bottom: 10px; }
-        .box p { font-size: 13px; color: #bfc7d8; margin-bottom: 20px; }
-
+        .box { width:100%; max-width:450px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(18px); border-radius:25px; padding:30px 20px; text-align:center; box-shadow:0 15px 35px rgba(0,0,0,.3); }
+        
         .input-box { margin-bottom:12px; width: 100%; }
         .input-box input, .input-box select { width:100%; padding:14px 18px; border-radius:12px; background:rgba(255,255,255,0.08); color:white; border:1px solid transparent; outline:none; font-size: 14px; }
         
-        .btn { width:100%; padding:14px; border:none; border-radius:12px; background:linear-gradient(45deg,#00d9ff,#7b2cff); color:white; font-size:16px; font-weight:700; cursor:pointer; transition:.3s; }
-        .home-btns { display:flex; flex-direction:column; gap:12px; width:100%; max-width:280px; }
-        .home-btn { padding:14px; border-radius:50px; font-size:16px; font-weight:700; cursor:pointer; transition:.3s; border:none; }
-        .login-btn { background:transparent; border:2px solid #00d9ff; color:white; }
-
-        /* Dashboard Styles */
-        .dashboard-box { max-width: 600px; padding: 25px 20px; }
-        .balance-card { background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); padding: 15px; border-radius: 15px; margin: 15px 0; }
-        .balance-card h1 { font-size: 32px; color: #00d9ff; }
+        .btn { width:100%; padding:14px; border:none; border-radius:12px; background:linear-gradient(45deg,#00d9ff,#7b2cff); color:white; font-size:16px; font-weight:700; cursor:pointer; transition:.3s; margin-top: 10px; }
+        .btn-admin { background: #7b2cff; margin-top: 15px; font-size: 14px; }
         
+        .balance-card { background: rgba(0, 217, 255, 0.1); border: 1px solid rgba(0, 217, 255, 0.3); padding: 15px; border-radius: 15px; margin: 15px 0; }
+        
+        /* Admin Table Styles */
+        .admin-table-container { width: 100%; overflow-x: auto; margin-top: 20px; text-align: left; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; color: #bfc7d8; }
+        th, td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        th { color: #00d9ff; }
+        .update-btn { padding: 5px 10px; border-radius: 5px; background: #00d9ff; color: #050816; border: none; font-weight: bold; cursor: pointer; }
+
         @media (min-width: 768px) {
             h1.hero-title { font-size: 60px; }
-            p.hero-desc { font-size: 18px; max-width: 600px; }
-            .home-btns { flex-direction: row; max-width: 450px; }
+            .box { max-width: 600px; }
         }
     </style>
 </head>
@@ -60,60 +57,89 @@
 
 <section id="home" class="page active">
     <h1 class="hero-title">Premium <br><span class="gradient">SMM Panel</span></h1>
-    <p class="hero-desc">আধুনিক প্রযুক্তিতে তৈরি আপনার বিশ্বস্ত সোশ্যাল মিডিয়া মার্কেটিং সার্ভিস প্যানেল।</p>
-    <div class="home-btns">
-        <button class="home-btn login-btn" onclick="showPage('login')">Login</button>
-        <button class="home-btn btn" onclick="showPage('register')">Register</button>
+    <p class="hero-desc">আপনার প্যানেলে স্বাগতম। আধুনিক প্রযুক্তিতে দ্রুত সার্ভিস ডেলিভারি।</p>
+    <div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:280px;">
+        <button class="btn" onclick="showPage('login')">Login</button>
+        <button class="btn" style="background:transparent; border:2px solid #00d9ff;" onclick="showPage('register')">Register</button>
     </div>
 </section>
 
 <section id="login" class="page">
     <div class="box">
-        <h1>Welcome <span class="gradient">Back</span></h1>
-        <p>আপনার অ্যাকাউন্টে লগইন করুন</p>
-        <div class="input-box"><input type="email" id="login-email" placeholder="Email Address"></div>
+        <h1>Login</h1>
+        <div class="input-box"><input type="email" id="login-email" placeholder="Email"></div>
         <div class="input-box"><input type="password" id="login-password" placeholder="Password"></div>
-        <button class="btn" onclick="login()">Login Now</button>
-        <p style="margin-top:15px; font-size:13px;">নেই? <span style="color:#00d9ff; cursor:pointer;" onclick="showPage('register')">Register করুন</span></p>
+        <button class="btn" onclick="login()">Enter Dashboard</button>
+        <p style="margin-top:15px; font-size:13px;">Don't have an account? <span style="color:#00d9ff; cursor:pointer;" onclick="showPage('register')">Sign Up</span></p>
     </div>
 </section>
 
 <section id="register" class="page">
     <div class="box">
-        <h1>Join <span class="gradient">Now</span></h1>
-        <p>নতুন অ্যাকাউন্ট তৈরি করুন</p>
+        <h1>Register</h1>
         <div class="input-box"><input type="text" id="signup-name" placeholder="Full Name"></div>
-        <div class="input-box"><input type="email" id="signup-email" placeholder="Email Address"></div>
+        <div class="input-box"><input type="email" id="signup-email" placeholder="Email"></div>
         <div class="input-box"><input type="password" id="signup-password" placeholder="Password"></div>
-        <button class="btn" onclick="signUp()">Register</button>
-        <p style="margin-top:15px; font-size:13px;">আছে? <span style="color:#00d9ff; cursor:pointer;" onclick="showPage('login')">Login করুন</span></p>
+        <button class="btn" onclick="signUp()">Create Account</button>
+        <p style="margin-top:15px; font-size:13px;">Already have one? <span style="color:#00d9ff; cursor:pointer;" onclick="showPage('login')">Login</span></p>
     </div>
 </section>
 
 <section id="dashboard" class="page">
-    <div class="box dashboard-box">
-        <h2 style="font-size:22px;">Hello, <span id="user-display-name" class="gradient">User</span></h2>
+    <div class="box">
+        <h2 style="font-size:20px;">স্বাগতম, <span id="user-display-name" class="gradient">User</span></h2>
         <div class="balance-card">
-            <p style="font-size:12px;">Current Balance</p>
-            <h1 id="user-balance">$0.00</h1>
+            <p style="font-size:12px;">Your Balance</p>
+            <h1 id="user-balance" style="color:#00d9ff;">$0.00</h1>
         </div>
         <div class="input-box">
             <select id="service-select" style="background:#1a1d2e;">
-                <option value="0.50" data-name="Facebook Followers">Facebook Followers - $0.50</option>
-                <option value="1.20" data-name="YouTube Watchtime">YouTube Watchtime - $1.20</option>
+                <option value="0.50">Facebook Followers - $0.50</option>
+                <option value="1.20">YouTube Watchtime - $1.20</option>
             </select>
         </div>
-        <div class="input-box"><input type="text" id="order-link" placeholder="Order Link"></div>
+        <div class="input-box"><input type="text" id="order-link" placeholder="Link Here"></div>
         <div class="input-box"><input type="number" id="order-qty" placeholder="Quantity"></div>
-        <button class="btn" onclick="placeOrder()">Place Order</button>
-        <button onclick="logout()" style="background:none; border:none; color:#ff4d4d; margin-top:15px; cursor:pointer; font-size:14px;">Logout</button>
+        <button class="btn" onclick="placeOrder()">Order Now</button>
+        
+        <button id="admin-gate" class="btn btn-admin" style="display:none;" onclick="loadAdminPanel()">Go to Admin Panel</button>
+        
+        <button onclick="logout()" style="background:none; border:none; color:#ff4d4d; margin-top:20px; cursor:pointer; font-size:13px;">Logout Account</button>
+    </div>
+</section>
+
+<section id="admin-panel" class="page">
+    <div class="box" style="max-width: 800px;">
+        <h1 class="gradient">Admin Control</h1>
+        
+        <div class="admin-table-container">
+            <h3>Manage Users & Balance</h3>
+            <table id="user-table">
+                <thead>
+                    <tr><th>Name</th><th>Email</th><th>Balance ($)</th><th>Action</th></tr>
+                </thead>
+                <tbody id="user-list-body"></tbody>
+            </table>
+        </div>
+
+        <div class="admin-table-container" style="margin-top:30px;">
+            <h3>Client Orders</h3>
+            <table id="order-table">
+                <thead>
+                    <tr><th>User Email</th><th>Service</th><th>Qty</th><th>Link</th></tr>
+                </thead>
+                <tbody id="order-list-body"></tbody>
+            </table>
+        </div>
+
+        <button class="btn" style="background:grey; margin-top:30px;" onclick="showPage('dashboard')">Back to Dashboard</button>
     </div>
 </section>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, updateDoc, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyDwqjtb5xZpOsY8prwRaaHw1MVPryN9HDc",
@@ -127,7 +153,7 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
-    let currentBalance = 0;
+    const ADMIN_EMAIL = "smmehedichowdury@gmail.com";
 
     window.showPage = (id) => {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -139,31 +165,73 @@
         const name = document.getElementById('signup-name').value;
         const email = document.getElementById('signup-email').value;
         const password = document.getElementById('signup-password').value;
-        if(!name || !email || !password) return alert("Fill all fields");
+        if(!name || !email || !password) return alert("All fields required");
         try {
             const res = await createUserWithEmailAndPassword(auth, email, password);
             await setDoc(doc(db, "users", res.user.uid), { name, email, balance: 0.00 });
-            alert("Account Created!");
+            alert("Success!");
         } catch (err) { alert(err.message); }
     };
 
     window.login = async () => {
         try { await signInWithEmailAndPassword(auth, document.getElementById('login-email').value, document.getElementById('login-password').value); } 
-        catch (err) { alert("Login failed!"); }
+        catch (err) { alert("Login Error!"); }
     };
 
     window.logout = () => signOut(auth);
 
+    // Admin Functions
+    window.loadAdminPanel = async () => {
+        showPage('admin-panel');
+        
+        // Load Users
+        const userBody = document.getElementById('user-list-body');
+        userBody.innerHTML = "Loading...";
+        const userSnap = await getDocs(collection(db, "users"));
+        userBody.innerHTML = "";
+        userSnap.forEach((uDoc) => {
+            const data = uDoc.data();
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${data.name}</td>
+                <td>${data.email}</td>
+                <td><input type="number" id="bal-${uDoc.id}" value="${data.balance}" style="width:60px; background:none; color:white; border:1px solid #333;"></td>
+                <td><button class="update-btn" onclick="updateUserBalance('${uDoc.id}')">Set</button></td>
+            `;
+            userBody.appendChild(tr);
+        });
+
+        // Load Orders
+        const orderBody = document.getElementById('order-list-body');
+        orderBody.innerHTML = "";
+        const orderSnap = await getDocs(collection(db, "orders"));
+        orderSnap.forEach((oDoc) => {
+            const o = oDoc.data();
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${o.email}</td><td>Service</td><td>${o.quantity}</td><td><a href="${o.link}" target="_blank" style="color:#00d9ff">Link</a></td>`;
+            orderBody.appendChild(tr);
+        });
+    };
+
+    window.updateUserBalance = async (uid) => {
+        const newBal = parseFloat(document.getElementById(`bal-${uid}`).value);
+        await updateDoc(doc(db, "users", uid), { balance: newBal });
+        alert("Balance Updated!");
+    };
+
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             showPage('dashboard');
+            if(user.email === ADMIN_EMAIL) document.getElementById('admin-gate').style.display = "block";
             const userDoc = await getDoc(doc(db, "users", user.uid));
             if (userDoc.exists()) {
                 document.getElementById('user-display-name').innerText = userDoc.data().name;
-                currentBalance = userDoc.data().balance;
-                document.getElementById('user-balance').innerText = "$" + currentBalance.toFixed(2);
+                document.getElementById('user-balance').innerText = "$" + userDoc.data().balance.toFixed(2);
             }
-        } else { showPage('home'); }
+        } else { 
+            showPage('home'); 
+            document.getElementById('admin-gate').style.display = "none";
+        }
     });
 </script>
 </body>

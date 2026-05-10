@@ -3,61 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMM Panel - Professional UI</title>
+    <title>SMM Panel - Professional Dynamic UI</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
         body{ background:#0a0e1a; color:white; overflow-x:hidden; min-height:100vh; }
-        
-        /* Background & Glow */
         .bg-glow { position: fixed; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at 50% -20%, #1a2a4a, #0a0e1a); }
-
         nav { width:100%; padding:15px 20px; display:flex; justify-content:center; background: rgba(10, 14, 26, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 217, 255, 0.1); position: sticky; top: 0; z-index: 100; }
-        .logo { font-size:24px; font-weight:800; text-transform: uppercase; letter-spacing: 1px; color: #fff; text-shadow: 0 0 10px rgba(0, 217, 255, 0.5); }
+        .logo { font-size:24px; font-weight:800; text-transform: uppercase; color: #fff; text-shadow: 0 0 10px rgba(0, 217, 255, 0.5); }
         .logo span { color:#00d9ff; }
-
         section { width:100%; display:flex; justify-content:center; align-items:center; padding:20px; min-height: 80vh; }
         .page { display:none; flex-direction:column; align-items:center; width: 100%; max-width: 500px; margin: auto; }
         .active { display:flex; animation:fade .4s ease; }
         @keyframes fade { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
-
-        /* Welcome Text */
-        .welcome-text { text-align: center; margin-bottom: 20px; }
-        .welcome-text h2 { font-size: 22px; font-weight: 600; }
-        .welcome-text span { color: #7b2cff; }
-
-        /* Balance Card */
-        .balance-card { width: 100%; background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(0, 217, 255, 0.05)); border: 1px solid rgba(0, 217, 255, 0.2); padding: 25px; border-radius: 20px; text-align: center; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .balance-card p { font-size: 14px; color: #bfc7d8; margin-bottom: 5px; }
+        .balance-card { width: 100%; background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(0, 217, 255, 0.05)); border: 1px solid rgba(0, 217, 255, 0.2); padding: 25px; border-radius: 20px; text-align: center; margin-bottom: 25px; }
         .balance-card h1 { font-size: 36px; color: #00d9ff; font-weight: 800; }
-
-        /* Box & Form */
-        .order-container { width: 100%; background: #161b2e; border-radius: 20px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
-        .label { display: block; font-size: 14px; margin-bottom: 8px; color: #bfc7d8; font-weight: 500; }
-        .input-group { margin-bottom: 20px; }
-        .input-group select, .input-group input { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #2a314a; background: #0a0e1a; color: white; outline: none; font-size: 14px; transition: 0.3s; }
-        .input-group input:focus { border-color: #00d9ff; box-shadow: 0 0 10px rgba(0, 217, 255, 0.2); }
-
-        /* Description Box */
-        .desc-box { background: #0a0e1a; border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px dashed rgba(0, 217, 255, 0.3); }
-        .desc-item { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; color: #bfc7d8; }
-        .desc-item b { color: #fff; }
-
-        /* Buttons */
-        .btn-confirm { width: 100%; padding: 16px; border-radius: 12px; border: none; background: #10b981; color: white; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .btn-confirm:hover { background: #059669; transform: translateY(-2px); }
-        
-        .btn-admin { background: #7b2cff; margin-top: 15px; width: 100%; padding: 12px; border-radius: 10px; border: none; color: white; cursor: pointer; }
-
-        /* WhatsApp Float */
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; color: white; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1000; cursor: pointer; }
-
-        /* Admin Table */
-        .admin-box { background: #161b2e; padding: 20px; border-radius: 20px; width: 100%; max-width: 800px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 12px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #2a314a; }
-        th { color: #00d9ff; }
+        .order-container { width: 100%; background: #161b2e; border-radius: 20px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px; }
+        .label { display: block; font-size: 14px; margin-bottom: 8px; color: #bfc7d8; }
+        .input-group { margin-bottom: 15px; width: 100%; }
+        .input-group select, .input-group input, .input-group textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #2a314a; background: #0a0e1a; color: white; outline: none; font-size: 14px; }
+        .desc-box { background: #0a0e1a; border-radius: 12px; padding: 15px; margin-bottom: 20px; border: 1px dashed rgba(0, 217, 255, 0.3); font-size: 13px; color: #bfc7d8; line-height: 1.6; }
+        .btn-confirm { width: 100%; padding: 15px; border-radius: 12px; border: none; background: #10b981; color: white; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .btn-admin { background: #7b2cff; margin-top: 15px; width: 100%; padding: 12px; border-radius: 10px; color: white; border:none; cursor:pointer; }
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; color: white; z-index: 1000; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #2a314a; }
     </style>
 </head>
 <body>
@@ -65,11 +36,14 @@
 <div class="bg-glow"></div>
 <nav><div class="logo">SMM<span>Panel</span></div></nav>
 
-<section id="home" class="page active">
-    <h1 style="font-size:40px; text-align:center; margin-bottom:10px;">Premium <br><span style="color:#00d9ff">SMM Panel</span></h1>
-    <p style="text-align:center; color:#bfc7d8; margin-bottom:30px;">আধুনিক প্রযুক্তিতে তৈরি আপনার বিশ্বস্ত মার্কেটিং প্যানেল।</p>
-    <button class="btn-confirm" style="background:#00d9ff; color:#000;" onclick="showPage('login')">Login</button>
-    <button class="btn-confirm" style="background:transparent; border:1px solid #00d9ff; margin-top:10px;" onclick="showPage('register')">Register</button>
+<section id="login" class="page active">
+    <div class="order-container">
+        <h2 style="text-align:center; margin-bottom:20px;">Login</h2>
+        <div class="input-group"><input type="email" id="login-email" placeholder="Email"></div>
+        <div class="input-group"><input type="password" id="login-password" placeholder="Password"></div>
+        <button class="btn-confirm" onclick="login()">Login</button>
+        <p style="text-align:center; margin-top:15px; font-size:13px;">নতুন? <span style="color:#00d9ff; cursor:pointer;" onclick="showPage('register')">Register করুন</span></p>
+    </div>
 </section>
 
 <section id="register" class="page">
@@ -82,92 +56,52 @@
     </div>
 </section>
 
-<section id="login" class="page">
-    <div class="order-container">
-        <h2 style="text-align:center; margin-bottom:20px;">Login</h2>
-        <div class="input-group"><input type="email" id="login-email" placeholder="Email"></div>
-        <div class="input-group"><input type="password" id="login-password" placeholder="Password"></div>
-        <button class="btn-confirm" onclick="login()">Login</button>
-    </div>
-</section>
-
 <section id="dashboard" class="page">
-    <div class="welcome-text">
-        <h2>স্বাগতম, <span id="user-display-name">User</span></h2>
-    </div>
-
     <div class="balance-card">
         <p>Your Balance</p>
         <h1 id="user-balance">$0.00</h1>
     </div>
-
     <div class="order-container">
         <div class="input-group">
             <label class="label">Category</label>
-            <select id="category-select">
-                <option>TikTok Guaranteed Likes</option>
-                <option>Facebook Followers</option>
-            </select>
+            <select id="category-select" onchange="filterServices()"></select>
         </div>
-
         <div class="input-group">
             <label class="label">Service</label>
-            <select id="service-select">
-                <option value="0.50">TikTok Likes | HQ & Real Profiles | $0.50</option>
-                <option value="1.20">Facebook Followers | Instant | $1.20</option>
-            </select>
+            <select id="service-select" onchange="updateServiceInfo()"></select>
         </div>
-
-        <div class="desc-box">
-            <div class="desc-item"><span>Start: ⏰</span><b>0-5 Minutes</b></div>
-            <div class="desc-item"><span>Speed: 🚀</span><b>50-80K/Days</b></div>
-            <div class="desc-item"><span>Refill: ♻️</span><b>30 Days</b></div>
-            <div class="desc-item"><span>Quality: ⭐</span><b>HQ Profile</b></div>
-        </div>
-
-        <div class="input-group">
-            <label class="label">Link</label>
-            <input type="text" id="order-link" placeholder="Enter link here">
-        </div>
-
-        <div class="input-group">
-            <label class="label">Quantity</label>
-            <input type="number" id="order-qty" placeholder="Min: 200 - Max: 10M">
-        </div>
-
-        <div class="input-group">
-            <label class="label">Charge</label>
-            <input type="text" id="order-charge" value="$0.00" disabled style="background:#0a0e1a; color:#00d9ff; font-weight:bold;">
-        </div>
-
+        <div id="service-description" class="desc-box">সার্ভিস সিলেক্ট করুন...</div>
+        <div class="input-group"><label class="label">Link</label><input type="text" id="order-link" placeholder="Link here"></div>
+        <div class="input-group"><label class="label">Quantity</label><input type="number" id="order-qty" placeholder="Quantity"></div>
+        <div class="input-group"><label class="label">Charge</label><input type="text" id="order-charge" value="$0.00" disabled style="color:#00d9ff; font-weight:bold;"></div>
         <button class="btn-confirm" onclick="placeOrder()">অর্ডার কনফার্ম করুন</button>
         <button id="admin-gate" class="btn-admin" style="display:none;" onclick="loadAdminPanel()">Admin Panel Access</button>
     </div>
-
-    <p onclick="logout()" style="color:#ff4d4d; cursor:pointer; margin-top:20px; font-size:14px;">Logout</p>
+    <p onclick="logout()" style="color:#ff4d4d; cursor:pointer; margin-bottom:50px;">Logout</p>
 </section>
 
-<section id="admin-panel" class="page">
-    <div class="admin-box">
-        <h2 class="gradient">Admin Control</h2>
-        <div style="overflow-x:auto;">
-            <table>
-                <thead><tr><th>Name</th><th>Balance</th><th>Action</th></tr></thead>
-                <tbody id="user-list-body"></tbody>
-            </table>
-        </div>
-        <button class="btn-confirm" style="background:grey; margin-top:20px;" onclick="showPage('dashboard')">Back</button>
+<section id="admin-panel" class="page" style="max-width: 800px;">
+    <div class="order-container">
+        <h2>Add New Service</h2>
+        <div class="input-group"><input type="text" id="new-cat" placeholder="Category Name (e.g. TikTok Likes)"></div>
+        <div class="input-group"><input type="text" id="new-name" placeholder="Service Name"></div>
+        <div class="input-group"><input type="number" id="new-price" placeholder="Price per 1k ($)"></div>
+        <div class="input-group"><textarea id="new-desc" placeholder="Service Details (Start, Speed, etc.)" rows="3"></textarea></div>
+        <button class="btn-confirm" onclick="addNewService()">Add Service</button>
     </div>
+    <div class="order-container" style="overflow-x:auto;">
+        <h3>Manage Users</h3>
+        <table id="user-table"><thead><tr><th>Name</th><th>Email</th><th>Balance</th><th>Action</th></tr></thead><tbody id="user-list-body"></tbody></table>
+    </div>
+    <button class="btn-confirm" style="background:grey; margin-top:20px;" onclick="showPage('dashboard')">Back</button>
 </section>
 
-<a href="https://wa.me/YOUR_NUMBER" target="_blank" class="whatsapp-float">
-    <i class="fab fa-whatsapp"></i>
-</a>
+<a href="https://wa.me/YOUR_NUMBER" target="_blank" class="whatsapp-float"><i class="fab fa-whatsapp"></i></a>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, updateDoc, getDocs, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, getDocs, collection, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyDwqjtb5xZpOsY8prwRaaHw1MVPryN9HDc",
@@ -182,98 +116,112 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
     const ADMIN_EMAIL = "smmehedichowdury@gmail.com";
-    let currentUserData = null;
+    let allServices = [];
+    let userData = null;
 
     window.showPage = (id) => {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0);
     };
 
+    // Service Management (Admin)
+    window.addNewService = async () => {
+        const cat = document.getElementById('new-cat').value;
+        const name = document.getElementById('new-name').value;
+        const price = parseFloat(document.getElementById('new-price').value);
+        const desc = document.getElementById('new-desc').value;
+        if(!cat || !name || !price) return alert("Fill all fields");
+        await addDoc(collection(db, "services"), { cat, name, price, desc });
+        alert("Service Added!");
+        location.reload();
+    };
+
+    // Load Services for User
+    const loadServices = async () => {
+        const snap = await getDocs(collection(db, "services"));
+        allServices = [];
+        const catSet = new Set();
+        snap.forEach(doc => {
+            const data = { id: doc.id, ...doc.data() };
+            allServices.push(data);
+            catSet.add(data.cat);
+        });
+
+        const catSelect = document.getElementById('category-select');
+        catSelect.innerHTML = '<option value="">Select Category</option>';
+        catSet.forEach(c => catSelect.innerHTML += `<option value="${c}">${c}</option>`);
+    };
+
+    window.filterServices = () => {
+        const cat = document.getElementById('category-select').value;
+        const sSelect = document.getElementById('service-select');
+        sSelect.innerHTML = '<option value="">Select Service</option>';
+        allServices.filter(s => s.cat === cat).forEach(s => {
+            sSelect.innerHTML += `<option value="${s.price}" data-desc="${s.desc}">${s.name} - $${s.price}</option>`;
+        });
+    };
+
+    window.updateServiceInfo = () => {
+        const selected = document.getElementById('service-select').options[document.getElementById('service-select').selectedIndex];
+        document.getElementById('service-description').innerText = selected.getAttribute('data-desc') || "সার্ভিস সিলেক্ট করুন...";
+        calculateCharge();
+    };
+
+    const calculateCharge = () => {
+        const price = parseFloat(document.getElementById('service-select').value) || 0;
+        const qty = document.getElementById('order-qty').value || 0;
+        document.getElementById('order-charge').value = "$" + ((qty/1000) * price).toFixed(4);
+    };
+    document.getElementById('order-qty').addEventListener('input', calculateCharge);
+
+    // Auth & User Logic
     window.signUp = async () => {
         const name = document.getElementById('signup-name').value;
         const email = document.getElementById('signup-email').value;
-        const password = document.getElementById('signup-password').value;
+        const pass = document.getElementById('signup-password').value;
         try {
-            const res = await createUserWithEmailAndPassword(auth, email, password);
+            const res = await createUserWithEmailAndPassword(auth, email, pass);
             await setDoc(doc(db, "users", res.user.uid), { name, email, balance: 0.00 });
-            alert("Account Created!");
-        } catch (err) { alert(err.message); }
+            alert("Registered!");
+        } catch(e) { alert(e.message); }
     };
 
     window.login = async () => {
-        const email = document.getElementById('login-email').value;
-        const pass = document.getElementById('login-password').value;
-        try { await signInWithEmailAndPassword(auth, email, pass); } 
-        catch (err) { alert("Login Failed!"); }
+        try { await signInWithEmailAndPassword(auth, document.getElementById('login-email').value, document.getElementById('login-password').value); }
+        catch(e) { alert("Login Error"); }
     };
 
     window.logout = () => signOut(auth);
 
-    // Place Order Logic
-    window.placeOrder = async () => {
-        const qty = document.getElementById('order-qty').value;
-        const link = document.getElementById('order-link').value;
-        const pricePerOne = parseFloat(document.getElementById('service-select').value);
-        const totalCost = (qty / 1000) * pricePerOne;
-
-        if(!link || !qty) return alert("Please fill all fields");
-        if(currentUserData.balance < totalCost) return alert("Insufficient Balance!");
-
-        try {
-            // Update Balance
-            const newBalance = currentUserData.balance - totalCost;
-            await updateDoc(doc(db, "users", auth.currentUser.uid), { balance: newBalance });
-            // Save Order
-            await addDoc(collection(db, "orders"), {
-                email: auth.currentUser.email,
-                link: link,
-                quantity: qty,
-                cost: totalCost,
-                status: "Pending",
-                timestamp: new Date()
-            });
-            alert("Order Placed Successfully!");
-            location.reload();
-        } catch (err) { alert(err.message); }
-    };
-
-    // Calculate Charge Live
-    document.getElementById('order-qty').addEventListener('input', (e) => {
-        const price = parseFloat(document.getElementById('service-select').value);
-        const charge = (e.target.value / 1000) * price;
-        document.getElementById('order-charge').value = "$" + charge.toFixed(2);
-    });
-
     onAuthStateChanged(auth, async (user) => {
-        if (user) {
+        if(user) {
             showPage('dashboard');
+            loadServices();
             if(user.email === ADMIN_EMAIL) document.getElementById('admin-gate').style.display = "block";
-            const userDoc = await getDoc(doc(db, "users", user.uid));
-            if (userDoc.exists()) {
-                currentUserData = userDoc.data();
-                document.getElementById('user-display-name').innerText = currentUserData.name;
-                document.getElementById('user-balance').innerText = "$" + currentUserData.balance.toFixed(2);
+            const uDoc = await getDoc(doc(db, "users", user.uid));
+            if(uDoc.exists()) {
+                userData = uDoc.data();
+                document.getElementById('user-balance').innerText = "$" + userData.balance.toFixed(2);
             }
-        } else { showPage('home'); }
+        } else { showPage('login'); }
     });
 
-    // Admin Load Users
     window.loadAdminPanel = async () => {
         showPage('admin-panel');
         const userBody = document.getElementById('user-list-body');
-        userBody.innerHTML = "";
+        userBody.innerHTML = "Loading...";
         const snap = await getDocs(collection(db, "users"));
-        snap.forEach(uDoc => {
-            const d = uDoc.data();
-            userBody.innerHTML += `<tr><td>${d.name}</td><td><input type="number" id="b-${uDoc.id}" value="${d.balance}" style="width:50px; background:none; border:1px solid #444; color:white;"></td><td><button onclick="updateBal('${uDoc.id}')" style="background:#00d9ff; border:none; padding:5px; border-radius:5px;">Set</button></td></tr>`;
+        userBody.innerHTML = "";
+        snap.forEach(u => {
+            const d = u.data();
+            userBody.innerHTML += `<tr><td>${d.name}</td><td>${d.email}</td><td><input type="number" id="b-${u.id}" value="${d.balance}" style="width:50px; background:none; border:1px solid #444; color:white;"></td><td><button onclick="updateBal('${u.id}')" style="background:#00d9ff; border:none; padding:5px; border-radius:5px;">Set</button></td></tr>`;
         });
     };
 
     window.updateBal = async (id) => {
         const val = parseFloat(document.getElementById('b-'+id).value);
         await updateDoc(doc(db, "users", id), { balance: val });
-        alert("Updated!");
+        alert("Balance Updated!");
     };
 </script>
 </body>

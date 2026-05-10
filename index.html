@@ -64,15 +64,15 @@
     <div class="order-container">
         <div class="input-group">
             <label class="label">Category</label>
-            <select id="category-select" onchange="filterServices()"></select>
+            <select id="category-select"></select>
         </div>
         <div class="input-group">
             <label class="label">Service</label>
-            <select id="service-select" onchange="updateServiceInfo()"></select>
+            <select id="service-select"></select>
         </div>
         <div id="service-description" class="desc-box">সার্ভিস সিলেক্ট করুন...</div>
         <div class="input-group"><label class="label">Link</label><input type="text" id="order-link" placeholder="Link here"></div>
-        <div class="input-group"><label class="label">Quantity</label><input type="number" id="order-qty" placeholder="Quantity"></div>
+        <div class="input-group"><label class="label">Quantity (Min: 200, Max: 5000)</label><input type="number" id="order-qty" placeholder="200-5000"></div>
         <div class="input-group"><label class="label">Charge</label><input type="text" id="order-charge" value="$0.00" disabled style="color:#00d9ff; font-weight:bold;"></div>
         <button class="btn-confirm" onclick="placeOrder()">অর্ডার কনফার্ম করুন</button>
         <button id="admin-gate" class="btn-admin" style="display:none;" onclick="loadAdminPanel()">Admin Panel Access</button>
@@ -83,15 +83,15 @@
 <section id="admin-panel" class="page" style="max-width: 800px;">
     <div class="order-container">
         <h2>Add New Service</h2>
-        <div class="input-group"><input type="text" id="new-cat" placeholder="Category Name (e.g. TikTok Likes)"></div>
+        <div class="input-group"><input type="text" id="new-cat" placeholder="Category Name"></div>
         <div class="input-group"><input type="text" id="new-name" placeholder="Service Name"></div>
         <div class="input-group"><input type="number" id="new-price" placeholder="Price per 1k ($)"></div>
-        <div class="input-group"><textarea id="new-desc" placeholder="Service Details (Start, Speed, etc.)" rows="3"></textarea></div>
+        <div class="input-group"><textarea id="new-desc" placeholder="Service Details" rows="3"></textarea></div>
         <button class="btn-confirm" onclick="addNewService()">Add Service</button>
     </div>
     <div class="order-container" style="overflow-x:auto;">
-        <h3>Manage Users</h3>
-        <table id="user-table"><thead><tr><th>Name</th><th>Email</th><th>Balance</th><th>Action</th></tr></thead><tbody id="user-list-body"></tbody></table>
+        <h3>Manage Users & Balance</h3>
+        <table id="user-table"><thead><tr><th>Name</th><th>Balance</th><th>Action</th></tr></thead><tbody id="user-list-body"></tbody></table>
     </div>
     <button class="btn-confirm" style="background:grey; margin-top:20px;" onclick="showPage('dashboard')">Back</button>
 </section>
@@ -101,7 +101,7 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, updateDoc, getDocs, collection, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, getDocs, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyDwqjtb5xZpOsY8prwRaaHw1MVPryN9HDc",
@@ -124,19 +124,7 @@
         document.getElementById(id).classList.add('active');
     };
 
-    // Service Management (Admin)
-    window.addNewService = async () => {
-        const cat = document.getElementById('new-cat').value;
-        const name = document.getElementById('new-name').value;
-        const price = parseFloat(document.getElementById('new-price').value);
-        const desc = document.getElementById('new-desc').value;
-        if(!cat || !name || !price) return alert("Fill all fields");
-        await addDoc(collection(db, "services"), { cat, name, price, desc });
-        alert("Service Added!");
-        location.reload();
-    };
-
-    // Load Services for User
+    // Load Services
     const loadServices = async () => {
         const snap = await getDocs(collection(db, "services"));
         allServices = [];
@@ -152,43 +140,77 @@
         catSet.forEach(c => catSelect.innerHTML += `<option value="${c}">${c}</option>`);
     };
 
-    window.filterServices = () => {
-        const cat = document.getElementById('category-select').value;
+    document.getElementById('category-select').addEventListener('change', (e) => {
+        const cat = e.target.value;
         const sSelect = document.getElementById('service-select');
         sSelect.innerHTML = '<option value="">Select Service</option>';
         allServices.filter(s => s.cat === cat).forEach(s => {
-            sSelect.innerHTML += `<option value="${s.price}" data-desc="${s.desc}">${s.name} - $${s.price}</option>`;
+            sSelect.innerHTML += `<option value="${s.price}" data-desc="${s.desc}">${s.name}</option>`;
         });
-    };
+    });
 
-    window.updateServiceInfo = () => {
-        const selected = document.getElementById('service-select').options[document.getElementById('service-select').selectedIndex];
+    document.getElementById('service-select').addEventListener('change', (e) => {
+        const selected = e.target.options[e.target.selectedIndex];
         document.getElementById('service-description').innerText = selected.getAttribute('data-desc') || "সার্ভিস সিলেক্ট করুন...";
         calculateCharge();
-    };
+    });
 
     const calculateCharge = () => {
         const price = parseFloat(document.getElementById('service-select').value) || 0;
-        const qty = document.getElementById('order-qty').value || 0;
+        const qty = parseInt(document.getElementById('order-qty').value) || 0;
         document.getElementById('order-charge').value = "$" + ((qty/1000) * price).toFixed(4);
     };
     document.getElementById('order-qty').addEventListener('input', calculateCharge);
 
-    // Auth & User Logic
-    window.signUp = async () => {
-        const name = document.getElementById('signup-name').value;
-        const email = document.getElementById('signup-email').value;
-        const pass = document.getElementById('signup-password').value;
+    // Order Function
+    window.placeOrder = async () => {
+        const qty = parseInt(document.getElementById('order-qty').value);
+        const link = document.getElementById('order-link').value;
+        const serviceSelect = document.getElementById('service-select');
+        const price = parseFloat(serviceSelect.value);
+        const serviceName = serviceSelect.options[serviceSelect.selectedIndex].text;
+
+        if(!price || !link || !qty) return alert("সবগুলো ঘর পূরণ করুন!");
+        if(qty < 200 || qty > 5000) return alert("অর্ডার অবশ্যই ২০০ থেকে ৫০০০ এর মধ্যে হতে হবে!");
+        
+        const cost = (qty / 1000) * price;
+        if(userData.balance < cost) return alert("ব্যালেন্স পর্যাপ্ত নয়!");
+
         try {
-            const res = await createUserWithEmailAndPassword(auth, email, pass);
-            await setDoc(doc(db, "users", res.user.uid), { name, email, balance: 0.00 });
-            alert("Registered!");
-        } catch(e) { alert(e.message); }
+            await updateDoc(doc(db, "users", auth.currentUser.uid), { balance: userData.balance - cost });
+            await addDoc(collection(db, "orders"), {
+                user: userData.email,
+                service: serviceName,
+                link: link,
+                qty: qty,
+                cost: cost,
+                status: "Pending",
+                date: new Date()
+            });
+            alert("অর্ডার সফল হয়েছে!");
+            location.reload();
+        } catch(e) { alert("Error: " + e.message); }
+    };
+
+    // Admin & Auth (Shortened for space)
+    window.addNewService = async () => {
+        const cat = document.getElementById('new-cat').value;
+        const name = document.getElementById('new-name').value;
+        const price = parseFloat(document.getElementById('new-price').value);
+        const desc = document.getElementById('new-desc').value;
+        await addDoc(collection(db, "services"), { cat, name, price, desc });
+        alert("Added!"); location.reload();
     };
 
     window.login = async () => {
-        try { await signInWithEmailAndPassword(auth, document.getElementById('login-email').value, document.getElementById('login-password').value); }
-        catch(e) { alert("Login Error"); }
+        try { await signInWithEmailAndPassword(auth, document.getElementById('login-email').value, document.getElementById('login-password').value); } catch(e) { alert("Error!"); }
+    };
+
+    window.signUp = async () => {
+        const email = document.getElementById('signup-email').value;
+        const res = await createUserWithEmailAndPassword(auth, email, document.getElementById('signup-password').value);
+        await setDoc(doc(db, "users", res.user.uid), { name: document.getElementById('signup-name').value, email, balance: 0 });
+        alert("Done!");
     };
 
     window.logout = () => signOut(auth);
@@ -208,20 +230,18 @@
 
     window.loadAdminPanel = async () => {
         showPage('admin-panel');
-        const userBody = document.getElementById('user-list-body');
-        userBody.innerHTML = "Loading...";
+        const body = document.getElementById('user-list-body');
         const snap = await getDocs(collection(db, "users"));
-        userBody.innerHTML = "";
+        body.innerHTML = "";
         snap.forEach(u => {
             const d = u.data();
-            userBody.innerHTML += `<tr><td>${d.name}</td><td>${d.email}</td><td><input type="number" id="b-${u.id}" value="${d.balance}" style="width:50px; background:none; border:1px solid #444; color:white;"></td><td><button onclick="updateBal('${u.id}')" style="background:#00d9ff; border:none; padding:5px; border-radius:5px;">Set</button></td></tr>`;
+            body.innerHTML += `<tr><td>${d.name}</td><td><input type="number" id="b-${u.id}" value="${d.balance}" style="width:50px; background:none; border:1px solid #444; color:white;"></td><td><button onclick="updateBal('${u.id}')">Set</button></td></tr>`;
         });
     };
 
     window.updateBal = async (id) => {
-        const val = parseFloat(document.getElementById('b-'+id).value);
-        await updateDoc(doc(db, "users", id), { balance: val });
-        alert("Balance Updated!");
+        await updateDoc(doc(db, "users", id), { balance: parseFloat(document.getElementById('b-'+id).value) });
+        alert("Updated!");
     };
 </script>
 </body>

@@ -1,41 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMM Hero - Premium Panel</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>MySmmPanel - Login & Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f8f9fa; }
-        .navbar { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 20px; font-weight: bold; color: #007bff; }
-        .header { background: linear-gradient(135deg, #007bff, #6610f2); color: white; padding: 60px 20px; text-align: center; }
-        .container { padding: 20px; max-width: 600px; margin: auto; }
-        table { width: 100%; border-collapse: collapse; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        th { background-color: #007bff; color: white; padding: 15px; text-align: left; }
-        td { padding: 15px; border-bottom: 1px solid #eee; }
-        .login-box { background: white; padding: 30px; border-radius: 15px; margin-top: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; outline: none; box-sizing: border-box; }
-        .btn { width: 100%; background: #007bff; color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        .whatsapp-btn { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); text-decoration: none; }
+        .hidden { display: none; }
     </style>
 </head>
-<body>
-    <div class="navbar"><div class="logo"><i class="fas fa-rocket"></i> SMM Hero</div></div>
-    <div class="header"><h1>SMM Hero প্যানেল</h1><p>সহজেই আপনার সোশ্যাল মিডিয়া গ্রো করুন</p></div>
-    <div class="container">
-        <h3><i class="fas fa-list"></i> আমাদের সার্ভিসসমূহ</h3>
-        <table>
-            <tr><th>সার্ভিস</th><th>মূল্য</th></tr>
-            <tr><td><i class="fab fa-facebook" style="color:#1877f2"></i> FB Followers</td><td>১২০ টাকা</td></tr>
-            <tr><td><i class="fab fa-youtube" style="color:red"></i> YT Watchtime</td><td>১৫০ টাকা</td></tr>
-        </table>
-        <div class="login-box">
-            <h3><i class="fas fa-user-lock"></i> মেম্বার লগইন</h3>
-            <input type="text" placeholder="ইউজার নেম"><input type="password" placeholder="পাসওয়ার্ড">
-            <button class="btn">লগইন করুন</button>
-        </div>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div id="signup-form" class="bg-white p-8 rounded shadow-md w-96">
+        <h2 class="text-2xl font-bold mb-4">Registration</h2>
+        <input type="email" id="signup-email" placeholder="ইমেইল" class="w-full p-2 mb-2 border rounded">
+        <input type="password" id="signup-password" placeholder="পাসওয়ার্ড" class="w-full p-2 mb-4 border rounded">
+        <button onclick="signUp()" class="w-full bg-green-500 text-white p-2 rounded">একউন্ট খুলুন</button>
+        <p class="mt-4 text-sm">একউন্ট আছে? <a href="#" onclick="toggleForm('login-form')" class="text-blue-500">লগইন করুন</a></p>
     </div>
-    <a href="https://wa.me/8801700000000" class="whatsapp-btn"><i class="fab fa-whatsapp"></i></a>
+
+    <div id="login-form" class="bg-white p-8 rounded shadow-md w-96 hidden">
+        <h2 class="text-2xl font-bold mb-4">Login</h2>
+        <input type="email" id="login-email" placeholder="ইমেইল" class="w-full p-2 mb-2 border rounded">
+        <input type="password" id="login-password" placeholder="পাসওয়ার্ড" class="w-full p-2 mb-4 border rounded">
+        <button onclick="login()" class="w-full bg-blue-500 text-white p-2 rounded">লগইন</button>
+        <p class="mt-4 text-sm">নতুন ইউজার? <a href="#" onclick="toggleForm('signup-form')" class="text-blue-500">রেজিস্ট্রেশন করুন</a></p>
+    </div>
+
+    <div id="dashboard" class="bg-white p-8 rounded shadow-md w-full max-w-2xl hidden text-center">
+        <h2 class="text-2xl font-bold mb-4">স্বাগতম, <span id="user-display-email" class="text-blue-600"></span></h2>
+        <div class="bg-blue-100 p-6 rounded-lg mb-4">
+            <p class="text-lg">আপনার ব্যালেন্স: <span id="user-balance" class="font-bold text-green-600">$0.00</span></p>
+        </div>
+        <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded">লগ আউট</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // আপনার ফায়ারবেস কনফিগ
+        const firebaseConfig = {
+            apiKey: "AIzaSyDwqjtb5xZpOsY8prwRaaHw1MVPryN9HDc",
+            authDomain: "mysmmpanel-4d699.firebaseapp.com",
+            projectId: "mysmmpanel-4d699",
+            storageBucket: "mysmmpanel-4d699.firebasestorage.app",
+            messagingSenderId: "1087970019155",
+            appId: "1:1087970019155:web:fe908197669e60540a43a6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // ফর্ম পরিবর্তন করার ফাংশন
+        window.toggleForm = (id) => {
+            document.getElementById('signup-form').classList.add('hidden');
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById(id).classList.remove('hidden');
+        };
+
+        // রেজিস্ট্রেশন ফাংশন
+        window.signUp = async () => {
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            try {
+                const res = await createUserWithEmailAndPassword(auth, email, password);
+                // ডাটাবেসে নতুন ইউজার তৈরি (ব্যালেন্স ০ সহ)
+                await setDoc(doc(db, "users", res.user.uid), {
+                    email: email,
+                    balance: 0.00
+                });
+                alert("Account created successfully!");
+            } catch (err) { alert(err.message); }
+        };
+
+        // লগইন ফাংশন
+        window.login = async () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (err) { alert("ভুল ইমেইল বা পাসওয়ার্ড!"); }
+        };
+
+        // লগ আউট
+        window.logout = () => signOut(auth);
+
+        // ইউজার স্ট্যাটাস চেক
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                toggleForm('dashboard');
+                document.getElementById('user-display-email').innerText = user.email;
+                // ডাটাবেস থেকে ব্যালেন্স আনা
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists()) {
+                    document.getElementById('user-balance').innerText = "$" + userDoc.data().balance.toFixed(2);
+                }
+            } else {
+                toggleForm('login-form');
+            }
+        });
+    </script>
 </body>
 </html>

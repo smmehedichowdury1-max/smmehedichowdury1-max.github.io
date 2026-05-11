@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GrowLikeFollow - Easy Access SMM</title>
+  <title>GrowLikeFollow - Secure SMM</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
@@ -25,6 +25,7 @@
     }
     .logo{ font-size:24px; font-weight:800; cursor:pointer; }
     .logo span{ color:var(--primary); }
+    #user-balance { font-weight: 700; color: var(--primary); }
     .btn{
       border:none; background:linear-gradient(135deg,var(--secondary),var(--primary));
       color:#fff; padding:14px; border-radius:12px; width:100%; cursor:pointer;
@@ -57,7 +58,7 @@
 
 <nav>
   <div class="logo">GrowLike<span>Follow</span></div>
-  <div id="user-balance" style="font-weight:700; color:var(--primary);">$0.00</div>
+  <div id="user-balance">$0.00</div>
 </nav>
 
 <div class="container">
@@ -103,12 +104,12 @@
     </div>
 
     <div class="card hidden" id="admin-panel">
-      <h2 style="color:var(--primary);"><i class="fa fa-lock"></i> Admin Master</h2>
+      <h2 style="color:var(--primary); margin-bottom:15px;"><i class="fa fa-lock"></i> Admin Master Control</h2>
       <input type="password" id="admin-pass" placeholder="Enter Admin Master Password">
       <button class="btn" style="margin-top:10px;" onclick="unlockAdmin()">Unlock Tools</button>
       
       <div id="admin-content" class="hidden">
-        <h3 style="margin-top:20px;">Add New Service</h3>
+        <h3 style="margin-top:20px; border-top:1px solid var(--border); padding-top:15px;">Add New Service</h3>
         <input type="text" id="svc-cat" placeholder="Category Name">
         <input type="text" id="svc-name" placeholder="Service Name">
         <input type="number" id="svc-rate" placeholder="Rate (per 1k)">
@@ -142,7 +143,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Admin UID এবং Password
+// তোমার দেওয়া Admin UID এবং মাস্টার পাসওয়ার্ড
 const ADMIN_UIDS = ["YiMTSvECPERv0yzc6Xaw0LrAhH73"];
 const ADMIN_PANEL_PASSWORD = "Mehedi@2026Secure";
 
@@ -167,12 +168,11 @@ function escapeHtml(text){
 window.register = async () => {
   const email = $('login-email').value.trim();
   const pass = $('login-password').value.trim();
-  if(!email || !pass) return toast('সব তথ্য দিন');
+  if(!email || !pass) return toast('সব তথ্য পূরণ করুন');
   try {
     const res = await createUserWithEmailAndPassword(auth, email, pass);
-    // সরাসরি ডাটাবেসে ইউজার তৈরি, কোনো ইমেইল ভেরিফিকেশন নেই
     await setDoc(doc(db, 'users', res.user.uid), { email, balance: 0, createdAt: serverTimestamp() });
-    toast('Account created! Logging in...');
+    toast('Account created successfully!');
   } catch (err) { toast(err.message); }
 };
 
@@ -181,8 +181,8 @@ window.login = async () => {
   const pass = $('login-password').value.trim();
   try {
     await signInWithEmailAndPassword(auth, email, pass);
-    toast('Welcome back!');
-  } catch (err) { toast('Login failed! Check email/password.'); }
+    toast('Logged in successfully!');
+  } catch (err) { toast('Login failed! Check credentials.'); }
 };
 
 window.logout = () => signOut(auth);
@@ -213,11 +213,13 @@ window.addService = async () => {
   const rate = Number($('svc-rate').value);
   const min = Number($('svc-min').value);
   const max = Number($('svc-max').value);
-  if(!category || !name || !rate || !min || !max) return toast('তথ্যগুলো সঠিক দিন');
+  if(!category || !name || !rate || !min || !max) return toast('সব তথ্য সঠিক দিন');
   
-  await addDoc(collection(db, 'services'), { category, name, rate, min, max, createdAt: serverTimestamp() });
-  toast('Service added!');
-  loadServices();
+  try {
+    await addDoc(collection(db, 'services'), { category, name, rate, min, max, createdAt: serverTimestamp() });
+    toast('Service added!');
+    loadServices();
+  } catch (e) { toast('Error adding service'); }
 };
 
 async function loadServices(){
@@ -240,7 +242,8 @@ $('qty').oninput = updateCharge;
 $('service').onchange = updateCharge;
 
 function updateCharge(){
-  const svc = services.find(s => s.id === $('service').value);
+  const svcId = $('service').value;
+  const svc = services.find(s => s.id === svcId);
   if(!svc) return;
   const qty = Number($('qty').value || 0);
   $('charge').value = '$' + ((qty / 1000) * Number(svc.rate)).toFixed(4);
@@ -249,16 +252,27 @@ function updateCharge(){
 window.placeOrder = async () => {
   $('place-btn').disabled = true;
   try {
-    const svc = services.find(s => s.id === $('service').value);
+    const svcId = $('service').value;
+    const svc = services.find(s => s.id === svcId);
     const link = $('link').value.trim();
     const qty = Number($('qty').value);
-    if(!svc || link.length < 5 || qty < svc.min) throw new Error('Invalid order details!');
     
+    if(!svc || link.length < 5 || qty < svc.min) throw new Error('Invalid order details!');
     const charge = (qty / 1000) * Number(svc.rate);
-    if(userData.balance < charge) throw new Error('Low balance!');
+    if(userData.balance < charge) throw new Error('Insufficient balance!');
 
-    await addDoc(collection(db, 'orders'), { uid: currentUser.uid, service: svc.name, qty, charge, link, status: 'Pending', createdAt: serverTimestamp() });
+    await addDoc(collection(db, 'orders'), { 
+      uid: currentUser.uid, 
+      service: svc.name, 
+      qty, 
+      charge, 
+      link, 
+      status: 'Pending', 
+      createdAt: serverTimestamp() 
+    });
+    
     await updateDoc(doc(db, 'users', currentUser.uid), { balance: increment(-charge) });
+    
     toast('Order placed successfully!');
     $('link').value = ''; $('qty').value = '';
     loadOrders(); loadUser(currentUser.uid);

@@ -1,134 +1,345 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GrowLikeFollow - Secure SMM</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <style>
-    *{ margin:0; padding:0; box-sizing:border-box; font-family:Poppins,sans-serif; }
+  <title>GrowLikeFollow Secure Version</title>  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Poppins,sans-serif;
+    }
+
     :root{
-      --bg:#060816; --card:#111827; --primary:#00e5ff; --secondary:#7c3aed;
-      --text:#fff; --muted:#9ca3af; --border:rgba(255,255,255,.08);
+      --bg:#060816;
+      --card:#111827;
+      --primary:#00e5ff;
+      --secondary:#7c3aed;
+      --text:#fff;
+      --muted:#9ca3af;
+      --border:rgba(255,255,255,.08);
     }
+
     body{
-      background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden;
-      background-image: radial-gradient(circle at top left,rgba(0,229,255,.14),transparent 25%),
-                        radial-gradient(circle at bottom right,rgba(124,58,237,.18),transparent 30%);
+      background:var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+      background-image:
+      radial-gradient(circle at top left,rgba(0,229,255,.14),transparent 25%),
+      radial-gradient(circle at bottom right,rgba(124,58,237,.18),transparent 30%);
     }
+
     .hidden{display:none!important;}
+
     nav{
-      position:sticky; top:0; z-index:999; display:flex; justify-content:space-between;
-      align-items:center; padding:16px 20px; background:rgba(0,0,0,.55);
-      backdrop-filter:blur(14px); border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      z-index:999;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:16px 20px;
+      background:rgba(0,0,0,.55);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--border);
     }
-    .logo{ font-size:24px; font-weight:800; cursor:pointer; }
-    .logo span{ color:var(--primary); }
-    #user-balance { font-weight: 700; color: var(--primary); }
+
+    .logo{
+      font-size:24px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .logo span{
+      color:var(--primary);
+    }
+
     .btn{
-      border:none; background:linear-gradient(135deg,var(--secondary),var(--primary));
-      color:#fff; padding:14px; border-radius:12px; width:100%; cursor:pointer;
-      font-weight:700; transition:.25s; display:flex; justify-content:center; align-items:center;
+      border:none;
+      background:linear-gradient(135deg,var(--secondary),var(--primary));
+      color:#fff;
+      padding:14px;
+      border-radius:12px;
+      width:100%;
+      cursor:pointer;
+      font-weight:700;
+      transition:.25s;
     }
-    .btn:hover{ transform:translateY(-2px); }
-    .btn.outline{ background:transparent; border:1px solid var(--primary); color:var(--primary); }
-    .container{ max-width:1100px; margin:auto; padding:20px; }
-    .card{ background:rgba(17,24,39,.94); border:1px solid var(--border); border-radius:22px; padding:22px; margin-bottom:20px; }
-    .grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:15px; }
-    .stat{ padding:18px; border-radius:18px; border:1px solid var(--border); background:rgba(255,255,255,.03); }
-    .stat i{ font-size:22px; color:var(--primary); margin-bottom:10px; }
-    input,select,textarea{ width:100%; background:#030712; border:1px solid var(--border); color:#fff; padding:14px; border-radius:12px; margin-top:10px; outline:none; }
-    .label{ display:block; margin-top:14px; color:var(--muted); font-size:13px; }
-    table{ width:100%; border-collapse:collapse; min-width:700px; }
-    th,td{ padding:12px; border-bottom:1px solid var(--border); text-align:left; font-size:13px; }
-    .table-wrap{ overflow-x:auto; }
-    .status{ padding:5px 10px; border-radius:30px; font-size:11px; font-weight:700; }
-    .Pending{ background:#f59e0b22; color:#f59e0b; }
-    .Completed{ background:#22c55e22; color:#22c55e; }
-    .toast{ position:fixed; bottom:20px; right:20px; background:#111827; border:1px solid var(--primary); padding:14px 18px; border-radius:12px; display:none; z-index:99999; }
-    #loader{ position:fixed; inset:0; background:#050816; z-index:999999; display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:800; }
-    #loader span{ color:var(--primary); }
-    @media(max-width:800px){ .grid{ grid-template-columns:repeat(2,1fr); } }
-  </style>
-</head>
-<body>
 
-<div id="loader">GrowLike<span>Follow</span></div>
+    .btn:hover{
+      transform:translateY(-2px);
+    }
 
-<nav>
+    .btn.outline{
+      background:transparent;
+      border:1px solid var(--primary);
+      color:var(--primary);
+    }
+
+    .container{
+      max-width:1100px;
+      margin:auto;
+      padding:20px;
+    }
+
+    .card{
+      background:rgba(17,24,39,.94);
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:22px;
+      margin-bottom:20px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:15px;
+    }
+
+    .stat{
+      padding:18px;
+      border-radius:18px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.03);
+    }
+
+    .stat i{
+      font-size:22px;
+      color:var(--primary);
+      margin-bottom:10px;
+    }
+
+    input,select,textarea{
+      width:100%;
+      background:#030712;
+      border:1px solid var(--border);
+      color:#fff;
+      padding:14px;
+      border-radius:12px;
+      margin-top:10px;
+      outline:none;
+    }
+
+    .label{
+      display:block;
+      margin-top:14px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:700px;
+    }
+
+    th,td{
+      padding:12px;
+      border-bottom:1px solid var(--border);
+      text-align:left;
+      font-size:13px;
+    }
+
+    .table-wrap{
+      overflow-x:auto;
+    }
+
+    .status{
+      padding:5px 10px;
+      border-radius:30px;
+      font-size:11px;
+      font-weight:700;
+    }
+
+    .Pending{
+      background:#f59e0b22;
+      color:#f59e0b;
+    }
+
+    .Completed{
+      background:#22c55e22;
+      color:#22c55e;
+    }
+
+    .Processing{
+      background:#3b82f622;
+      color:#3b82f6;
+    }
+
+    .toast{
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      background:#111827;
+      border:1px solid var(--primary);
+      padding:14px 18px;
+      border-radius:12px;
+      display:none;
+      z-index:99999;
+    }
+
+    #loader{
+      position:fixed;
+      inset:0;
+      background:#050816;
+      z-index:999999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:32px;
+      font-weight:800;
+    }
+
+    #loader span{
+      color:var(--primary);
+    }
+
+    @media(max-width:800px){
+      .grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+  </style></head>
+<body><div id="loader">GrowLike<span>Follow</span></div><nav>
   <div class="logo">GrowLike<span>Follow</span></div>
   <div id="user-balance">$0.00</div>
-</nav>
+</nav><div class="container">  <div class="card" id="auth-box">
+    <h2 style="margin-bottom:15px;">Secure Login</h2><input type="email" id="login-email" placeholder="Email">
+<input type="password" id="login-password" placeholder="Password">
 
-<div class="container">
-  <div class="card" id="auth-box">
-    <h2 style="margin-bottom:15px; text-align:center;">Secure Access</h2>
-    <input type="email" id="login-email" placeholder="Email Address">
-    <input type="password" id="login-password" placeholder="Password">
-    <button class="btn" style="margin-top:15px;" onclick="login()">Login</button>
-    <button class="btn outline" style="margin-top:10px;" onclick="register()">Create New Account</button>
+<button class="btn" style="margin-top:15px;" onclick="login()">
+  Login
+</button>
+
+<button class="btn outline" style="margin-top:10px;" onclick="register()">
+  Register
+</button>
+
+  </div>  <div id="dashboard" class="hidden"><div class="grid">
+  <div class="stat">
+    <i class="fa fa-wallet"></i>
+    <h2 id="balance">$0.00</h2>
+    <p>Balance</p>
   </div>
 
-  <div id="dashboard" class="hidden">
-    <div class="grid">
-      <div class="stat"><i class="fa fa-wallet"></i><h2 id="balance">$0.00</h2><p>Balance</p></div>
-      <div class="stat"><i class="fa fa-shopping-cart"></i><h2 id="total-orders">0</h2><p>Total Orders</p></div>
-      <div class="stat"><i class="fa fa-clock"></i><h2 id="pending-orders">0</h2><p>Pending</p></div>
-      <div class="stat"><i class="fa fa-check-circle"></i><h2 id="completed-orders">0</h2><p>Completed</p></div>
-    </div>
+  <div class="stat">
+    <i class="fa fa-cart-shopping"></i>
+    <h2 id="total-orders">0</h2>
+    <p>Total Orders</p>
+  </div>
 
-    <div class="card" style="margin-top:20px;">
-      <h2>Place New Order</h2>
-      <label class="label">Category</label>
-      <select id="category"></select>
-      <label class="label">Service</label>
-      <select id="service"></select>
-      <label class="label">Link</label>
-      <input type="text" id="link" placeholder="https://social-link.com">
-      <label class="label">Quantity</label>
-      <input type="number" id="qty" placeholder="1000">
-      <label class="label">Total Charge</label>
-      <input type="text" id="charge" disabled style="color:var(--primary); font-weight:bold;">
-      <button class="btn" id="place-btn" style="margin-top:20px;" onclick="placeOrder()">Place Order</button>
-    </div>
+  <div class="stat">
+    <i class="fa fa-clock"></i>
+    <h2 id="pending-orders">0</h2>
+    <p>Pending</p>
+  </div>
 
-    <div class="card">
-      <h2>Order History</h2>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Service</th><th>Qty</th><th>Charge</th><th>Status</th></tr></thead>
-          <tbody id="orders-body"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="card hidden" id="admin-panel">
-      <h2 style="color:var(--primary); margin-bottom:15px;"><i class="fa fa-lock"></i> Admin Master Control</h2>
-      <input type="password" id="admin-pass" placeholder="Enter Admin Master Password">
-      <button class="btn" style="margin-top:10px;" onclick="unlockAdmin()">Unlock Tools</button>
-      
-      <div id="admin-content" class="hidden">
-        <h3 style="margin-top:20px; border-top:1px solid var(--border); padding-top:15px;">Add New Service</h3>
-        <input type="text" id="svc-cat" placeholder="Category Name">
-        <input type="text" id="svc-name" placeholder="Service Name">
-        <input type="number" id="svc-rate" placeholder="Rate (per 1k)">
-        <input type="number" id="svc-min" placeholder="Min Qty">
-        <input type="number" id="svc-max" placeholder="Max Qty">
-        <button class="btn" style="margin-top:15px;" onclick="addService()">Save Service</button>
-      </div>
-    </div>
-
-    <button class="btn outline" style="margin-top:20px;" onclick="logout()">Sign Out</button>
+  <div class="stat">
+    <i class="fa fa-check-circle"></i>
+    <h2 id="completed-orders">0</h2>
+    <p>Completed</p>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="card">
+  <h2>Place Order</h2>
 
-<script type="module">
+  <label class="label">Category</label>
+  <select id="category"></select>
+
+  <label class="label">Service</label>
+  <select id="service"></select>
+
+  <label class="label">Link</label>
+  <input type="text" id="link" placeholder="https://">
+
+  <label class="label">Quantity</label>
+  <input type="number" id="qty" placeholder="1000">
+
+  <label class="label">Charge</label>
+  <input type="text" id="charge" disabled>
+
+  <button class="btn" id="place-btn" style="margin-top:20px;" onclick="placeOrder()">
+    Place Secure Order
+  </button>
+</div>
+
+<div class="card">
+  <h2>Order History</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Qty</th>
+          <th>Charge</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="orders-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card hidden" id="admin-panel">
+  <h2 style="margin-bottom:15px;">Admin Panel</h2>
+
+  <input type="password" id="admin-pass" placeholder="Admin Password">
+
+  <button class="btn" style="margin-top:15px;" onclick="unlockAdmin()">
+    Unlock Admin
+  </button>
+
+  <div id="admin-content" class="hidden">
+
+    <h3 style="margin:20px 0 10px;">Add Service</h3>
+
+    <input type="text" id="svc-cat" placeholder="Category">
+    <input type="text" id="svc-name" placeholder="Service Name">
+    <input type="number" id="svc-rate" placeholder="Rate">
+    <input type="number" id="svc-min" placeholder="Min Qty">
+    <input type="number" id="svc-max" placeholder="Max Qty">
+
+    <button class="btn" style="margin-top:15px;" onclick="addService()">
+      Add Service
+    </button>
+  </div>
+</div>
+
+<button class="btn outline" onclick="logout()">
+  Logout
+</button>
+
+  </div></div><div class="toast" id="toast"></div><script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, addDoc, collection, getDocs, serverTimestamp, increment, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  sendEmailVerification
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  addDoc,
+  collection,
+  getDocs,
+  serverTimestamp,
+  increment,
+  query,
+  where
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDwqjtb5xZpOsY8prwRaaHw1MVPryN9HDc",
@@ -143,8 +354,10 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// তোমার দেওয়া Admin UID এবং মাস্টার পাসওয়ার্ড
-const ADMIN_UIDS = ["YiMTSvECPERv0yzc6Xaw0LrAhH73"];
+const ADMIN_UIDS = [
+  "isnnYZMSToPKRCh2CrDxbPzBdRg2"
+];
+
 const ADMIN_PANEL_PASSWORD = "Mehedi@2026Secure";
 
 let currentUser = null;
@@ -152,88 +365,171 @@ let userData = null;
 let services = [];
 
 const $ = id => document.getElementById(id);
+
 const money = n => "$" + Number(n || 0).toFixed(2);
 
 function toast(msg){
   const t = $('toast');
   t.innerText = msg;
   t.style.display = 'block';
-  setTimeout(() => { t.style.display = 'none'; }, 3000);
+
+  setTimeout(()=>{
+    t.style.display='none';
+  },3000);
 }
 
 function escapeHtml(text){
-  return String(text ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  return String(text ?? '').replace(/[&<>"']/g,m=>({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#039;'
+  }[m]));
 }
 
 window.register = async () => {
+
   const email = $('login-email').value.trim();
   const pass = $('login-password').value.trim();
-  if(!email || !pass) return toast('সব তথ্য পূরণ করুন');
-  try {
-    const res = await createUserWithEmailAndPassword(auth, email, pass);
-    await setDoc(doc(db, 'users', res.user.uid), { email, balance: 0, createdAt: serverTimestamp() });
-    toast('Account created successfully!');
-  } catch (err) { toast(err.message); }
+
+  if(!email || !pass){
+    return toast('সব তথ্য দিন');
+  }
+
+  if(pass.length < 6){
+    return toast('Password minimum 6 characters');
+  }
+
+  try{
+
+    const res = await createUserWithEmailAndPassword(auth,email,pass);
+
+    await sendEmailVerification(res.user);
+
+    await setDoc(doc(db,'users',res.user.uid),{
+      email,
+      balance:0,
+      createdAt:serverTimestamp()
+    });
+
+    toast('Verification email sent');
+
+  }catch(err){
+    toast(err.message);
+  }
 };
 
 window.login = async () => {
+
   const email = $('login-email').value.trim();
   const pass = $('login-password').value.trim();
-  try {
-    await signInWithEmailAndPassword(auth, email, pass);
-    toast('Logged in successfully!');
-  } catch (err) { toast('Login failed! Check credentials.'); }
+
+  try{
+
+    const res = await signInWithEmailAndPassword(auth,email,pass);
+
+    if(!res.user.emailVerified){
+      toast('Verify email first');
+      return signOut(auth);
+    }
+
+  }catch(err){
+    toast('Login failed');
+  }
 };
 
 window.logout = () => signOut(auth);
 
 async function loadUser(uid){
-  const snap = await getDoc(doc(db, 'users', uid));
+
+  const snap = await getDoc(doc(db,'users',uid));
+
   if(!snap.exists()) return;
+
   userData = snap.data();
+
   $('balance').innerText = money(userData.balance);
   $('user-balance').innerText = money(userData.balance);
-  
+
   if(ADMIN_UIDS.includes(uid)){
     $('admin-panel').classList.remove('hidden');
   }
 }
 
 window.unlockAdmin = () => {
-  if($('admin-pass').value === ADMIN_PANEL_PASSWORD){
-    $('admin-content').classList.remove('hidden');
-    toast('Admin access granted!');
-  } else { toast('Incorrect admin password!'); }
+
+  const pass = $('admin-pass').value;
+
+  if(pass !== ADMIN_PANEL_PASSWORD){
+    return toast('Wrong admin password');
+  }
+
+  $('admin-content').classList.remove('hidden');
+
+  toast('Admin unlocked');
 };
 
 window.addService = async () => {
-  if(!ADMIN_UIDS.includes(currentUser.uid)) return toast('Unauthorized!');
+
+  if(!ADMIN_UIDS.includes(currentUser.uid)){
+    return toast('Access denied');
+  }
+
   const category = $('svc-cat').value.trim();
   const name = $('svc-name').value.trim();
   const rate = Number($('svc-rate').value);
   const min = Number($('svc-min').value);
   const max = Number($('svc-max').value);
-  if(!category || !name || !rate || !min || !max) return toast('সব তথ্য সঠিক দিন');
-  
-  try {
-    await addDoc(collection(db, 'services'), { category, name, rate, min, max, createdAt: serverTimestamp() });
-    toast('Service added!');
-    loadServices();
-  } catch (e) { toast('Error adding service'); }
+
+  if(!category || !name || !rate || !min || !max){
+    return toast('সব তথ্য দিন');
+  }
+
+  await addDoc(collection(db,'services'),{
+    category,
+    name,
+    rate,
+    min,
+    max,
+    createdAt:serverTimestamp()
+  });
+
+  toast('Service Added');
+
+  loadServices();
 };
 
 async function loadServices(){
-  const snap = await getDocs(collection(db, 'services'));
-  services = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  const categories = [...new Set(services.map(s => s.category))];
-  $('category').innerHTML = categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+
+  const snap = await getDocs(collection(db,'services'));
+
+  services = snap.docs.map(doc=>({
+    id:doc.id,
+    ...doc.data()
+  }));
+
+  const categories = [...new Set(services.map(s=>s.category))];
+
+  $('category').innerHTML = categories.map(c=>`
+    <option value="${escapeHtml(c)}">${escapeHtml(c)}</option>
+  `).join('');
+
   renderServices();
 }
 
 function renderServices(){
+
   const cat = $('category').value;
-  const filtered = services.filter(s => s.category === cat);
-  $('service').innerHTML = filtered.map(s => `<option value="${s.id}">${escapeHtml(s.name)} - $${s.rate}/1K</option>`).join('');
+
+  const filtered = services.filter(s=>s.category===cat);
+
+  $('service').innerHTML = filtered.map(s=>`
+    <option value="${s.id}">
+      ${escapeHtml(s.name)} - $${s.rate}/1K
+    </option>
+  `).join('');
+
   updateCharge();
 }
 
@@ -242,69 +538,155 @@ $('qty').oninput = updateCharge;
 $('service').onchange = updateCharge;
 
 function updateCharge(){
-  const svcId = $('service').value;
-  const svc = services.find(s => s.id === svcId);
+
+  const svc = services.find(s=>s.id === $('service').value);
+
   if(!svc) return;
+
   const qty = Number($('qty').value || 0);
-  $('charge').value = '$' + ((qty / 1000) * Number(svc.rate)).toFixed(4);
+
+  const charge = (qty / 1000) * Number(svc.rate);
+
+  $('charge').value = '$' + charge.toFixed(4);
 }
 
 window.placeOrder = async () => {
+
   $('place-btn').disabled = true;
-  try {
-    const svcId = $('service').value;
-    const svc = services.find(s => s.id === svcId);
+
+  try{
+
+    const svc = services.find(s=>s.id === $('service').value);
+
+    if(!svc){
+      throw new Error('Select service');
+    }
+
     const link = $('link').value.trim();
     const qty = Number($('qty').value);
-    
-    if(!svc || link.length < 5 || qty < svc.min) throw new Error('Invalid order details!');
-    const charge = (qty / 1000) * Number(svc.rate);
-    if(userData.balance < charge) throw new Error('Insufficient balance!');
 
-    await addDoc(collection(db, 'orders'), { 
-      uid: currentUser.uid, 
-      service: svc.name, 
-      qty, 
-      charge, 
-      link, 
-      status: 'Pending', 
-      createdAt: serverTimestamp() 
+    if(link.length < 5){
+      throw new Error('Invalid link');
+    }
+
+    if(qty < svc.min){
+      throw new Error('Below minimum');
+    }
+
+    if(qty > svc.max){
+      throw new Error('Above maximum');
+    }
+
+    const charge = (qty / 1000) * Number(svc.rate);
+
+    if(charge <= 0){
+      throw new Error('Invalid charge');
+    }
+
+    if(userData.balance < charge){
+      throw new Error('Low balance');
+    }
+
+    await addDoc(collection(db,'orders'),{
+      uid:currentUser.uid,
+      service:svc.name,
+      qty,
+      charge,
+      link,
+      status:'Pending',
+      createdAt:serverTimestamp()
     });
-    
-    await updateDoc(doc(db, 'users', currentUser.uid), { balance: increment(-charge) });
-    
-    toast('Order placed successfully!');
-    $('link').value = ''; $('qty').value = '';
-    loadOrders(); loadUser(currentUser.uid);
-  } catch (err) { toast(err.message); }
+
+    await updateDoc(doc(db,'users',currentUser.uid),{
+      balance:increment(-charge)
+    });
+
+    toast('Order placed successfully');
+
+    $('link').value='';
+    $('qty').value='';
+
+    loadOrders();
+    loadUser(currentUser.uid);
+
+  }catch(err){
+    toast(err.message);
+  }
+
   $('place-btn').disabled = false;
 };
 
 async function loadOrders(){
-  const q = query(collection(db, 'orders'), where('uid', '==', currentUser.uid));
+
+  const q = query(collection(db,'orders'),where('uid','==',currentUser.uid));
+
   const snap = await getDocs(q);
-  const orders = snap.docs.map(doc => doc.data());
+
+  const orders = snap.docs.map(doc=>doc.data());
+
   $('total-orders').innerText = orders.length;
-  $('pending-orders').innerText = orders.filter(o => o.status === 'Pending').length;
-  $('completed-orders').innerText = orders.filter(o => o.status === 'Completed').length;
-  $('orders-body').innerHTML = orders.reverse().map(o => `<tr><td>${escapeHtml(o.service)}</td><td>${o.qty}</td><td>${money(o.charge)}</td><td><span class="status ${escapeHtml(o.status)}">${escapeHtml(o.status)}</span></td></tr>`).join('');
+
+  $('pending-orders').innerText = orders.filter(o=>o.status==='Pending').length;
+
+  $('completed-orders').innerText = orders.filter(o=>o.status==='Completed').length;
+
+  $('orders-body').innerHTML = orders.reverse().map(o=>`
+
+    <tr>
+      <td>${escapeHtml(o.service)}</td>
+      <td>${o.qty}</td>
+      <td>${money(o.charge)}</td>
+      <td>
+        <span class="status ${escapeHtml(o.status)}">
+          ${escapeHtml(o.status)}
+        </span>
+      </td>
+    </tr>
+
+  `).join('');
 }
 
-onAuthStateChanged(auth, async user => {
+let logoutTimer;
+
+function resetLogoutTimer(){
+
+  clearTimeout(logoutTimer);
+
+  logoutTimer = setTimeout(()=>{
+    signOut(auth);
+    toast('Logged out for inactivity');
+  },1000 * 60 * 30);
+}
+
+['click','keydown','mousemove'].forEach(event=>{
+  window.addEventListener(event,resetLogoutTimer);
+});
+
+onAuthStateChanged(auth,async user=>{
+
   currentUser = user;
+
   if(user){
+
     $('auth-box').classList.add('hidden');
     $('dashboard').classList.remove('hidden');
+
     await loadUser(user.uid);
     await loadServices();
     await loadOrders();
-  } else {
+
+    resetLogoutTimer();
+
+  }else{
+
     $('auth-box').classList.remove('hidden');
     $('dashboard').classList.add('hidden');
   }
 });
 
-window.addEventListener('load', () => { $('loader').style.display = 'none'; });
-</script>
-</body>
+window.addEventListener('load',()=>{
+  $('loader').style.display='none';
+});
+
+</script></body>
 </html>

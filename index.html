@@ -99,5 +99,107 @@
     function renderAdminTables(){$('admin-services-body').innerHTML=services.length?services.map(s=>`<tr><td>${escapeHtml(s.category)}</td><td>${escapeHtml(s.name)}</td><td>${money(s.rate)}</td><td>${s.min}</td><td>${s.max}</td><td><button class="btn danger small" onclick="deleteService('${s.id}')">Delete</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty">No services</td></tr>';$('admin-fund-body').innerHTML=allFunds.filter(f=>f.status==='Pending').map(f=>`<tr><td>${escapeHtml(f.email)}</td><td>${money(f.amount)}</td><td>${escapeHtml(f.txid)}</td><td><span class="status-badge Pending">Pending</span></td><td><button class="btn success small" onclick="approveFund('${f.id}','${f.uid}',${f.amount})">Approve</button> <button class="btn danger small" onclick="rejectFund('${f.id}')">Reject</button></td></tr>`).join('')||'<tr><td colspan="5" class="empty">No pending fund</td></tr>';$('admin-orders-body').innerHTML=allOrders.slice(-20).reverse().map(o=>`<tr><td>${escapeHtml(o.email)}</td><td>${escapeHtml(o.service)}</td><td>${o.qty}</td><td>${money(o.charge)}</td><td><span class="status-badge ${escapeHtml(o.status)}">${escapeHtml(o.status)}</span></td><td><select onchange="changeOrderStatus('${o.id}',this.value,'${o.uid}')"><option>Pending</option><option>Processing</option><option>Completed</option><option>Cancelled</option></select></td></tr>`).join('')||'<tr><td colspan="6" class="empty">No orders</td></tr>';$('admin-ticket-body').innerHTML=allTickets.map(t=>`<tr><td>${escapeHtml(t.email)}</td><td>${escapeHtml(t.subject)}</td><td><span class="status-badge ${escapeHtml(t.status)}">${escapeHtml(t.status)}</span></td><td><button class="btn small success" onclick="closeTicket('${t.id}','${t.uid}')">Close</button></td></tr>`).join('')||'<tr><td colspan="4" class="empty">No tickets</td></tr>'}
     window.approveFund=async(fundId,uid,amount)=>{await updateDoc(doc(db,'fundRequests',fundId),{status:'Approved',approvedAt:serverTimestamp()});await updateDoc(doc(db,'users',uid),{balance:increment(Number(amount))});await addNotification(uid,'Fund approved: '+money(amount));toast('Fund approved');loadAdminData()};window.rejectFund=async id=>{await updateDoc(doc(db,'fundRequests',id),{status:'Rejected'});toast('Fund rejected');loadAdminData()};window.changeOrderStatus=async(id,status,uid)=>{await updateDoc(doc(db,'orders',id),{status});await addNotification(uid,'Order status updated: '+status);toast('Order updated');loadAdminData()};window.closeTicket=async(id,uid)=>{await updateDoc(doc(db,'tickets',id),{status:'Closed'});await addNotification(uid,'Your support ticket has been closed');toast('Ticket closed');loadAdminData()};
     onAuthStateChanged(auth,async user=>{currentUser=user;if(user){$('nav-toggle').style.display='block';$('notice-bar').style.display='block';await loadUser(user.uid);await loadServices();await loadNotice();await loadDashboardStats();await loadNotifications();navigate('dashboard')}else{userData=null;$('nav-toggle').style.display='none';$('notice-bar').style.display='none';$('user-head-bal').classList.add('hidden');$('admin-menu').style.display='none';navigate('landing')}});
+  </script>  <script>
+    // ===== FREE PREMIUM FEATURES PACK =====
+
+    // Live Clock
+    setInterval(() => {
+      const now = new Date();
+      document.title = `SMM PRO • ${now.toLocaleTimeString()}`;
+    }, 1000);
+
+    // Animated Counter
+    function animateValue(id, start, end, duration) {
+      const obj = document.getElementById(id);
+      if (!obj) return;
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = Math.floor(progress * (end - start) + start);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    // Online / Offline Status
+    window.addEventListener('online', () => toast('Internet Connected'));
+    window.addEventListener('offline', () => toast('Internet Disconnected'));
+
+    // Floating Support Button
+    const supportBtn = document.createElement('div');
+    supportBtn.innerHTML = '<i class="fa fa-headset"></i>';
+    supportBtn.style.cssText = `
+      position:fixed;
+      bottom:25px;
+      left:20px;
+      width:55px;
+      height:55px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#8b5cf6,#00e5ff);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-size:22px;
+      cursor:pointer;
+      z-index:9999;
+      box-shadow:0 10px 25px rgba(0,229,255,.3);
+    `;
+    supportBtn.onclick = () => navigate('tickets');
+    document.body.appendChild(supportBtn);
+
+    // Welcome Notification
+    setTimeout(() => {
+      if(localStorage.getItem('welcomeShown')) return;
+      toast('Welcome to SMM PRO Premium Dashboard 🚀');
+      localStorage.setItem('welcomeShown', '1');
+    }, 1500);
+
+    // Simple Loading Effect
+    window.addEventListener('load', () => {
+      document.body.style.opacity = '0';
+      setTimeout(() => {
+        document.body.style.transition = '0.4s';
+        document.body.style.opacity = '1';
+      }, 100);
+    });
+
+    // Auto Save Theme
+    if(localStorage.theme === 'light') {
+      document.body.classList.add('light');
+    }
+
+    // Fake Live Counter Demo
+    setTimeout(() => {
+      animateValue('dash-orders', 0, 128, 1500);
+      animateValue('dash-pending', 0, 16, 1800);
+      animateValue('dash-completed', 0, 112, 2000);
+    }, 1200);
+
+    // Copy Payment Number
+    document.addEventListener('click', e => {
+      if(e.target.innerText.includes('01XXXXXXXXX')) {
+        navigator.clipboard.writeText('01XXXXXXXXX');
+        toast('Payment number copied');
+      }
+    });
+
+    // Keyboard Shortcut
+    document.addEventListener('keydown', e => {
+      if(e.ctrlKey && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('service-search')?.focus();
+      }
+    });
+
+    // Auto Scroll Top on Navigation
+    const oldNavigate = window.navigate;
+    window.navigate = async function(id){
+      window.scrollTo({ top:0, behavior:'smooth' });
+      return oldNavigate(id);
+    }
   </script></body>
-  </html>
+                                                                                                                                                                                         </html>

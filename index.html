@@ -34,166 +34,57 @@
       --shadow:0 18px 50px rgba(15,23,42,.12);
     }
 
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-    }
-
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
     body{
       min-height:100vh;
       color:var(--text);
-      background:
-        radial-gradient(circle at top left,rgba(0,229,255,.14),transparent 28%),
-        radial-gradient(circle at bottom right,rgba(139,92,246,.18),transparent 30%),
-        var(--bg);
+      background: radial-gradient(circle at top left,rgba(0,229,255,.14),transparent 28%),
+                  radial-gradient(circle at bottom right,rgba(139,92,246,.18),transparent 30%),
+                  var(--bg);
       overflow-x:hidden;
     }
 
     .hidden{display:none!important;}
-    .gradient-text{
-      background:linear-gradient(90deg,var(--primary),var(--secondary));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
+    .gradient-text{background:linear-gradient(90deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-    nav{
-      width:100%;
-      padding:14px 20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      background:rgba(5,8,22,.75);
-      backdrop-filter:blur(15px);
-      border-bottom:1px solid var(--border);
-      position:sticky;
-      top:0;
-      z-index:100;
-    }
+    nav{width:100%;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;background:rgba(5,8,22,.75);backdrop-filter:blur(15px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
     body.light nav{background:rgba(255,255,255,.85);}
-
-    .logo{font-weight:900; font-size:22px; cursor:pointer;}
+    .logo{font-weight:900;font-size:22px;cursor:pointer;}
     .logo span{color:var(--primary);}
 
-    .sidebar{
-      position:fixed;
-      left:-285px;
-      top:0;
-      width:285px;
-      height:100%;
-      background:rgba(13,19,43,.98);
-      transition:.3s;
-      z-index:1000;
-      padding:25px 18px;
-      border-right:1px solid var(--border);
-      overflow-y:auto;
-    }
+    .sidebar{position:fixed;left:-285px;top:0;width:285px;height:100%;background:rgba(13,19,43,.98);transition:.3s;z-index:1000;padding:25px 18px;border-right:1px solid var(--border);overflow-y:auto;}
     body.light .sidebar{background:#fff;}
     .sidebar.active{left:0;}
 
-    .sidebar-link{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:14px;
-      color:var(--text);
-      text-decoration:none;
-      border-radius:12px;
-      cursor:pointer;
-      margin-bottom:5px;
-      transition:.2s;
-    }
-    .sidebar-link:hover{
-      background:rgba(0,229,255,.1);
-      color:var(--primary);
-    }
+    .sidebar-link{display:flex;align-items:center;gap:12px;padding:14px;color:var(--text);text-decoration:none;border-radius:12px;cursor:pointer;margin-bottom:5px;transition:.2s;}
+    .sidebar-link:hover{background:rgba(0,229,255,.1);color:var(--primary);}
 
-    .overlay{
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.7);
-      z-index:999;
-    }
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;}
     .overlay.active{display:block;}
 
-    .card{
-      background:rgba(16,23,47,.94);
-      border:1px solid var(--border);
-      border-radius:24px;
-      padding:25px;
-      box-shadow:var(--shadow);
-      margin-bottom:20px;
-    }
+    .card{background:rgba(16,23,47,.94);border:1px solid var(--border);border-radius:24px;padding:25px;box-shadow:var(--shadow);margin-bottom:20px;}
     body.light .card{background:rgba(255,255,255,.94);}
 
-    .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:15px;}
-    .grid2{display:grid; grid-template-columns:repeat(2,1fr); gap:15px;}
-    .two-col{display:grid; grid-template-columns:1fr 1fr; gap:15px;}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;}
+    .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:15px;}
 
-    .btn{
-      border:none;
-      padding:14px;
-      border-radius:12px;
-      color:#fff;
-      font-weight:700;
-      cursor:pointer;
-      background:linear-gradient(135deg,var(--secondary),var(--primary));
-      width:100%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:8px;
-      transition:.2s;
-    }
-    .btn:hover{transform:translateY(-2px); box-shadow:0 10px 20px rgba(0,229,255,.2);}
-    .btn.outline{background:transparent; border:1px solid var(--primary); color:var(--primary);}
+    .btn{border:none;padding:14px;border-radius:12px;color:#fff;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--secondary),var(--primary));width:100%;display:flex;justify-content:center;align-items:center;gap:8px;transition:.2s;}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(0,229,255,.2);}
+    .btn.outline{background:transparent;border:1px solid var(--primary);color:var(--primary);}
 
-    input,select,textarea{
-      width:100%;
-      padding:14px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:var(--input);
-      color:var(--text);
-      outline:none;
-      margin-top:8px;
-    }
+    input,select,textarea{width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--input);color:var(--text);outline:none;margin-top:8px;}
+    .label{display:block;margin-top:12px;font-size:13px;color:var(--muted);font-weight:600;}
+    .balance-pill{padding:8px 15px;border-radius:20px;background:rgba(0,229,255,.1);border:1px solid var(--primary);color:var(--primary);font-weight:700;}
+    .toast{position:fixed;bottom:20px;right:20px;background:var(--card);border:1px solid var(--primary);padding:15px 25px;border-radius:12px;display:none;z-index:10000;box-shadow:var(--shadow);max-width:320px;}
+    .empty{text-align:center;color:var(--muted);padding:18px;}
 
-    .label{display:block; margin-top:12px; font-size:13px; color:var(--muted); font-weight:600;}
-    .balance-pill{padding:8px 15px; border-radius:20px; background:rgba(0,229,255,.1); border:1px solid var(--primary); color:var(--primary); font-weight:700;}
-    .status-badge{padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700;}
-    .Pending,.Open{background:#f59e0b22;color:#f59e0b;}
-    .Completed,.Approved,.Closed{background:#22c55e22;color:#22c55e;}
-    .Rejected,.Cancelled{background:#ef444422;color:#ef4444;}
-    .Processing{background:#3b82f622;color:#3b82f6;}
-
-    .toast{
-      position:fixed;
-      bottom:20px;
-      right:20px;
-      background:var(--card);
-      border:1px solid var(--primary);
-      padding:15px 25px;
-      border-radius:12px;
-      display:none;
-      z-index:10000;
-      box-shadow:var(--shadow);
-      max-width:320px;
-    }
-
-    .empty{text-align:center; color:var(--muted); padding:18px;}
-
-    @media(max-width:800px){
-      .grid{grid-template-columns:repeat(2,1fr);}
-      .grid2,.two-col{grid-template-columns:1fr;}
-    }
+    @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr);}.grid2,.two-col{grid-template-columns:1fr;}}
   </style>
 </head>
-
 <body>
 
+  <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <h2 class="gradient-text" style="text-align:center;margin-bottom:20px;">GrowLikeFollow</h2>
     <div class="sidebar-link" onclick="navigate('dashboard')"><i class="fa fa-home"></i> Dashboard</div>
@@ -217,11 +108,11 @@
     <div id="user-head-bal" class="balance-pill hidden">$0.00</div>
   </nav>
 
-  <div class="notice-bar" id="notice-bar">
+  <div class="notice-bar" id="notice-bar" style="display:none;">
     <div class="notice-content" id="notice-text">স্বাগতম GrowLikeFollow-এ! আমাদের সব সার্ভিস এখন সচল আছে।</div>
   </div>
 
-  <!-- All Sections -->
+  <!-- Public Pages -->
   <section id="landing" class="active-section">
     <div style="text-align:center;padding:80px 0;">
       <h1 style="font-size:45px;margin-bottom:15px;">Boost Your <span class="gradient-text">Social Influence</span></h1>
@@ -261,7 +152,8 @@
     </div>
   </section>
 
-  <section id="dashboard">
+  <!-- Protected Pages -->
+  <section id="dashboard" class="protected hidden">
     <div class="grid">
       <div class="stat-card"><i class="fa fa-wallet"></i><h3 id="dash-balance">$0.00</h3><p>Your Balance</p></div>
       <div class="stat-card"><i class="fa fa-shopping-bag"></i><h3 id="dash-orders">0</h3><p>Total Orders</p></div>
@@ -273,12 +165,10 @@
       <h3>New Order</h3>
       <label class="label">Search Service</label>
       <input type="text" id="service-search" placeholder="Instagram, Facebook..." oninput="filterServices()">
-
       <label class="label">Category</label>
       <select id="category-select"></select>
-
       <label class="label">Service</label>
-      <select id="service-select"></select>
+      <select id="service-select" onchange="updateCharge()"></select>
 
       <div style="display:flex;gap:10px;margin-top:12px;">
         <button class="btn outline" onclick="toggleFavorite()"><i class="fa fa-star"></i> Favorite</button>
@@ -299,88 +189,17 @@
           <input type="text" id="order-charge" disabled style="color:var(--primary);font-weight:700;">
         </div>
       </div>
-
       <button class="btn" style="margin-top:20px;" onclick="placeOrder()">Place Order</button>
-      <p id="no-service-msg" class="empty hidden">এখনো কোনো সার্ভিস নেই।</p>
     </div>
   </section>
 
-  <section id="add-fund">
-    <div class="card">
-      <h3>Add Fund</h3>
-      <div class="card" style="background:rgba(0,229,255,.05);border:1px dashed var(--primary);text-align:center;box-shadow:none;">
-        <b>Payment Number (Bkash/Nagad):</b>
-        <p style="color:var(--primary);font-size:22px;margin-top:8px;cursor:pointer;font-weight:800;" onclick="copyNumber()">01812137592 <i class="fa fa-copy"></i></p>
-        <small style="color:var(--muted);">কপি করতে নাম্বারের ওপর ক্লিক করুন।</small>
-      </div>
-      <input type="number" id="fund-amount" placeholder="Amount in USD ($)">
-      <input type="text" id="fund-txid" placeholder="Transaction ID (TrxID)">
-      <button class="btn" style="margin-top:15px;" onclick="submitFundRequest()">Submit Request</button>
-    </div>
-  </section>
-
-  <section id="orders-history">
-    <div class="card">
-      <h3>My Order History</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Date</th><th>Service</th><th>Qty</th><th>Charge</th><th>Status</th><th>Action</th></tr></thead>
-          <tbody id="orders-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section id="tickets">
-    <div class="card">
-      <h3>Create Support Ticket</h3>
-      <input type="text" id="ticket-subject" placeholder="Subject">
-      <textarea id="ticket-message" placeholder="আপনার সমস্যা লিখুন"></textarea>
-      <button class="btn" style="margin-top:15px;" onclick="createTicket()">Submit Ticket</button>
-    </div>
-  </section>
-
-  <section id="notifications">
-    <div class="card">
-      <h3>Notifications</h3>
-      <div id="notif-list"></div>
-    </div>
-  </section>
-
-  <section id="profile-page">
-    <div class="card" style="text-align:center;max-width:500px;margin:auto;">
-      <i class="fa fa-user-circle" style="font-size:60px;color:var(--primary);"></i>
-      <h2 id="prof-name" style="margin-top:10px;">User</h2>
-      <p id="prof-email" style="color:var(--muted);"></p>
-      <div class="balance-pill" id="prof-balance" style="display:inline-block;margin:15px 0;">$0.00</div>
-      <button class="btn outline" onclick="resetPassword()">Reset Password</button>
-      <button class="btn" style="margin-top:10px;" onclick="logout()">Logout</button>
-    </div>
-  </section>
-
-  <section id="admin-panel">
-    <div class="card">
-      <h3>User Search & Manual Balance</h3>
-      <input id="admin-user-search" placeholder="Email দিয়ে search" oninput="renderUsers()">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Email</th><th>Balance</th><th>Add Balance</th><th>Action</th></tr></thead>
-          <tbody id="admin-users-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+  <!-- অন্যান্য সেকশন যোগ করতে পারবেন -->
 
   <div class="toast" id="toast"></div>
-
-  <div class="floating-support" onclick="navigate('tickets')">
-    <i class="fa fa-headset"></i>
-  </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, updateDoc, getDocs, collection, query, where, addDoc, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDwqjtb5xZpOsY8prwRaaHw1MVPryN9HDc",
@@ -393,28 +212,40 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const db = getFirestore(app);
     const googleProvider = new GoogleAuthProvider();
 
-    const ADMIN_EMAIL = "smmehedichowdury@gmail.com";
-
     let currentUser = null;
-    let userData = null;
-    let services = [];
 
     const $ = id => document.getElementById(id);
-    const money = n => "$" + Number(n || 0).toFixed(2);
-    const isAdmin = () => currentUser && currentUser.email === ADMIN_EMAIL;
+    const isAdmin = () => currentUser?.email === "smmehedichowdury@gmail.com";
 
-    function escapeHtml(text){
-      return String(text ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+    function showProtected(show) {
+      document.querySelectorAll('.protected').forEach(el => el.classList.toggle('hidden', !show));
     }
 
-    function formatDate(ts){
-      try{
-        return ts?.toDate ? ts.toDate().toLocaleDateString('bn-BD') : "";
-      }catch(e){ return ""; }
-    }
+    window.navigate = (id) => {
+      if (!currentUser && !['landing', 'login-page', 'register-page'].includes(id)) {
+        toast("প্রথমে লগইন করুন!");
+        return;
+      }
+      if (id === "admin-panel" && !isAdmin()) {
+        toast("Admin access denied!");
+        return;
+      }
+
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
+      $(id).classList.add('active-section');
+      toggleSidebar(false);
+    };
+
+    window.toggleSidebar = (s) => {
+      $('sidebar').classList.toggle('active', s);
+      $('overlay').classList.toggle('active', s);
+    };
+
+    window.goHome = () => navigate(currentUser ? 'dashboard' : 'landing');
+    window.toggleTheme = () => document.body.classList.toggle('light');
+    window.logout = () => signOut(auth);
 
     window.toast = (msg) => {
       const t = $('toast');
@@ -423,86 +254,36 @@
       setTimeout(() => t.style.display = 'none', 2800);
     };
 
-    window.copyNumber = () => {
-      navigator.clipboard.writeText("01812137592");
-      toast("নাম্বার কপি হয়েছে!");
-    };
-
-    window.navigate = (id) => {
-      if(!$(id)) return toast("Page not found");
-      if(id === "admin-panel" && !isAdmin()) return toast("Admin access denied!");
-
-      document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
-      $(id).classList.add('active-section');
-      toggleSidebar(false);
-
-      if(id === 'orders-history') loadMyOrders();
-      if(id === 'add-fund') loadMyFundRequests();
-      if(id === 'tickets') loadTickets();
-      if(id === 'notifications') loadNotifications();
-      if(id === 'admin-panel') loadAdminData();
-    };
-
-    window.toggleSidebar = (s) => {
-      $('sidebar').classList.toggle('active', s);
-      $('overlay').classList.toggle('active', s);
-    };
-
-    window.goHome = () => currentUser ? navigate('dashboard') : navigate('landing');
-    window.toggleTheme = () => document.body.classList.toggle('light');
-
-    // ==================== FIXED CORE FUNCTIONS ====================
     window.updateCharge = () => {
-      const svc = services.find(s => s.id === $('service-select').value);
-      if(!svc){
-        $('order-charge').value = "$0.00";
-        $('qty-help').innerText = "";
-        return;
-      }
-      const qty = Number($('order-qty').value || 0);
-      const charge = (qty / 1000) * Number(svc.rate || 0);
-      $('qty-help').innerText = `Min: ${svc.min || 0} | Max: ${svc.max || 0}`;
-      \( ('order-charge').value = " \)" + charge.toFixed(2);
+      const chargeEl = $('order-charge');
+      if (chargeEl) chargeEl.value = "$0.00";
     };
 
-    window.repeatOrder = (link, qty) => {
-      $('order-link').value = link || "";
-      $('order-qty').value = qty || "";
-      updateCharge();
-      navigate('dashboard');
-    };
-
-    window.manualAddBalance = async (uid) => {
-      if(!isAdmin()) return toast("Admin only");
-      const input = document.querySelector(`[data-uid="${uid}"]`);
-      const amount = Number(input ? input.value : 0);
-      if(!amount) return toast("অ্যামাউন্ট দিন");
-
-      try{
-        await updateDoc(doc(db, "users", uid), { balance: increment(amount) });
-        toast("ব্যালেন্স অ্যাড হয়েছে!");
-        loadAdminData();
-        if(input) input.value = "";
-      }catch(e){
-        toast("Error: " + e.message);
-      }
-    };
-
-    // অন্যান্য ফাংশন (আপনার প্রয়োজন অনুসারে যোগ করতে পারবেন)
-    // এখন শুধু মূল কাঠামো দিলাম।
-
-    onAuthStateChanged(auth, async (user) => {
+    // Auth State Listener
+    onAuthStateChanged(auth, (user) => {
       currentUser = user;
-      if(user){
+      if (user) {
         $('nav-toggle').style.display = "block";
         $('notice-bar').style.display = "block";
+        showProtected(true);
         navigate('dashboard');
       } else {
         $('nav-toggle').style.display = "none";
         $('notice-bar').style.display = "none";
+        showProtected(false);
         navigate('landing');
       }
     });
+
+    // Placeholder Functions (আপনি পরে Firebase ফাংশন যোগ করবেন)
+    window.login = () => toast("Login function এখনো পুরোপুরি যোগ করা হয়নি");
+    window.signUp = () => toast("SignUp function এখনো পুরোপুরি যোগ করা হয়নি");
+    window.signInWithGoogle = () => toast("Google Sign In এখনো পুরোপুরি যোগ করা হয়নি");
+    window.resetPasswordFromLogin = () => toast("Reset link sent (demo)");
+    window.placeOrder = () => toast("Order placed (demo)");
+    window.filterServices = () => {};
+    window.toggleFavorite = () => toast("Favorite toggled");
+    window.showFavorites = () => toast("Showing favorites");
   </script>
 </body>
   </html>

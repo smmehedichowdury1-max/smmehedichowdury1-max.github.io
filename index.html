@@ -1,729 +1,170 @@
-<!DOCTYPE html><html lang="bn">
+<!DOCTYPE html>
+<html lang="bn">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GrowLikeFollow - Premium SMM Panel</title>  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">  <style>
-    :root{
-      --bg:#050816;
-      --card:#10172f;
-      --primary:#00e5ff;
-      --secondary:#8b5cf6;
-      --muted:#9ca3af;
-      --border:rgba(255,255,255,.09);
-      --shadow:0 20px 60px rgba(0,0,0,.45);
-      --danger:#ff4d4d;
-      --success:#22c55e;
-      --warning:#f59e0b;
-      --input:#030612;
-      --text:#fff;
-    }
-
-    body.light{
-      --bg:#eef5ff;
-      --card:#ffffff;
-      --text:#101827;
-      --muted:#64748b;
-      --border:rgba(0,0,0,.09);
-      --input:#f1f5f9;
-      --shadow:0 18px 50px rgba(15,23,42,.12);
-    }
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-    }
-
-    body{
-      min-height:100vh;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top left,rgba(0,229,255,.14),transparent 28%),
-        radial-gradient(circle at bottom right,rgba(139,92,246,.18),transparent 30%),
-        var(--bg);
-      overflow-x:hidden;
-    }
-
-    #main-loader {
-      position: fixed;
-      inset: 0;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 20000;
-    }
-
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(0, 229, 255, 0.1);
-      border-top: 5px solid var(--primary);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .loader-text {
-      margin-top: 15px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      font-size: 14px;
-      color: var(--primary);
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
-    }
-
+  <title>GrowLikeFollow - Premium SMM Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    /* আপনার পূর্বের সব CSS ডিজাইন এখানে থাকবে */
+    :root{ --bg:#050816; --card:#10172f; --primary:#00e5ff; --secondary:#8b5cf6; --muted:#9ca3af; --border:rgba(255,255,255,.09); --shadow:0 20px 60px rgba(0,0,0,.45); --danger:#ff4d4d; --success:#22c55e; --warning:#f59e0b; --input:#030612; --text:#fff; }
+    body.light{ --bg:#eef5ff; --card:#ffffff; --text:#101827; --muted:#64748b; --border:rgba(0,0,0,.09); --input:#f1f5f9; --shadow:0 18px 50px rgba(15,23,42,.12); }
+    *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+    body{ min-height:100vh; color:var(--text); background: radial-gradient(circle at top left,rgba(0,229,255,.14),transparent 28%), radial-gradient(circle at bottom right,rgba(139,92,246,.18),transparent 30%), var(--bg); overflow-x:hidden; }
+    #main-loader { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 20000; }
+    .spinner { width: 50px; height: 50px; border: 5px solid rgba(0, 229, 255, 0.1); border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     .hidden{display:none!important;}
-
-    .gradient-text{
-      background:linear-gradient(90deg,var(--primary),var(--secondary));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-
-    nav{
-      width:100%;
-      padding:14px 20px;
-      display:none;
-      justify-content:space-between;
-      align-items:center;
-      background:rgba(5,8,22,.75);
-      backdrop-filter:blur(15px);
-      border-bottom:1px solid var(--border);
-      position:sticky;
-      top:0;
-      z-index:100;
-    }
-
-    body.light nav{background:rgba(255,255,255,.85);}
-
-    .logo{
-      font-weight:900;
-      font-size:22px;
-      cursor:pointer;
-    }
-
-    .logo span{color:var(--primary);}
-
-    .sidebar{
-      position:fixed;
-      left:-285px;
-      top:0;
-      width:285px;
-      height:100%;
-      background:rgba(13,19,43,.98);
-      transition:.3s;
-      z-index:1000;
-      padding:25px 18px;
-      border-right:1px solid var(--border);
-      overflow-y:auto;
-    }
-
-    body.light .sidebar{background:#fff;}
+    .gradient-text{ background:linear-gradient(90deg,var(--primary),var(--secondary)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    nav{ width:100%; padding:14px 20px; display:none; justify-content:space-between; align-items:center; background:rgba(5,8,22,.75); backdrop-filter:blur(15px); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100; }
+    .sidebar{ position:fixed; left:-285px; top:0; width:285px; height:100%; background:rgba(13,19,43,.98); transition:.3s; z-index:1000; padding:25px 18px; border-right:1px solid var(--border); overflow-y:auto; }
     .sidebar.active{left:0;}
-
-    .sidebar-link{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:14px;
-      color:var(--text);
-      text-decoration:none;
-      border-radius:12px;
-      cursor:pointer;
-      margin-bottom:5px;
-      transition:.2s;
-    }
-
-    .sidebar-link:hover{
-      background:rgba(0,229,255,.1);
-      color:var(--primary);
-    }
-
-    .overlay{
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.7);
-      z-index:999;
-    }
-
+    .sidebar-link{ display:flex; align-items:center; gap:12px; padding:14px; color:var(--text); text-decoration:none; border-radius:12px; cursor:pointer; margin-bottom:5px; transition:.2s; }
+    .sidebar-link:hover{ background:rgba(0,229,255,.1); color:var(--primary); }
+    .overlay{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:999; }
     .overlay.active{display:block;}
-
-    .notice-bar{
-      display:none;
-      width:100%;
-      overflow:hidden;
-      background:linear-gradient(90deg,var(--secondary),var(--primary));
-      padding:12px 0;
-    }
-
-    .notice-content{
-      display:inline-block;
-      white-space:nowrap;
-      padding-left:100%;
-      animation:scroll 15s linear infinite;
-      font-size:18px;
-      font-weight:700;
-      color:#fff;
-    }
-
-    @keyframes scroll{
-      0%{transform:translateX(0)}
-      100%{transform:translateX(-100%)}
-    }
-
-    section{
-      width:100%;
-      max-width:1120px;
-      margin:auto;
-      padding:25px 15px;
-      display:none;
-      animation:fade .3s ease;
-    }
-
+    .notice-bar{ display:none; width:100%; overflow:hidden; background:linear-gradient(90deg,var(--secondary),var(--primary)); padding:12px 0; }
+    .notice-content{ display:inline-block; white-space:nowrap; padding-left:100%; animation:scroll 15s linear infinite; font-size:18px; font-weight:700; color:#fff; }
+    @keyframes scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-100%)} }
+    section{ width:100%; max-width:1120px; margin:auto; padding:25px 15px; display:none; animation:fade .3s ease; }
     section.active-section{display:block;}
+    .card{ background:rgba(16,23,47,.94); border:1px solid var(--border); border-radius:24px; padding:25px; box-shadow:var(--shadow); margin-bottom:20px; }
+    .grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:15px; }
+    .btn{ border:none; padding:14px; border-radius:12px; color:#fff; font-weight:700; cursor:pointer; background:linear-gradient(135deg,var(--secondary),var(--primary)); width:100%; display:flex; justify-content:center; align-items:center; gap:8px; transition:.2s; text-decoration: none; }
+    input,select,textarea{ width:100%; padding:14px; border-radius:12px; border:1px solid var(--border); background:var(--input); color:var(--text); outline:none; margin-top:8px; }
+    .status-badge{ padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+    .Pending{background:#f59e0b22;color:#f59e0b;}
+    .Approved{background:#22c55e22;color:#22c55e;}
+    .toast{ position:fixed; bottom:20px; right:20px; background:var(--card); border:1px solid var(--primary); padding:15px 25px; border-radius:12px; display:none; z-index:10000; box-shadow:var(--shadow); }
+    @media(max-width:800px){ .grid{grid-template-columns:repeat(2,1fr);} }
+  </style>
+</head>
+<body>
 
-    @keyframes fade{
-      from{opacity:0;transform:translateY(10px)}
-      to{opacity:1;transform:translateY(0)}
-    }
+  <div id="main-loader"><div class="spinner"></div><div class="loader-text">GROWLIKEFOLLOW</div></div>
 
-    .card{
-      background:rgba(16,23,47,.94);
-      border:1px solid var(--border);
-      border-radius:24px;
-      padding:25px;
-      box-shadow:var(--shadow);
-      margin-bottom:20px;
-    }
-
-    body.light .card{background:rgba(255,255,255,.94);}
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-      gap:15px;
-    }
-
-    .grid2{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:15px;
-    }
-
-    .two-col{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:15px;
-    }
-
-    .stat-card{
-      padding:16px;
-      border-radius:20px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.04);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .stat-card i{
-      color:var(--primary);
-      font-size:22px;
-      margin-bottom:8px;
-    }
-
-    .stat-card h3{font-size:20px;}
-    .stat-card p{color:var(--muted);font-size:12px;}
-
-    .btn{
-      border:none;
-      padding:14px;
-      border-radius:12px;
-      color:#fff;
-      font-weight:700;
-      cursor:pointer;
-      background:linear-gradient(135deg,var(--secondary),var(--primary));
-      width:100%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:8px;
-      border:1px solid transparent;
-      transition:.2s;
-    }
-
-    .btn:hover{
-      transform:translateY(-2px);
-      box-shadow:0 10px 20px rgba(0,229,255,.2);
-    }
-
-    .btn.outline{
-      background:transparent;
-      border:1px solid var(--primary);
-      color:var(--primary);
-    }
-
-    .btn.small{
-      width:auto;
-      display:inline-flex;
-      padding:8px 10px;
-      font-size:12px;
-    }
-
-    .btn.success{
-      background:rgba(34,197,94,.18);
-      border-color:var(--success);
-      color:var(--success);
-    }
-
-    .btn.danger{
-      background:rgba(255,77,77,.18);
-      border-color:var(--danger);
-      color:var(--danger);
-    }
-
-    input,select,textarea{
-      width:100%;
-      padding:14px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:var(--input);
-      color:var(--text);
-      outline:none;
-      margin-top:8px;
-    }
-
-    textarea{
-      min-height:100px;
-      resize:vertical;
-    }
-
-    .label{
-      display:block;
-      margin-top:12px;
-      font-size:13px;
-      color:var(--muted);
-      font-weight:600;
-    }
-
-    .balance-pill{
-      padding:8px 15px;
-      border-radius:20px;
-      background:rgba(0,229,255,.1);
-      border:1px solid var(--primary);
-      color:var(--primary);
-      font-weight:700;
-    }
-
-    .table-wrap{overflow-x:auto;}
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      min-width:760px;
-      margin-top:15px;
-    }
-
-    th,td{
-      padding:12px;
-      text-align:left;
-      border-bottom:1px solid var(--border);
-      font-size:13px;
-    }
-
-    th{color:var(--primary);}
-
-    .status-badge{
-      padding:4px 10px;
-      border-radius:20px;
-      font-size:11px;
-      font-weight:700;
-    }
-
-    .Pending,.Open{background:#f59e0b22;color:#f59e0b;}
-    .Completed,.Approved,.Closed{background:#22c55e22;color:#22c55e;}
-    .Rejected,.Cancelled{background:#ef444422;color:#ef4444;}
-    .Processing{background:#3b82f622;color:#3b82f6;}
-
-    .toast{
-      position:fixed;
-      bottom:20px;
-      right:20px;
-      background:var(--card);
-      border:1px solid var(--primary);
-      padding:15px 25px;
-      border-radius:12px;
-      display:none;
-      z-index:10000;
-      box-shadow:var(--shadow);
-      max-width:320px;
-    }
-
-    .empty{
-      text-align:center;
-      color:var(--muted);
-      padding:18px;
-    }
-
-    .activity{
-      display:flex;
-      gap:12px;
-      padding:12px;
-      border-bottom:1px solid var(--border);
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    .activity i{color:var(--primary);}
-
-    .floating-support{
-      position:fixed;
-      bottom:25px;
-      left:20px;
-      width:55px;
-      height:55px;
-      border-radius:50%;
-      background:linear-gradient(135deg,var(--secondary),var(--primary));
-      display:none;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      font-size:22px;
-      cursor:pointer;
-      z-index:9999;
-      box-shadow:0 10px 25px rgba(0,229,255,.3);
-    }
-
-    .service-desc-box {
-      margin-top: 15px;
-      padding: 15px;
-      background: rgba(0,229,255,0.05);
-      border-left: 3px solid var(--primary);
-      border-radius: 8px;
-      font-size: 12px;
-      color: var(--muted);
-      display: none;
-      line-height: 1.6;
-    }
-
-    .admin-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      z-index: 10001;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(5px);
-    }
-    .admin-modal-content {
-      background: var(--card);
-      padding: 30px;
-      border-radius: 24px;
-      border: 1px solid var(--primary);
-      width: 90%;
-      max-width: 380px;
-      text-align: center;
-    }
-
-    @media(max-width:800px){
-      .grid{grid-template-columns:repeat(2,1fr);}
-      .grid2,.two-col{grid-template-columns:1fr;}
-      .card{padding:18px;}
-      .stat-card{padding:14px;}
-      .stat-card i{font-size:20px;}
-      .stat-card h3{font-size:19px;}
-      .stat-card p{font-size:11px;}
-      table{min-width:700px;}
-      .toast{right:10px;left:10px;max-width:none;}
-      .logo{font-size:18px;}
-    }
-  </style></head><body>
-  <div id="main-loader">
-    <div class="spinner"></div>
-    <div class="loader-text">GROWLIKEFOLLOW</div>
-  </div>  <div class="admin-modal" id="adminModal">
-    <div class="admin-modal-content">
-      <h3 class="gradient-text">Admin Master Access</h3>
-      <p style="font-size: 12px; color: var(--muted); margin-bottom: 15px;">ভিতরে প্রবেশের জন্য পাসওয়ার্ড দিন</p>
-      <input type="password" id="admin-master-pass" placeholder="Enter Password">
-      <div style="display: flex; gap: 10px; margin-top: 15px;">
-        <button class="btn" onclick="verifyAdminMaster()">Enter</button>
-        <button class="btn outline" onclick="closeAdminModal()">Close</button>
-      </div>
-    </div>
-  </div>  <div class="sidebar" id="sidebar">
+  <div class="sidebar" id="sidebar">
     <h2 class="gradient-text" style="text-align:center;margin-bottom:20px;">GrowLikeFollow</h2>
     <div class="sidebar-link" onclick="navigate('dashboard')"><i class="fa fa-home"></i> Dashboard</div>
+    <div class="sidebar-link" onclick="navigate('mass-order')"><i class="fa fa-list-ul"></i> Mass Order</div>
     <div class="sidebar-link" onclick="navigate('orders-history')"><i class="fa fa-shopping-bag"></i> My Orders</div>
     <div class="sidebar-link" onclick="navigate('add-fund')"><i class="fa fa-wallet"></i> Add Fund</div>
+    <div class="sidebar-link" onclick="navigate('refer-earn')"><i class="fa fa-share-nodes"></i> Refer & Earn</div>
+    <div class="sidebar-link" onclick="navigate('android-app')"><i class="fab fa-android"></i> Android App</div>
     <div class="sidebar-link" onclick="navigate('tickets')"><i class="fa fa-headset"></i> Support</div>
-    <div class="sidebar-link" onclick="navigate('notifications')"><i class="fa fa-bell"></i> Notifications</div>
-    <div class="sidebar-link" onclick="navigate('profile-page')"><i class="fa fa-user-circle"></i> Profile</div>
-    <div class="sidebar-link" id="admin-menu" style="display:none;color:var(--primary);" onclick="openAdminModal()"><i class="fa fa-lock"></i> Admin Master</div>
-    <div class="sidebar-link" onclick="toggleTheme()"><i class="fa fa-moon"></i> Dark / Light</div>
-    <div class="sidebar-link" onclick="logout()" style="margin-top:20px;color:#ff4d4d;"><i class="fa fa-sign-out-alt"></i> Logout</div>
-  </div>  <div class="overlay" id="overlay" onclick="toggleSidebar(false)"></div>  <nav id="top-nav">
+    <div class="sidebar-link" onclick="toggleTheme()"><i class="fa fa-moon"></i> Theme Toggle</div>
+    <div class="sidebar-link" onclick="logout()" style="color:#ff4d4d;"><i class="fa fa-sign-out-alt"></i> Logout</div>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="toggleSidebar(false)"></div>
+
+  <nav id="top-nav">
     <div style="display:flex;align-items:center;gap:15px;">
-      <i class="fa fa-bars" id="nav-toggle" style="display:block;cursor:pointer;color:var(--primary);font-size:22px;" onclick="toggleSidebar(true)"></i>
+      <i class="fa fa-bars" onclick="toggleSidebar(true)" style="cursor:pointer;color:var(--primary);font-size:22px;"></i>
       <div class="logo" onclick="goHome()">GrowLike<span>Follow</span></div>
     </div>
     <div id="user-head-bal" class="balance-pill hidden">$0.00</div>
-  </nav>  <div class="notice-bar" id="notice-bar">
-    <div class="notice-content" id="notice-text">স্বাগতম GrowLikeFollow-এ! আমাদের সব সার্ভিস এখন সচল আছে।</div>
-  </div>  <section id="landing">
-    <div style="text-align:center;padding:80px 0;">
-      <h1 style="font-size:45px;margin-bottom:15px;">Boost Your <span class="gradient-text">Social Influence</span></h1>
-      <p style="color:var(--muted);margin-bottom:30px;">GrowLikeFollow - বাংলাদেশের বিশ্বস্ত এবং দ্রুততম SMM প্যানেল।</p>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-        <button class="btn" style="width:150px;" onclick="navigate('login-page')">Login</button>
-        <button class="btn outline" style="width:150px;" onclick="navigate('register-page')">Register</button>
+  </nav>
+
+  <div class="notice-bar" id="notice-bar"><div class="notice-content" id="notice-text">স্বাগতম! সব সার্ভিস সচল আছে।</div></div>
+
+  <section id="landing">
+    <div style="text-align:center;padding:100px 0;">
+      <h1>Boost Your <span class="gradient-text">Social Influence</span></h1>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:30px;">
+        <button class="btn" style="width:140px;" onclick="navigate('login-page')">Login</button>
+        <button class="btn" style="width:140px;background:none;border:1px solid var(--primary);" onclick="navigate('register-page')">Register</button>
       </div>
     </div>
-  </section>  <section id="login-page">
+  </section>
+
+  <section id="login-page">
     <div class="card" style="max-width:400px;margin:auto;">
-      <h2 class="gradient-text" style="text-align:center;margin-bottom:20px;">Login</h2>
+      <h2 class="gradient-text">Login</h2>
       <input type="email" id="login-email" placeholder="Email">
       <input type="password" id="login-password" placeholder="Password">
-      <div style="text-align:right;margin:10px 0;">
-        <span style="color:var(--primary);cursor:pointer;font-size:13px;" onclick="resetPasswordFromLogin()">Forgot Password?</span>
-      </div>
-      <button class="btn" onclick="login()">Login</button>
-      <div style="text-align:center;margin:15px 0;color:var(--muted);">OR</div>
-      <button class="btn outline" onclick="signInWithGoogle()"><i class="fab fa-google"></i> Continue with Google</button>
-      <p style="text-align:center;margin-top:15px;font-size:13px;">নতুন ইউজার? <span style="color:var(--primary);cursor:pointer;" onclick="navigate('register-page')">একাউন্ট খুলুন</span></p>
+      <button class="btn" style="margin-top:15px;" onclick="login()">Login</button>
     </div>
-  </section>  <section id="register-page">
+  </section>
+
+  <section id="register-page">
     <div class="card" style="max-width:400px;margin:auto;">
-      <h2 class="gradient-text" style="text-align:center;margin-bottom:20px;">Register</h2>
+      <h2 class="gradient-text">Register</h2>
       <input type="text" id="reg-name" placeholder="Full Name">
       <input type="email" id="reg-email" placeholder="Email">
       <input type="password" id="reg-password" placeholder="Password">
+      <input type="text" id="reg-refer" placeholder="Referral Code (Optional)">
       <button class="btn" style="margin-top:15px;" onclick="signUp()">Create Account</button>
-      <div style="text-align:center;margin:15px 0;color:var(--muted);">OR</div>
-      <button class="btn outline" onclick="signInWithGoogle()"><i class="fab fa-google"></i> Continue with Google</button>
-      <p style="text-align:center;margin-top:15px;font-size:13px;">আগে থেকেই একাউন্ট আছে? <span style="color:var(--primary);cursor:pointer;" onclick="navigate('login-page')">Login</span></p>
     </div>
-  </section>  <section id="dashboard">
-    <div class="grid">
-      <div class="stat-card"><i class="fa fa-wallet"></i><h3 id="dash-balance">$0.00</h3><p>Your Balance</p></div>
-      <div class="stat-card"><i class="fa fa-shopping-bag"></i><h3 id="dash-orders">0</h3><p>Total Orders</p></div>
-      <div class="stat-card"><i class="fa fa-clock"></i><h3 id="dash-pending">0</h3><p>Pending Orders</p></div>
-      <div class="stat-card"><i class="fa fa-check-circle"></i><h3 id="dash-completed">0</h3><p>Completed Orders</p></div>
-    </div><div class="card" style="margin-top:20px;">
-  <h3>New Order</h3>
-  <label class="label">Search Service</label>
-  <input type="text" id="service-search" placeholder="Instagram, Facebook..." oninput="filterServices()">
-  <label class="label">Category</label>
-  <select id="category-select"></select>
-  <label class="label">Service</label>
-  <select id="service-select" onchange="updateServiceDetails()"></select>
-  <div id="service-description" class="service-desc-box"></div>
-  <div style="display:flex;gap:10px;margin-top:12px;">
-    <button class="btn outline" onclick="toggleFavorite()"><i class="fa fa-star"></i> Favorite</button>
-    <button class="btn outline" onclick="showFavorites()"><i class="fa fa-heart"></i> Favorites</button>
-  </div>
-  <label class="label">Link</label>
-  <input type="text" id="order-link" placeholder="https://social-link.com">
-  <div class="two-col">
-    <div>
-      <label class="label">Quantity</label>
-      <input type="number" id="order-qty" placeholder="1000">
-      <small id="qty-help" style="color:var(--primary);"></small>
-    </div>
-    <div>
-      <label class="label">Charge</label>
-      <input type="text" id="order-charge" disabled style="color:var(--primary);font-weight:700;">
-    </div>
-  </div>
-  <button class="btn" style="margin-top:20px;" onclick="placeOrder()">Place Order</button>
-  <p id="no-service-msg" class="empty hidden">এখনো কোনো সার্ভিস নেই। Admin panel থেকে service add করুন।</p>
-</div>
-<div class="grid2">
-  <div class="card">
-    <h3>Recent Activity</h3>
-    <div id="recent-activity"></div>
-  </div>
-  <div class="card">
-    <h3>Quick Repeat</h3>
-    <div id="quick-repeat"></div>
-  </div>
-</div>
+  </section>
 
-  </section>  <section id="add-fund">
+  <section id="dashboard">
+    <div class="grid">
+      <div class="card"><h3 id="dash-balance">$0.00</h3><p>Balance</p></div>
+      <div class="card"><h3 id="dash-orders">0</h3><p>Orders</p></div>
+    </div>
+    <div class="card" style="margin-top:20px;">
+      <h3>New Order</h3>
+      <select id="category-select"></select>
+      <select id="service-select"></select>
+      <input type="text" id="order-link" placeholder="Link">
+      <input type="number" id="order-qty" placeholder="Quantity">
+      <button class="btn" style="margin-top:15px;" onclick="placeOrder()">Place Order</button>
+    </div>
+  </section>
+
+  <section id="mass-order">
+    <div class="card">
+      <h3>Mass Order</h3>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px;">Format: Service_ID | Quantity | Link</p>
+      <textarea id="mass-order-input" placeholder="101 | 1000 | https://example.com"></textarea>
+      <button class="btn" style="margin-top:15px;" onclick="placeMassOrder()">Submit Bulk Orders</button>
+    </div>
+  </section>
+
+  <section id="refer-earn">
+    <div class="card" style="text-align:center;">
+      <h3 class="gradient-text">Refer & Earn 5%</h3>
+      <p>আপনার রেফারেল কোড ব্যবহার করে কেউ ডিপোজিট করলে আপনি পাবেন ৫% বোনাস!</p>
+      <div style="background:rgba(0,0,0,0.3);padding:20px;margin-top:15px;border-radius:15px;">
+        <h2 id="my-refer-code" style="color:var(--primary);">...</h2>
+        <button class="btn" onclick="copyReferLink()" style="width:auto;margin:10px auto;">Copy Code</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="android-app">
+    <div class="card" style="text-align:center;">
+      <i class="fab fa-android" style="font-size:50px;color:#3DDC84;"></i>
+      <h3>Official Mobile App</h3>
+      <p>আমাদের অ্যাপ ডাউনলোড করুন এবং দ্রুত অর্ডার করুন।</p>
+      <a href="YOUR_APK_LINK_HERE" class="btn" style="margin-top:20px;">Download Now</a>
+    </div>
+  </section>
+
+  <section id="add-fund">
     <div class="card">
       <h3>Add Fund</h3>
-      <div class="card" style="background:rgba(0,229,255,.05);border:1px dashed var(--primary);text-align:center;box-shadow:none;">
-        <b>Payment Number (Bkash/Nagad):</b>
-        <p style="color:var(--primary);font-size:22px;margin-top:8px;cursor:pointer;font-weight:800;" onclick="copyNumber()">01812137592 <i class="fa fa-copy"></i></p>
-        <small style="color:var(--muted);">কপি করতে নাম্বারের ওপর ক্লিক করুন। Send Money করার পর নিচের ফর্মটি পূরণ করুন।</small>
-      </div>
-      <input type="number" id="fund-amount" placeholder="Amount in USD ($)">
-      <input type="text" id="fund-txid" placeholder="Transaction ID (TrxID)">
-      <button class="btn" style="margin-top:15px;" onclick="submitFundRequest()">Submit Request</button>
+      <input type="number" id="fund-amount" placeholder="Amount ($)">
+      <input type="text" id="fund-txid" placeholder="TrxID">
+      <button class="btn" style="margin-top:15px;" onclick="submitFundRequest()">Submit Fund</button>
     </div>
-    <div class="card">
-      <h3>My Fund Requests</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Date</th><th>Amount</th><th>TXID</th><th>Status</th></tr></thead>
-          <tbody id="my-fund-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>  <section id="orders-history">
-    <div class="card">
-      <h3>My Order History</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Date</th><th>Service</th><th>Qty</th><th>Charge</th><th>Status</th><th>Action</th></tr></thead>
-          <tbody id="orders-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>  <section id="tickets">
-    <div class="card">
-      <h3>Create Support Ticket</h3>
-      <input type="text" id="ticket-subject" placeholder="Subject">
-      <textarea id="ticket-message" placeholder="আপনার সমস্যা লিখুন"></textarea>
-      <button class="btn" style="margin-top:15px;" onclick="createTicket()">Submit Ticket</button>
-    </div>
-    <div class="card">
-      <h3>My Tickets</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Date</th><th>Subject</th><th>Status</th></tr></thead>
-          <tbody id="ticket-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>  <section id="notifications">
-    <div class="card">
-      <h3>Notifications</h3>
-      <div id="notif-list"></div>
-    </div>
-  </section>  <section id="profile-page">
-    <div class="card" style="text-align:center;max-width:500px;margin:auto;">
-      <i class="fa fa-user-circle" style="font-size:60px;color:var(--primary);"></i>
-      <h2 id="prof-name" style="margin-top:10px;">User</h2>
-      <p id="prof-email" style="color:var(--muted);"></p>
-      <div class="balance-pill" id="prof-balance" style="display:inline-block;margin:15px 0;">$0.00</div>
-      <button class="btn outline" onclick="resetPassword()">Reset Password</button>
-      <button class="btn" style="margin-top:10px;" onclick="logout()">Logout From Device</button>
-    </div>
-  </section>  <section id="admin-panel">
-    <div class="grid">
-      <div class="stat-card"><i class="fa fa-users"></i><h3 id="admin-users-count">0</h3><p>Total Users</p></div>
-      <div class="stat-card"><i class="fa fa-cart-shopping"></i><h3 id="admin-orders-count">0</h3><p>Total Orders</p></div>
-      <div class="stat-card"><i class="fa fa-wallet"></i><h3 id="admin-funds-count">0</h3><p>Fund Requests</p></div>
-      <div class="stat-card"><i class="fa fa-dollar-sign"></i><h3 id="admin-revenue">$0.00</h3><p>Total Sales</p></div>
-      <div class="stat-card"><i class="fa fa-university"></i><h3 id="admin-total-user-bal">$0.00</h3><p>Users Total Balance</p></div>
-      <div class="stat-card"><i class="fa fa-calendar-check"></i><h3 id="admin-today-fund">$0.00</h3><p>Today Added Fund</p></div>
-    </div>
-    <div class="card">
-      <h3>Admin Notice</h3>
-      <input type="text" id="admin-notice-input" placeholder="নতুন নোটিশ লিখুন">
-      <button class="btn" style="margin-top:15px;" onclick="updateNotice()">Update Notice</button>
-    </div>
-    <div class="card">
-      <h3>User Search & Manual Balance</h3>
-      <input id="admin-user-search" placeholder="Email দিয়ে search" oninput="renderUsers()">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Email</th><th>Balance</th><th>Add Balance</th><th>Action</th></tr></thead>
-          <tbody id="admin-users-body"></tbody>
-        </table>
-      </div>
-    </div>
+  </section>
+
+  <section id="admin-panel">
     <div class="card">
       <h3>Admin: Fund Approvals</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>User</th><th>Amount</th><th>TXID</th><th>Status</th><th>Action</th></tr></thead>
-          <tbody id="admin-fund-body"></tbody>
-        </table>
-      </div>
+      <div id="admin-fund-list"></div>
     </div>
-    <div class="card">
-      <h3>Add Service</h3>
-      <input id="svc-cat" placeholder="Category (e.g. Facebook Followers)">
-      <input id="svc-name" placeholder="Service Name">
-      <input id="svc-rate" type="number" placeholder="Rate per 1000">
-      <input id="svc-min" type="number" placeholder="Min Qty">
-      <input id="svc-max" type="number" placeholder="Max Qty">
-      <textarea id="svc-desc" placeholder="Service Description"></textarea>
-      <button class="btn" style="margin-top:15px;" onclick="addService()">Add Service</button>
-    </div>
-    <div class="card">
-      <h3>All Services</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Category</th><th>Name</th><th>Rate</th><th>Min</th><th>Max</th><th>Action</th></tr></thead>
-          <tbody id="admin-services-body"></tbody>
-        </table>
-      </div>
-    </div>
-    <div class="card">
-      <h3>Orders Update</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>User</th><th>Service</th><th>Qty</th><th>Charge</th><th>Status</th><th>Change</th></tr></thead>
-          <tbody id="admin-orders-body"></tbody>
-        </table>
-      </div>
-    </div>
-    <div class="card">
-      <h3>Support Tickets</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>User</th><th>Subject</th><th>Status</th><th>Action</th></tr></thead>
-          <tbody id="admin-ticket-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>  <div class="toast" id="toast"></div>  <div class="floating-support" id="floating-support" onclick="navigate('tickets')">
-    <i class="fa fa-headset"></i>
-  </div>  <script type="module">
+  </section>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import {
-      getAuth,
-      onAuthStateChanged,
-      signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      signOut,
-      sendPasswordResetEmail,
-      GoogleAuthProvider,
-      signInWithPopup
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import {
-      getFirestore,
-      doc,
-      setDoc,
-      getDoc,
-      deleteDoc,
-      updateDoc,
-      getDocs,
-      collection,
-      query,
-      where,
-      addDoc,
-      serverTimestamp,
-      increment,
-      orderBy
-    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, getDocs, collection, query, where, addDoc, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDwqjtb5xZpOsY8prwRaaHw1MVPryN9HDc",
@@ -731,632 +172,133 @@
       projectId: "mysmmpanel-4d699",
       storageBucket: "mysmmpanel-4d699.firebasestorage.app",
       messagingSenderId: "1087970019155",
-      appId: "1:1087970019155:web:fe908197669e60540a43a6",
-      measurementId: "G-M3WD7VQYVK"
+      appId: "1:1087970019155:web:fe908197669e60540a43a6"
     };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
-    const googleProvider = new GoogleAuthProvider();
-
-    const ADMIN_EMAIL = "smmehedichowdury@gmail.com";
-    const ADMIN_MASTER_PASS = "admin123";
-
+    const $ = id => document.getElementById(id);
     let currentUser = null;
     let userData = null;
     let services = [];
-    let allUsers = [];
-    let allOrders = [];
-    let allFunds = [];
-    let allTickets = [];
-    let favOnly = false;
-
-    const $ = id => document.getElementById(id);
-    const money = n => "$" + Number(n || 0).toFixed(2);
-    const isAdmin = () => currentUser && currentUser.email === ADMIN_EMAIL;
-
-    function escapeHtml(text){
-      return String(text ?? "").replace(/[&<>'"]/g, m => ({
-        "&":"&amp;", "<":"&lt;", ">":"&gt;", "'":"&#039;", '"':"&quot;"
-      }[m]));
-    }
-
-    function formatDate(ts){
-      try{ return ts?.toDate ? ts.toDate().toLocaleDateString() : ""; }catch(e){ return ""; }
-    }
 
     window.toast = (msg) => {
-      const t = $('toast');
-      t.innerText = msg;
-      t.style.display = 'block';
+      const t = $('toast'); t.innerText = msg; t.style.display = 'block';
       setTimeout(() => t.style.display = 'none', 3000);
     };
 
-    window.openAdminModal = () => $('adminModal').style.display = 'flex';
-    window.closeAdminModal = () => $('adminModal').style.display = 'none';
-
-    window.verifyAdminMaster = () => {
-      if(!isAdmin()) return toast('Only admin can access!');
-      if($('admin-master-pass').value === ADMIN_MASTER_PASS) {
-        navigate('admin-panel');
-        closeAdminModal();
-      } else {
-        toast('ভুল পাসওয়ার্ড!');
-      }
-    };
-
-    window.copyNumber = async () => {
-      try{
-        await navigator.clipboard.writeText('01812137592');
-        toast('নাম্বার কপি হয়েছে!');
-      }catch(e){ toast('Copy failed'); }
-    };
-
     window.navigate = (id) => {
-      if(!$(id)) return;
-      if(['dashboard','orders-history','add-fund','tickets','notifications','profile-page','admin-panel'].includes(id) && !currentUser){
-        return navigate('login-page');
-      }
-      if(id === 'admin-panel' && !isAdmin()) return toast('Admin access only!');
-
       document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
       $(id).classList.add('active-section');
+      if(id === 'refer-earn') updateReferUI();
+      if(id === 'admin-panel') loadAdminFunds();
       toggleSidebar(false);
-      window.scrollTo({top:0,behavior:'smooth'});
-
-      if(id === 'orders-history') loadMyOrders();
-      if(id === 'add-fund') loadMyFundRequests();
-      if(id === 'tickets') loadTickets();
-      if(id === 'notifications') loadNotifications();
-      if(id === 'admin-panel') loadAdminData();
     };
 
-    window.toggleSidebar = (s) => {
-      $('sidebar').classList.toggle('active', s);
-      $('overlay').classList.toggle('active', s);
-    };
-
+    window.toggleSidebar = (s) => { $('sidebar').classList.toggle('active', s); $('overlay').classList.toggle('active', s); };
+    window.toggleTheme = () => document.body.classList.toggle('light');
     window.goHome = () => currentUser ? navigate('dashboard') : navigate('landing');
 
-    window.toggleTheme = () => {
-      document.body.classList.toggle('light');
-      localStorage.theme = document.body.classList.contains('light') ? 'light' : 'dark';
-    };
-
-    if(localStorage.theme === 'light') document.body.classList.add('light');
-
+    // Auth
     window.signUp = async () => {
-      const name = $('reg-name').value.trim();
-      const email = $('reg-email').value.trim();
-      const pass = $('reg-password').value.trim();
-      if(!name || !email || !pass) return toast('সব ঘর পূরণ করুন');
-      if(pass.length < 6) return toast('Password কমপক্ষে ৬ অক্ষরের দিন');
-      try{
+      const name = $('reg-name').value;
+      const email = $('reg-email').value;
+      const pass = $('reg-password').value;
+      const refBy = $('reg-refer').value.toUpperCase();
+      try {
         const res = await createUserWithEmailAndPassword(auth, email, pass);
         await setDoc(doc(db, 'users', res.user.uid), {
-          name, email, balance: 0, banned:false, favorites:[], createdAt: serverTimestamp()
+          name, email, balance: 0, referredBy: refBy || null, createdAt: serverTimestamp()
         });
-        toast('একাউন্ট তৈরি হয়েছে!');
-      }catch(e){ toast(e.message); }
+        toast('Account Created!');
+      } catch(e) { toast(e.message); }
     };
 
     window.login = async () => {
-      const email = $('login-email').value.trim();
-      const pass = $('login-password').value.trim();
-      if(!email || !pass) return toast('Email এবং Password দিন');
-      try{ await signInWithEmailAndPassword(auth, email, pass); }
-      catch(e){ toast('ভুল ইমেইল বা পাসওয়ার্ড!'); }
-    };
-
-    window.signInWithGoogle = async () => {
-      try{
-        const res = await signInWithPopup(auth, googleProvider);
-        const ref = doc(db, 'users', res.user.uid);
-        const snap = await getDoc(ref);
-        if(!snap.exists()){
-          await setDoc(ref, {
-            name: res.user.displayName || 'User',
-            email: res.user.email,
-            balance: 0,
-            banned:false,
-            favorites:[],
-            createdAt: serverTimestamp()
-          });
-        }
-      }catch(e){ toast('Google Login Error: ' + e.message); }
+      try { await signInWithEmailAndPassword(auth, $('login-email').value, $('login-password').value); }
+      catch(e) { toast('Login Failed'); }
     };
 
     window.logout = () => signOut(auth);
 
-    window.resetPasswordFromLogin = async () => {
-      const email = $('login-email').value.trim();
-      if(!email) return toast('আগে Email লিখুন');
-      try{
-        await sendPasswordResetEmail(auth, email);
-        toast('Password reset link পাঠানো হয়েছে');
-      }catch(e){ toast(e.message); }
-    };
-
-    window.resetPassword = async () => {
-      if(!currentUser?.email) return;
-      try{
-        await sendPasswordResetEmail(auth, currentUser.email);
-        toast('Password reset link email এ পাঠানো হয়েছে');
-      }catch(e){ toast(e.message); }
-    };
-
-    async function loadUser(uid){
-      const ref = doc(db, 'users', uid);
-      const snap = await getDoc(ref);
-      if(!snap.exists()){
-        await setDoc(ref, {
-          name: currentUser.displayName || 'User',
-          email: currentUser.email,
-          balance: 0,
-          banned:false,
-          favorites:[],
-          createdAt: serverTimestamp()
-        });
-        userData = {name: currentUser.displayName || 'User', email: currentUser.email, balance:0, favorites:[]};
-      }else{
-        userData = snap.data();
-      }
-
-      if(userData.banned){
-        toast('আপনার একাউন্ট banned করা হয়েছে');
-        await signOut(auth);
-        return;
-      }
-
-      const b = money(userData.balance || 0);
-      $('user-head-bal').innerText = b;
-      $('dash-balance').innerText = b;
-      $('prof-balance').innerText = b;
-      $('prof-name').innerText = userData.name || 'User';
-      $('prof-email').innerText = userData.email || currentUser.email;
-      $('user-head-bal').classList.remove('hidden');
-      $('admin-menu').style.display = isAdmin() ? 'flex' : 'none';
+    // Referral Logic
+    function updateReferUI() {
+      if(currentUser) $('my-refer-code').innerText = currentUser.uid.substring(0, 8).toUpperCase();
     }
+    window.copyReferLink = () => { navigator.clipboard.writeText($('my-refer-code').innerText); toast('Copied!'); };
 
-    async function loadServices(){
-      const snap = await getDocs(collection(db, 'services'));
-      services = snap.docs.map(d => ({id: d.id, ...d.data()}));
-      if(!services.length){
-        $('category-select').innerHTML = '';
-        $('service-select').innerHTML = '';
-        $('no-service-msg').classList.remove('hidden');
-        return;
-      }
-      $('no-service-msg').classList.add('hidden');
-      renderCategories();
-      renderServices();
-    }
-
-    function getVisibleServices(){
-      const search = $('service-search')?.value?.toLowerCase().trim() || '';
-      let list = services;
-      if(search){
-        list = list.filter(s => `${s.category || ''} ${s.name || ''}`.toLowerCase().includes(search));
-      }
-      if(favOnly){
-        const favs = userData?.favorites || [];
-        list = list.filter(s => favs.includes(s.id));
-      }
-      return list;
-    }
-
-    window.filterServices = () => {
-      renderCategories();
-      renderServices();
-    };
-
-    function renderCategories(){
-      const list = getVisibleServices();
-      const cats = [...new Set(list.map(s => s.category || 'Other'))];
-      $('category-select').innerHTML = cats.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
-      if(!cats.length){
-        $('service-select').innerHTML = '';
-        $('service-description').style.display = 'none';
-        $('qty-help').innerText = '';
-        $('order-charge').value = '$0.0000';
-      }
-    }
-
-    function renderServices(){
-      const cat = $('category-select').value;
-      const list = getVisibleServices().filter(s => (s.category || 'Other') === cat);
-      $('service-select').innerHTML = list.map(s => `<option value="${s.id}">${escapeHtml(s.name)} - $${Number(s.rate || 0)}/1K</option>`).join('');
-      updateServiceDetails();
-    }
-
-    $('category-select').onchange = renderServices;
-    $('order-qty').oninput = updateCharge;
-
-    window.updateServiceDetails = () => {
-      const svc = services.find(s => s.id === $('service-select').value);
-      const descBox = $('service-description');
-      if(svc && svc.desc) {
-        descBox.innerText = svc.desc;
-        descBox.style.display = 'block';
-      } else {
-        descBox.style.display = 'none';
-      }
-      updateCharge();
-    };
-
-    function updateCharge(){
-      const svc = services.find(s => s.id === $('service-select').value);
-      if(!svc){ $('order-charge').value = '$0.0000'; return; }
-      $('qty-help').innerText = `Min: ${svc.min || 0} | Max: ${svc.max || 0}`;
-      const qty = Number($('order-qty').value || 0);
-      $('order-charge').value = '$' + ((qty / 1000) * Number(svc.rate || 0)).toFixed(4);
-    }
-
-    window.toggleFavorite = async () => {
-      const svcId = $('service-select').value;
-      if(!svcId) return toast('Service select করুন');
-      const favs = userData.favorites || [];
-      const updated = favs.includes(svcId) ? favs.filter(id => id !== svcId) : [...favs, svcId];
-      await updateDoc(doc(db, 'users', currentUser.uid), {favorites: updated});
-      userData.favorites = updated;
-      toast(favs.includes(svcId) ? 'Favorite থেকে সরানো হয়েছে' : 'Favorite যোগ হয়েছে');
-    };
-
-    window.showFavorites = () => {
-      favOnly = !favOnly;
-      toast(favOnly ? 'শুধু Favorites দেখানো হচ্ছে' : 'সব Service দেখানো হচ্ছে');
-      filterServices();
-    };
-
-    window.placeOrder = async () => {
-      const svc = services.find(s => s.id === $('service-select').value);
-      const link = $('order-link').value.trim();
-      const qty = Number($('order-qty').value);
-      if(!svc || !link || !qty) return toast('সব তথ্য দিন');
-      if(qty < Number(svc.min || 0)) return toast('Minimum quantity কম হয়েছে');
-      if(Number(svc.max || 0) && qty > Number(svc.max || 0)) return toast('Maximum quantity বেশি হয়েছে');
-      const charge = (qty / 1000) * Number(svc.rate || 0);
-      if(Number(userData.balance || 0) < charge) return toast('ব্যালেন্স নেই!');
-
-      await addDoc(collection(db, 'orders'), {
-        uid: currentUser.uid,
-        email: currentUser.email,
-        service: svc.name,
-        serviceId: svc.id,
-        qty,
-        charge,
-        link,
-        status: 'Pending',
-        createdAt: serverTimestamp()
-      });
-      await updateDoc(doc(db, 'users', currentUser.uid), { balance: increment(-charge) });
-      $('order-link').value = '';
-      $('order-qty').value = '';
-      updateCharge();
-      toast('অর্ডার সফল হয়েছে!');
-      await loadUser(currentUser.uid);
-      await loadDashboardStats();
-    };
-
-    async function loadDashboardStats(){
-      if(!currentUser) return;
-      const qy = query(collection(db, 'orders'), where('uid', '==', currentUser.uid));
-      const snap = await getDocs(qy);
-      const orders = snap.docs.map(d => ({id:d.id, ...d.data()}));
-      $('dash-orders').innerText = orders.length;
-      $('dash-pending').innerText = orders.filter(o => o.status === 'Pending').length;
-      $('dash-completed').innerText = orders.filter(o => o.status === 'Completed').length;
-      $('recent-activity').innerHTML = orders.slice(-5).reverse().map(o => `<div class="activity"><i class="fa fa-shopping-bag"></i><div>${escapeHtml(o.service)}<br><small>${escapeHtml(o.status)}</small></div></div>`).join('') || '<p class="empty">No activity</p>';
-      $('quick-repeat').innerHTML = orders.slice(-3).reverse().map(o => `<div class="activity"><i class="fa fa-repeat"></i><div>${escapeHtml(o.service)}<br><button class="btn small outline" onclick="repeatOrder('${o.serviceId || ''}','${escapeHtml(o.link || '')}',${Number(o.qty || 0)})">Repeat</button></div></div>`).join('') || '<p class="empty">No previous order</p>';
-    }
-
-    window.repeatOrder = (serviceId, link, qty) => {
-      navigate('dashboard');
-      if(serviceId){
-        const svc = services.find(s => s.id === serviceId);
-        if(svc){
-          $('category-select').value = svc.category || 'Other';
-          renderServices();
-          $('service-select').value = serviceId;
+    // Mass Order
+    window.placeMassOrder = async () => {
+      const input = $('mass-order-input').value.trim();
+      const lines = input.split('\n');
+      let count = 0;
+      for(let line of lines) {
+        const [sid, qty, link] = line.split('|').map(s => s.trim());
+        const svc = services.find(s => s.id === sid);
+        if(svc && link && qty) {
+          const charge = (Number(qty)/1000) * svc.rate;
+          if(userData.balance >= charge) {
+            await addDoc(collection(db, 'orders'), { uid: currentUser.uid, service: svc.name, charge, status: 'Pending', createdAt: serverTimestamp() });
+            await updateDoc(doc(db, 'users', currentUser.uid), { balance: increment(-charge) });
+            count++;
+          }
         }
       }
-      $('order-link').value = link;
-      $('order-qty').value = qty;
-      updateServiceDetails();
+      toast(`${count} Orders Placed!`);
+      loadUser(currentUser.uid);
     };
 
-    async function loadMyOrders(){
-      const qy = query(collection(db, 'orders'), where('uid', '==', currentUser.uid));
-      const snap = await getDocs(qy);
-      const rows = snap.docs.map(d => ({id:d.id, ...d.data()})).reverse();
-      $('orders-body').innerHTML = rows.map(o => `<tr>
-        <td>${formatDate(o.createdAt)}</td>
-        <td>${escapeHtml(o.service)}</td>
-        <td>${Number(o.qty || 0)}</td>
-        <td>${money(o.charge)}</td>
-        <td><span class="status-badge ${escapeHtml(o.status)}">${escapeHtml(o.status)}</span></td>
-        <td><button class="btn small outline" onclick="repeatOrder('${o.serviceId || ''}','${escapeHtml(o.link || '')}',${Number(o.qty || 0)})">Repeat</button></td>
-      </tr>`).join('') || '<tr><td colspan="6" class="empty">No orders</td></tr>';
-    }
-
-    window.submitFundRequest = async () => {
-      const amount = Number($('fund-amount').value);
-      const txid = $('fund-txid').value.trim();
-      if(!amount || !txid) return toast('Amount এবং TrxID দিন');
-      await addDoc(collection(db, 'funds'), {
-        uid: currentUser.uid,
-        email: currentUser.email,
-        amount,
-        txid,
-        status:'Pending',
-        createdAt: serverTimestamp()
-      });
-      $('fund-amount').value = '';
-      $('fund-txid').value = '';
-      toast('Fund request submit হয়েছে');
-      loadMyFundRequests();
-    };
-
-    async function loadMyFundRequests(){
-      const qy = query(collection(db, 'funds'), where('uid', '==', currentUser.uid));
-      const snap = await getDocs(qy);
-      const rows = snap.docs.map(d => ({id:d.id, ...d.data()})).reverse();
-      $('my-fund-body').innerHTML = rows.map(f => `<tr>
-        <td>${formatDate(f.createdAt)}</td>
-        <td>${money(f.amount)}</td>
-        <td>${escapeHtml(f.txid)}</td>
-        <td><span class="status-badge ${escapeHtml(f.status)}">${escapeHtml(f.status)}</span></td>
-      </tr>`).join('') || '<tr><td colspan="4" class="empty">No fund requests</td></tr>';
-    }
-
-    window.createTicket = async () => {
-      const subject = $('ticket-subject').value.trim();
-      const message = $('ticket-message').value.trim();
-      if(!subject || !message) return toast('Subject এবং Message দিন');
-      await addDoc(collection(db, 'tickets'), {
-        uid: currentUser.uid,
-        email: currentUser.email,
-        subject,
-        message,
-        status:'Open',
-        createdAt: serverTimestamp()
-      });
-      $('ticket-subject').value = '';
-      $('ticket-message').value = '';
-      toast('Ticket তৈরি হয়েছে');
-      loadTickets();
-    };
-
-    async function loadTickets(){
-      const qy = query(collection(db, 'tickets'), where('uid', '==', currentUser.uid));
-      const snap = await getDocs(qy);
-      const rows = snap.docs.map(d => ({id:d.id, ...d.data()})).reverse();
-      $('ticket-body').innerHTML = rows.map(t => `<tr>
-        <td>${formatDate(t.createdAt)}</td>
-        <td>${escapeHtml(t.subject)}</td>
-        <td><span class="status-badge ${escapeHtml(t.status)}">${escapeHtml(t.status)}</span></td>
-      </tr>`).join('') || '<tr><td colspan="3" class="empty">No tickets</td></tr>';
-    }
-
-    async function loadNotifications(){
-      const snap = await getDocs(collection(db, 'notices'));
-      const notices = snap.docs.map(d => ({id:d.id, ...d.data()})).reverse();
-      $('notif-list').innerHTML = notices.map(n => `<div class="activity"><i class="fa fa-bell"></i><div>${escapeHtml(n.text)}<br><small>${formatDate(n.createdAt)}</small></div></div>`).join('') || '<p class="empty">No notifications</p>';
-    }
-
-    async function loadNoticeBar(){
-      const snap = await getDocs(collection(db, 'notices'));
-      const notices = snap.docs.map(d => ({id:d.id, ...d.data()}));
-      if(notices.length){
-        $('notice-text').innerText = notices[notices.length - 1].text || 'স্বাগতম GrowLikeFollow-এ!';
-      }
-    }
-
-    async function loadAdminData(){
-      if(!isAdmin()) return;
-      const usersSnap = await getDocs(collection(db, 'users'));
-      const ordersSnap = await getDocs(collection(db, 'orders'));
-      const fundsSnap = await getDocs(collection(db, 'funds'));
-      const ticketsSnap = await getDocs(collection(db, 'tickets'));
-      const servicesSnap = await getDocs(collection(db, 'services'));
-
-      allUsers = usersSnap.docs.map(d => ({id:d.id, ...d.data()}));
-      allOrders = ordersSnap.docs.map(d => ({id:d.id, ...d.data()}));
-      allFunds = fundsSnap.docs.map(d => ({id:d.id, ...d.data()}));
-      allTickets = ticketsSnap.docs.map(d => ({id:d.id, ...d.data()}));
-      services = servicesSnap.docs.map(d => ({id:d.id, ...d.data()}));
-
-      $('admin-users-count').innerText = allUsers.length;
-      $('admin-orders-count').innerText = allOrders.length;
-      $('admin-funds-count').innerText = allFunds.filter(f => f.status === 'Pending').length;
-      $('admin-revenue').innerText = money(allOrders.reduce((sum,o)=>sum+Number(o.charge||0),0));
-      $('admin-total-user-bal').innerText = money(allUsers.reduce((sum,u)=>sum+Number(u.balance||0),0));
-
-      const today = new Date().toLocaleDateString();
-      const todayAdded = allFunds.filter(f => f.status === 'Approved' && formatDate(f.updatedAt || f.createdAt) === today).reduce((s,f)=>s+Number(f.amount||0),0);
-      $('admin-today-fund').innerText = money(todayAdded);
-
-      renderUsers();
-      renderAdminFunds();
-      renderAdminServices();
-      renderAdminOrders();
-      renderAdminTickets();
-    }
-
-    window.renderUsers = () => {
-      const search = $('admin-user-search')?.value?.toLowerCase() || '';
-      const rows = allUsers.filter(u => (u.email || '').toLowerCase().includes(search));
-      $('admin-users-body').innerHTML = rows.map(u => `<tr>
-        <td>${escapeHtml(u.email)}</td>
-        <td>${money(u.balance)}</td>
-        <td><input type="number" id="addbal-${u.id}" placeholder="Amount"></td>
-        <td>
-          <button class="btn small success" onclick="addUserBalance('${u.id}')">Add</button>
-          <button class="btn small danger" onclick="toggleBanUser('${u.id}', ${u.banned ? 'false':'true'})">${u.banned ? 'Unban':'Ban'}</button>
-        </td>
-      </tr>`).join('') || '<tr><td colspan="4" class="empty">No users</td></tr>';
-    };
-
-    window.addUserBalance = async (uid) => {
-      const amount = Number($(`addbal-${uid}`).value || 0);
-      if(!amount) return toast('Amount দিন');
-      await updateDoc(doc(db, 'users', uid), {balance: increment(amount)});
-      toast('Balance added');
-      loadAdminData();
-    };
-
-    window.toggleBanUser = async (uid, banned) => {
-      await updateDoc(doc(db, 'users', uid), {banned});
-      toast(banned ? 'User banned' : 'User unbanned');
-      loadAdminData();
-    };
-
-    function renderAdminFunds(){
-      $('admin-fund-body').innerHTML = allFunds.reverse().map(f => `<tr>
-        <td>${escapeHtml(f.email)}</td>
-        <td>${money(f.amount)}</td>
-        <td>${escapeHtml(f.txid)}</td>
-        <td><span class="status-badge ${escapeHtml(f.status)}">${escapeHtml(f.status)}</span></td>
-        <td>
-          ${f.status === 'Pending' ? `<button class="btn small success" onclick="approveFund('${f.id}','${f.uid}',${Number(f.amount||0)})">Approve</button>
-          <button class="btn small danger" onclick="rejectFund('${f.id}')">Reject</button>` : ''}
-        </td>
-      </tr>`).join('') || '<tr><td colspan="5" class="empty">No fund requests</td></tr>';
+    // Admin & 5% Bonus
+    async function loadAdminFunds() {
+      const snap = await getDocs(query(collection(db, 'funds'), where('status', '==', 'Pending')));
+      $('admin-fund-list').innerHTML = snap.docs.map(d => {
+        const f = d.data();
+        return `<div class="card">${f.email} - $${f.amount} <button onclick="approveFund('${d.id}','${f.uid}',${f.amount})" class="btn small">Approve</button></div>`;
+      }).join('') || 'No requests';
     }
 
     window.approveFund = async (fundId, uid, amount) => {
-      await updateDoc(doc(db, 'funds', fundId), {status:'Approved', updatedAt: serverTimestamp()});
-      await updateDoc(doc(db, 'users', uid), {balance: increment(amount)});
-      toast('Fund approved');
-      loadAdminData();
+      await updateDoc(doc(db, 'funds', fundId), { status: 'Approved' });
+      await updateDoc(doc(db, 'users', uid), { balance: increment(amount) });
+      
+      const uSnap = await getDoc(doc(db, 'users', uid));
+      const uData = uSnap.data();
+      if(uData.referredBy) {
+        const bonus = amount * 0.05;
+        const users = await getDocs(collection(db, 'users'));
+        users.forEach(async (uDoc) => {
+          if(uDoc.id.substring(0,8).toUpperCase() === uData.referredBy) {
+            await updateDoc(doc(db, 'users', uDoc.id), { balance: increment(bonus) });
+          }
+        });
+      }
+      toast('Approved with Bonus Check!');
+      loadAdminFunds();
     };
 
-    window.rejectFund = async (fundId) => {
-      await updateDoc(doc(db, 'funds', fundId), {status:'Rejected', updatedAt: serverTimestamp()});
-      toast('Fund rejected');
-      loadAdminData();
-    };
-
-    window.addService = async () => {
-      const category = $('svc-cat').value.trim();
-      const name = $('svc-name').value.trim();
-      const rate = Number($('svc-rate').value);
-      const min = Number($('svc-min').value);
-      const max = Number($('svc-max').value);
-      const desc = $('svc-desc').value.trim();
-      if(!category || !name || !rate || !min || !max) return toast('সব service তথ্য দিন');
-      await addDoc(collection(db, 'services'), {category, name, rate, min, max, desc, createdAt: serverTimestamp()});
-      ['svc-cat','svc-name','svc-rate','svc-min','svc-max','svc-desc'].forEach(id => $(id).value = '');
-      toast('Service added');
-      await loadServices();
-      loadAdminData();
-    };
-
-    function renderAdminServices(){
-      $('admin-services-body').innerHTML = services.map(s => `<tr>
-        <td>${escapeHtml(s.category)}</td>
-        <td>${escapeHtml(s.name)}</td>
-        <td>${money(s.rate)}</td>
-        <td>${Number(s.min || 0)}</td>
-        <td>${Number(s.max || 0)}</td>
-        <td><button class="btn small danger" onclick="deleteService('${s.id}')">Delete</button></td>
-      </tr>`).join('') || '<tr><td colspan="6" class="empty">No services</td></tr>';
+    // Initial Load
+    async function loadUser(uid) {
+      const snap = await getDoc(doc(db, 'users', uid));
+      if(snap.exists()) {
+        userData = snap.data();
+        $('dash-balance').innerText = '$' + userData.balance.toFixed(2);
+        $('user-head-bal').innerText = '$' + userData.balance.toFixed(2);
+        $('user-head-bal').classList.remove('hidden');
+      }
     }
-
-    window.deleteService = async (id) => {
-      await deleteDoc(doc(db, 'services', id));
-      toast('Service deleted');
-      await loadServices();
-      loadAdminData();
-    };
-
-    function renderAdminOrders(){
-      $('admin-orders-body').innerHTML = allOrders.reverse().map(o => `<tr>
-        <td>${escapeHtml(o.email)}</td>
-        <td>${escapeHtml(o.service)}</td>
-        <td>${Number(o.qty || 0)}</td>
-        <td>${money(o.charge)}</td>
-        <td><span class="status-badge ${escapeHtml(o.status)}">${escapeHtml(o.status)}</span></td>
-        <td>
-          <select id="ord-${o.id}">
-            <option>Pending</option><option>Processing</option><option>Completed</option><option>Cancelled</option>
-          </select>
-          <button class="btn small" onclick="updateOrderStatus('${o.id}')">Update</button>
-        </td>
-      </tr>`).join('') || '<tr><td colspan="6" class="empty">No orders</td></tr>';
-    }
-
-    window.updateOrderStatus = async (id) => {
-      const status = $(`ord-${id}`).value;
-      await updateDoc(doc(db, 'orders', id), {status, updatedAt: serverTimestamp()});
-      toast('Order updated');
-      loadAdminData();
-    };
-
-    function renderAdminTickets(){
-      $('admin-ticket-body').innerHTML = allTickets.reverse().map(t => `<tr>
-        <td>${escapeHtml(t.email)}</td>
-        <td>${escapeHtml(t.subject)}</td>
-        <td><span class="status-badge ${escapeHtml(t.status)}">${escapeHtml(t.status)}</span></td>
-        <td>
-          <button class="btn small success" onclick="closeTicket('${t.id}')">Close</button>
-        </td>
-      </tr>`).join('') || '<tr><td colspan="4" class="empty">No tickets</td></tr>';
-    }
-
-    window.closeTicket = async (id) => {
-      await updateDoc(doc(db, 'tickets', id), {status:'Closed', updatedAt: serverTimestamp()});
-      toast('Ticket closed');
-      loadAdminData();
-    };
-
-    window.updateNotice = async () => {
-      const text = $('admin-notice-input').value.trim();
-      if(!text) return toast('Notice লিখুন');
-      await addDoc(collection(db, 'notices'), {text, createdAt: serverTimestamp()});
-      $('admin-notice-input').value = '';
-      $('notice-text').innerText = text;
-      toast('Notice updated');
-    };
 
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
-      const loader = $('main-loader');
-      const topNav = $('top-nav');
-
-      if(user){
-        try{
-          await loadUser(user.uid);
-          await loadServices();
-          await loadDashboardStats();
-          await loadNoticeBar();
-        }catch(e){
-          console.error(e);
-          toast('Data load error: ' + e.message);
-        }
-
-        setTimeout(() => {
-          loader.style.display = 'none';
-          topNav.style.display = 'flex';
-          $('nav-toggle').style.display = 'block';
-          $('notice-bar').style.display = 'block';
-          $('floating-support').style.display = 'flex';
-          navigate('dashboard');
-        }, 900);
-      }else{
-        userData = null;
-        setTimeout(() => {
-          loader.style.display = 'none';
-          topNav.style.display = 'flex';
-          $('nav-toggle').style.display = 'none';
-          $('user-head-bal').classList.add('hidden');
-          $('admin-menu').style.display = 'none';
-          $('notice-bar').style.display = 'none';
-          $('floating-support').style.display = 'none';
-          navigate('landing');
-        }, 700);
+      $('main-loader').style.display = 'none';
+      if(user) {
+        await loadUser(user.uid);
+        $('top-nav').style.display = 'flex';
+        navigate('dashboard');
+      } else {
+        navigate('landing');
       }
     });
-  </script></body>
-    </html>
+  </script>
+</body>
+  </html>

@@ -75,12 +75,7 @@
 
     body.light nav{background:rgba(255,255,255,.85);}
 
-    .logo{
-      font-weight:900;
-      font-size:22px;
-      cursor:pointer;
-    }
-
+    .logo{ font-weight:900; font-size:22px; cursor:pointer; }
     .logo span{color:var(--primary);}
 
     .sidebar{
@@ -113,10 +108,7 @@
       transition:.2s;
     }
 
-    .sidebar-link:hover{
-      background:rgba(0,229,255,.1);
-      color:var(--primary);
-    }
+    .sidebar-link:hover{ background:rgba(0,229,255,.1); color:var(--primary); }
 
     .overlay{
       display:none;
@@ -178,11 +170,7 @@
 
     body.light .card{background:rgba(255,255,255,.94);}
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-      gap:15px;
-    }
+    .grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:15px; }
 
     .btn{
       border:none;
@@ -200,16 +188,9 @@
       transition:.2s;
     }
 
-    .btn:hover{
-      transform:translateY(-2px);
-      box-shadow:0 10px 20px rgba(0,229,255,.2);
-    }
+    .btn:hover{ transform:translateY(-2px); box-shadow:0 10px 20px rgba(0,229,255,.2); }
 
-    .btn.outline{
-      background:transparent;
-      border:1px solid var(--primary);
-      color:var(--primary);
-    }
+    .btn.outline{ background:transparent; border:1px solid var(--primary); color:var(--primary); }
 
     input,select,textarea{
       width:100%;
@@ -222,69 +203,47 @@
       margin-top:8px;
     }
 
-    .label{
-      display:block;
-      margin-top:12px;
-      font-size:13px;
-      color:var(--muted);
-      font-weight:600;
-    }
+    .label{ display:block; margin-top:12px; font-size:13px; color:var(--muted); font-weight:600; }
 
+    /* সার্ভিস ডেসক্রিপশন বক্স */
     .desc-box{
       background: rgba(0,229,255,0.05);
-      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
       padding: 15px;
-      border-radius: 12px;
+      border-radius: 8px;
       margin-top: 15px;
       font-size: 13px;
       color: var(--muted);
       display: none;
+      line-height: 1.6;
     }
 
-    .modal{
+    /* অ্যাডমিন সিকিউরিটি পপআপ */
+    .admin-modal {
+      display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.8);
-      display: none;
+      background: rgba(0,0,0,0.85);
+      z-index: 10001;
       align-items: center;
       justify-content: center;
-      z-index: 10000;
       backdrop-filter: blur(5px);
     }
-
-    .modal-content{
+    .admin-modal-content {
       background: var(--card);
       padding: 30px;
       border-radius: 24px;
-      width: 90%;
-      max-width: 400px;
       border: 1px solid var(--primary);
+      width: 90%;
+      max-width: 380px;
       text-align: center;
     }
 
     .table-wrap{overflow-x:auto;}
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      min-width:760px;
-      margin-top:15px;
-    }
-
-    th,td{
-      padding:12px;
-      text-align:left;
-      border-bottom:1px solid var(--border);
-      font-size:13px;
-    }
-
-    .status-badge{
-      padding:4px 10px;
-      border-radius:20px;
-      font-size:11px;
-      font-weight:700;
-    }
-
+    table{ width:100%; border-collapse:collapse; min-width:760px; margin-top:15px; }
+    th,td{ padding:12px; text-align:left; border-bottom:1px solid var(--border); font-size:13px; }
+    
+    .status-badge{ padding:4px 10px; border-radius:20px; font-size:11px; font-weight:700; }
     .Pending{background:#f59e0b22;color:#f59e0b;}
     .Completed{background:#22c55e22;color:#22c55e;}
 
@@ -299,40 +258,19 @@
       display:none;
       z-index:10000;
     }
-
-    .floating-support{
-      position:fixed;
-      bottom:25px;
-      left:20px;
-      width:55px;
-      height:55px;
-      border-radius:50%;
-      background:linear-gradient(135deg,var(--secondary),var(--primary));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      font-size:22px;
-      cursor:pointer;
-      z-index:9999;
-    }
-
-    @media(max-width:800px){
-      .grid{grid-template-columns:1fr 1fr;}
-    }
   </style>
 </head>
 
 <body>
 
-  <div class="modal" id="adminModal">
-    <div class="modal-content">
-      <h3 class="gradient-text">Admin Authentication</h3>
+  <div class="admin-modal" id="adminModal">
+    <div class="admin-modal-content">
+      <h3 class="gradient-text">Admin Master Access</h3>
       <p style="font-size: 12px; color: var(--muted); margin-bottom: 15px;">ভিতরে প্রবেশের জন্য পাসওয়ার্ড দিন</p>
       <input type="password" id="admin-pass-input" placeholder="Admin Password">
       <div style="display: flex; gap: 10px; margin-top: 15px;">
-         <button class="btn" onclick="verifyAdmin()">Enter</button>
-         <button class="btn outline" onclick="closeAdminModal()">Close</button>
+        <button class="btn" onclick="verifyAdminAccess()">Enter</button>
+        <button class="btn outline" onclick="closeAdminModal()">Close</button>
       </div>
     </div>
   </div>
@@ -356,7 +294,7 @@
       <i class="fa fa-bars" id="nav-toggle" style="display:none;cursor:pointer;color:var(--primary);" onclick="toggleSidebar(true)"></i>
       <div class="logo" onclick="goHome()">GrowLike<span>Follow</span></div>
     </div>
-    <div id="user-head-bal" class="balance-pill hidden" style="padding:8px 15px; background:rgba(0,229,255,0.1); border:1px solid var(--primary); border-radius:20px; color:var(--primary); font-weight:700;">$0.00</div>
+    <div id="user-head-bal" class="hidden" style="padding:8px 15px; background:rgba(0,229,255,0.1); border:1px solid var(--primary); border-radius:20px; color:var(--primary); font-weight:700;">$0.00</div>
   </nav>
 
   <div class="notice-bar" id="notice-bar">
@@ -366,7 +304,7 @@
   <section id="landing" class="active-section">
     <div style="text-align:center;padding:80px 0;">
       <h1 style="font-size:45px;margin-bottom:15px;">Boost Your <span class="gradient-text">Social Influence</span></h1>
-      <p style="color:var(--muted);margin-bottom:30px;">GrowLikeFollow - বাংলাদেশের বিশ্বস্ত এবং দ্রুততম SMM প্যানেল।</p>
+      <p style="color:var(--muted);margin-bottom:30px;">GrowLikeFollow - বাংলাদেশের দ্রুততম SMM প্যানেল।</p>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
         <button class="btn" style="width:150px;" onclick="navigate('login-page')">Login</button>
         <button class="btn outline" style="width:150px;" onclick="navigate('register-page')">Register</button>
@@ -380,6 +318,7 @@
       <input type="email" id="login-email" placeholder="Email">
       <input type="password" id="login-password" placeholder="Password">
       <button class="btn" style="margin-top:15px;" onclick="login()">Login</button>
+      <button class="btn outline" style="margin-top:10px;" onclick="signInWithGoogle()"><i class="fab fa-google"></i> Sign in with Google</button>
       <p style="text-align:center;margin-top:15px;font-size:13px;">নতুন ইউজার? <span style="color:var(--primary);cursor:pointer;" onclick="navigate('register-page')">একাউন্ট খুলুন</span></p>
     </div>
   </section>
@@ -391,14 +330,13 @@
       <input type="email" id="reg-email" placeholder="Email">
       <input type="password" id="reg-password" placeholder="Password">
       <button class="btn" style="margin-top:15px;" onclick="signUp()">Create Account</button>
-      <p style="text-align:center;margin-top:15px;font-size:13px;">আগে থেকেই একাউন্ট আছে? <span style="color:var(--primary);cursor:pointer;" onclick="navigate('login-page')">Login</span></p>
     </div>
   </section>
 
   <section id="dashboard">
     <div class="grid">
-      <div class="card" style="padding:15px; text-align:center;"><i class="fa fa-wallet" style="color:var(--primary);"></i><h3 id="dash-balance">$0.00</h3><p style="font-size:11px; color:var(--muted);">Balance</p></div>
-      <div class="card" style="padding:15px; text-align:center;"><i class="fa fa-shopping-bag" style="color:var(--primary);"></i><h3 id="dash-orders">0</h3><p style="font-size:11px; color:var(--muted);">Orders</p></div>
+      <div class="card" style="text-align:center;"><i class="fa fa-wallet" style="color:var(--primary);"></i><h3 id="dash-balance">$0.00</h3><p style="font-size:11px;">Balance</p></div>
+      <div class="card" style="text-align:center;"><i class="fa fa-shopping-bag" style="color:var(--primary);"></i><h3 id="dash-orders">0</h3><p style="font-size:11px;">Orders</p></div>
     </div>
 
     <div class="card" style="margin-top:20px;">
@@ -429,38 +367,64 @@
   <section id="referral-page">
     <div class="card" style="text-align:center;">
       <h2 class="gradient-text">Refer & Earn 5%</h2>
-      <p style="color:var(--muted); font-size:13px; margin: 15px 0;">আপনার বন্ধুদের রেফার করুন এবং তাদের প্রত্যেক ফান্ডের ৫% বোনাস পান!</p>
+      <p style="color:var(--muted); font-size:13px; margin: 15px 0;">আপনার বন্ধুদের রেফার করুন এবং কমিশন পান!</p>
       <div class="card" style="background:rgba(0,229,255,0.05); border:1px dashed var(--primary);">
-        <p style="font-size:12px; color:var(--muted);">Your Referral Link:</p>
-        <p id="ref-link" style="color:var(--primary); font-weight:700; margin-top:5px; cursor:pointer;" onclick="copyRef()">https://growlikefollow.com/reg?ref=123</p>
-      </div>
-      <div class="grid" style="margin-top:15px;">
-         <div class="card" style="padding:15px;"><h3>0</h3><p>Total Refers</p></div>
-         <div class="card" style="padding:15px;"><h3>$0.00</h3><p>Earned</p></div>
+        <p id="ref-link" style="color:var(--primary); font-weight:700; cursor:pointer;" onclick="copyRef()">https://growlikefollow.com/reg?ref=...</p>
       </div>
     </div>
   </section>
 
   <section id="admin-panel">
     <div class="card">
-      <h3>Add New Service</h3>
-      <input id="svc-cat" placeholder="Category (e.g. TikTok Likes)">
+      <h3>Add Service</h3>
+      <input id="svc-cat" placeholder="Category">
       <input id="svc-name" placeholder="Service Name">
       <input id="svc-rate" type="number" placeholder="Rate per 1000">
       <input id="svc-min" type="number" placeholder="Min Qty">
       <input id="svc-max" type="number" placeholder="Max Qty">
-      <textarea id="svc-desc" placeholder="Service Description (৫-৬ লাইনের বর্ণনা দিন)" style="min-height:100px;"></textarea>
+      <textarea id="svc-desc" placeholder="Service Description (এখানে সার্ভিস সম্পর্কে বিস্তারিত লিখুন)" style="min-height:80px;"></textarea>
       <button class="btn" style="margin-top:15px;" onclick="addService()">Add Service</button>
     </div>
 
     <div class="card">
-      <h3>Manage Services</h3>
+      <h3>Manage Orders</h3>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Name</th><th>Rate</th><th>Action</th></tr></thead>
-          <tbody id="admin-services-body"></tbody>
+          <thead><tr><th>User</th><th>Service</th><th>Qty</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody id="admin-orders-body"></tbody>
         </table>
       </div>
+    </div>
+  </section>
+
+  <section id="add-fund">
+    <div class="card">
+      <h3>Add Fund</h3>
+      <p style="color:var(--muted); font-size:13px; margin-bottom:15px;">Bkash/Nagad (Send Money): 01812137592</p>
+      <input type="number" id="fund-amount" placeholder="Amount ($)">
+      <input type="text" id="fund-txid" placeholder="Transaction ID">
+      <button class="btn" onclick="submitFund()">Submit Request</button>
+    </div>
+  </section>
+
+  <section id="orders-history">
+    <div class="card">
+      <h3>My Orders</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>Service</th><th>Qty</th><th>Status</th></tr></thead>
+          <tbody id="orders-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="tickets">
+    <div class="card">
+      <h3>Support Ticket</h3>
+      <input id="ticket-subject" placeholder="Subject">
+      <textarea id="ticket-message" placeholder="Your Message"></textarea>
+      <button class="btn" onclick="sendTicket()">Send Ticket</button>
     </div>
   </section>
 
@@ -468,8 +432,8 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, updateDoc, getDocs, collection, addDoc, serverTimestamp, increment, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, getDocs, collection, addDoc, serverTimestamp, query, where, orderBy, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDwqjtb5xZpOsY8prwRaaHw1MVPryN9HDc",
@@ -483,6 +447,7 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
 
     const ADMIN_EMAIL = "smmehedichowdury@gmail.com";
     const ADMIN_PASS = "admin123";
@@ -492,17 +457,15 @@
 
     const $ = id => document.getElementById(id);
 
-    // ADMIN MODAL LOGIC
+    // অ্যাডমিন পাসওয়ার্ড লজিক
     window.openAdminModal = () => $("adminModal").style.display = "flex";
     window.closeAdminModal = () => $("adminModal").style.display = "none";
-    window.verifyAdmin = () => {
+    window.verifyAdminAccess = () => {
       if($("admin-pass-input").value === ADMIN_PASS) {
         navigate('admin-panel');
         closeAdminModal();
-      } else {
-        toast("ভুল পাসওয়ার্ড!");
-      }
-    }
+      } else { toast("ভুল পাসওয়ার্ড!"); }
+    };
 
     window.toast = (msg) => {
       const t = $('toast');
@@ -515,7 +478,8 @@
       document.querySelectorAll('section').forEach(s => s.classList.remove('active-section'));
       $(id).classList.add('active-section');
       toggleSidebar(false);
-      if(id === 'admin-panel') loadAdminServices();
+      if(id === 'admin-panel') loadAdminData();
+      if(id === 'orders-history') loadUserOrders();
     };
 
     window.toggleSidebar = (s) => {
@@ -535,12 +499,10 @@
         
         await loadUserData(user.uid);
         await loadServices();
-        
-        // যদি লগইন থাকে এবং ল্যান্ডিং বা লগইন পেজে থাকে, তবে ড্যাশবোর্ডে পাঠান
+
+        // স্মার্ট রিডাইরেকশন
         const active = document.querySelector('section.active-section').id;
-        if(active === 'landing' || active === 'login-page' || active === 'register-page') {
-          navigate('dashboard');
-        }
+        if(['landing', 'login-page', 'register-page'].includes(active)) navigate('dashboard');
       } else {
         $('nav-toggle').style.display = "none";
         $('notice-bar').style.display = "none";
@@ -553,16 +515,28 @@
       const snap = await getDoc(doc(db, "users", uid));
       if(snap.exists()) {
         const data = snap.data();
-        $('user-head-bal').innerText = "$" + Number(data.balance || 0).toFixed(2);
-        $('dash-balance').innerText = "$" + Number(data.balance || 0).toFixed(2);
+        const bal = "$" + Number(data.balance || 0).toFixed(2);
+        $('user-head-bal').innerText = bal;
+        $('dash-balance').innerText = bal;
         $('ref-link').innerText = "https://growlikefollow.com/reg?ref=" + uid;
       }
     }
 
+    // গুগল লগইন (আগে বাদ পড়েছিল, এখন যুক্ত)
+    window.signInWithGoogle = async () => {
+      try {
+        const res = await signInWithPopup(auth, provider);
+        const ref = doc(db, "users", res.user.uid);
+        const snap = await getDoc(ref);
+        if(!snap.exists()) {
+          await setDoc(ref, { name: res.user.displayName, email: res.user.email, balance: 0 });
+        }
+      } catch(e) { toast(e.message); }
+    };
+
     async function loadServices() {
       const snap = await getDocs(collection(db, "services"));
       services = snap.docs.map(d => ({id: d.id, ...d.data()}));
-      
       const cats = [...new Set(services.map(s => s.category))];
       $('category-select').innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('');
       renderServiceList();
@@ -577,73 +551,84 @@
 
     function updateServiceDetails() {
       const svc = services.find(s => s.id === $('service-select').value);
-      if(svc && svc.description) {
-        $('service-desc-box').innerText = svc.description;
+      if(svc && svc.desc) {
+        $('service-desc-box').innerText = svc.desc;
         $('service-desc-box').style.display = "block";
       } else {
         $('service-desc-box').style.display = "none";
       }
+      updateCharge();
+    }
+
+    function updateCharge() {
+      const svc = services.find(s => s.id === $('service-select').value);
+      if(!svc) return;
+      const qty = Number($('order-qty').value || 0);
+      $('order-charge').value = "$" + ((qty/1000) * svc.rate).toFixed(4);
     }
 
     $('category-select').onchange = renderServiceList;
     $('service-select').onchange = updateServiceDetails;
+    $('order-qty').oninput = updateCharge;
 
     window.addService = async () => {
-      const category = $('svc-cat').value;
-      const name = $('svc-name').value;
-      const rate = $('svc-rate').value;
-      const min = $('svc-min').value;
-      const max = $('svc-max').value;
-      const description = $('svc-desc').value;
-
-      await addDoc(collection(db, "services"), {
-        category, name, rate, min, max, description, createdAt: serverTimestamp()
-      });
-      toast("সার্ভিস সফলভাবে অ্যাড হয়েছে!");
+      const svc = {
+        category: $('svc-cat').value,
+        name: $('svc-name').value,
+        rate: Number($('svc-rate').value),
+        min: Number($('svc-min').value),
+        max: Number($('svc-max').value),
+        desc: $('svc-desc').value,
+        createdAt: serverTimestamp()
+      };
+      await addDoc(collection(db, "services"), svc);
+      toast("সার্ভিস যুক্ত হয়েছে!");
       loadServices();
     };
 
-    async function loadAdminServices() {
-      const snap = await getDocs(collection(db, "services"));
-      $('admin-services-body').innerHTML = snap.docs.map(d => `
-        <tr>
-          <td>${d.data().name}</td>
-          <td>$${d.data().rate}</td>
-          <td><button onclick="deleteSvc('${d.id}')" style="color:red; background:none; border:none; cursor:pointer;">Delete</button></td>
-        </tr>
-      `).join('');
-    }
-
-    window.deleteSvc = async (id) => {
-      if(confirm("ডিলিট করতে চান?")) {
-        await deleteDoc(doc(db, "services", id));
-        loadAdminServices();
-      }
-    }
-
     window.login = async () => {
-      try {
-        await signInWithEmailAndPassword(auth, $('login-email').value, $('login-password').value);
-      } catch(e) { toast("ভুল ইমেইল বা পাসওয়ার্ড!"); }
+      try { await signInWithEmailAndPassword(auth, $('login-email').value, $('login-password').value); }
+      catch(e) { toast("ভুল ইমেইল বা পাসওয়ার্ড!"); }
     };
 
     window.signUp = async () => {
       try {
         const res = await createUserWithEmailAndPassword(auth, $('reg-email').value, $('reg-password').value);
-        await setDoc(doc(db, "users", res.user.uid), {
-          name: $('reg-name').value,
-          email: $('reg-email').value,
-          balance: 0
-        });
+        await setDoc(doc(db, "users", res.user.uid), { name: $('reg-name').value, email: $('reg-email').value, balance: 0 });
       } catch(e) { toast(e.message); }
     };
 
-    window.toggleTheme = () => document.body.classList.toggle('light');
     window.copyRef = () => {
       navigator.clipboard.writeText($('ref-link').innerText);
-      toast("রেফারেল লিংক কপি হয়েছে!");
+      toast("লিংক কপি হয়েছে!");
+    };
+
+    window.toggleTheme = () => document.body.classList.toggle('light');
+
+    // ফান্ড এবং টিকিট লজিক
+    window.submitFund = async () => {
+      await addDoc(collection(db, "funds"), {
+        uid: currentUser.uid,
+        email: currentUser.email,
+        amount: $('fund-amount').value,
+        txid: $('fund-txid').value,
+        status: "Pending",
+        createdAt: serverTimestamp()
+      });
+      toast("অনুরোধ পাঠানো হয়েছে!");
+    };
+
+    window.sendTicket = async () => {
+      await addDoc(collection(db, "tickets"), {
+        uid: currentUser.uid,
+        subject: $('ticket-subject').value,
+        message: $('ticket-message').value,
+        status: "Open",
+        createdAt: serverTimestamp()
+      });
+      toast("টিকিট পাঠানো হয়েছে!");
     };
 
   </script>
 </body>
-      </html>
+  </html>

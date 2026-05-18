@@ -159,4 +159,4 @@
     function renderOrders(){$('orders-body').innerHTML=orders.map(o=>`<tr><td>${escapeHtml(o.date)}</td><td>${escapeHtml(o.name)}</td><td>${escapeHtml(o.phone)}</td><td>${escapeHtml(o.items)}</td><td>${taka(o.total)}</td><td><span class="status ${o.status}">${o.status}</span></td></tr>`).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--muted)">No orders yet</td></tr>'}
     window.addEventListener('load',()=>{setTimeout(()=>$('main-loader').style.display='none',600);renderCategories();renderProducts();renderCart();renderOrders()});
   </script></body>
-</html>
+        </html>
